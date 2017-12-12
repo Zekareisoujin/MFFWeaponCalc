@@ -1,0 +1,90 @@
+[
+    {
+        "buster_sword": {
+            "id": "buster_sword",
+            "name": "Buster Sword",
+            "origin": "Soldier 1st Class",
+            "class": "warrior",
+            "hp": 0,
+            "attack": 100,
+            "break": 75,
+            "magic": 30,
+            "critical": 1,
+            "speed": 1,
+            "defense": 3,
+            "ability1": "improved_crit",
+            "startingRank1": 1,
+            "ability2": "ele_3_strike",
+            "startingRank2": 1,
+            "ability3": "ult_charger",
+            "startingRank3": 0,
+            "ability4": "boost_ult",
+            "startingRank4": 0
+        },
+        "astral_wand": {
+            "id": "astral_wand",
+            "name": "Astral Wand",
+            "origin": "Multiplayer 1",
+            "class": "mage",
+            "hp": 0,
+            "attack": 80,
+            "break": 60,
+            "magic": 105,
+            "critical": 2,
+            "speed": 2,
+            "defense": 2,
+            "ability1": "hp_10",
+            "startingRank1": 1,
+            "ability2": "ele_3_strike",
+            "startingRank2": 1,
+            "ability3": "prismatic_draw",
+            "startingRank3": 1,
+            "ability4": "boost_ult",
+            "startingRank4": 0
+        }
+    },
+    {
+        "improved_crit": {
+            "id": "improved_crit",
+            "name": "Improved Criticals",
+            "startingValue": 50,
+            "finalValue": 70,
+            "stepCounts": 20
+        },
+        "ele_3_strike": {
+            "id": "ele_3_strike",
+            "name": "Element 3rd Strike",
+            "startingValue": 2,
+            "finalValue": 4,
+            "stepCounts": 2
+        },
+        "ult_charger": {
+            "id": "ult_charger",
+            "name": "Ultimate Charger",
+            "startingValue": 2,
+            "finalValue": 3,
+            "stepCounts": 1
+        },
+        "hp_10": {
+            "id": "hp_10",
+            "name": "HP +10%",
+            "startingValue": 10,
+            "finalValue": 10,
+            "stepCounts": 0
+        },
+        "prismatic_draw": {
+            "id": "prismatic_draw",
+            "name": "Prismatic Draw",
+            "startingValue": 15,
+            "finalValue": 20,
+            "stepCounts": 5
+        },
+        "boost_ult": {
+            "id": "boost_ult",
+            "name": "Boost Ultimate +1",
+            "startingValue": 1,
+            "finalValue": 1,
+            "stepCounts": 0
+        }
+    }
+]
