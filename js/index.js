@@ -6,7 +6,6 @@ const WeaponCalcIndex = function () {
         $.getJSON('js/db.json', data => {
             WeaponBoostDB(data).then((loadedDB) => {
                 db = loadedDB;
-                calc = WeaponBoostCalculator(loadedDB);
                 initializeComponents();
                 bindComponents();
             });
@@ -22,11 +21,10 @@ const WeaponCalcIndex = function () {
     };
 
     var test = function () {
-        startingStat    = WeaponStat(0, 100, 75, 30, 1, 1, 3, 1, 1, 0, 0);
-        // finalStat       = WeaponStat(0, 100, 75, 30, 1, 1, 3, 1, 1, 0, 0);
-        finalStat = calc.computeMaximumMod('buster_sword');
-        console.log(finalStat);
-        return calc.computeBoostTime('buster_sword', startingStat, finalStat);
+        calc = WeaponBoostCalculator(db, 'buster_sword');
+        console.log(calc);
+        console.log(calc.minStat);
+        return calc.computeTotalTime(calc.baseStat, calc.minStat);
     };
 
     return {

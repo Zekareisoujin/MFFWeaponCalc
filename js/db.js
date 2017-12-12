@@ -2,12 +2,11 @@ const WeaponBoostDB = function (jsonData) {
 
     for (var weaponId in jsonData[0]) {
         var e = jsonData[0][weaponId];
-        e.ability = [
-            { id: e.ability1, rank: e.startingRank1 },
-            { id: e.ability2, rank: e.startingRank2 },
-            { id: e.ability3, rank: e.startingRank3 },
-            { id: e.ability4, rank: e.startingRank4 }
-        ];
+        e.abilityRanks = {};
+        e.abilityRanks[e.ability1] = e.startingRank1;
+        e.abilityRanks[e.ability2] = e.startingRank2;
+        e.abilityRanks[e.ability3] = e.startingRank3;
+        e.abilityRanks[e.ability4] = e.startingRank4;
     }
 
     return Promise.resolve({

@@ -1,4 +1,8 @@
-const WeaponStat = function (hp, atk, brk, mag, crit, spd, def, abilityRank_arr) {
+const MOD_TIME = 24;
+const MAX_STAT = 200;
+const BOOST_PER_MOD = 6;
+
+const WeaponStat = function (hp, atk, brk, mag, crit, spd, def, abilityRanks) {
     return {
         boost: {
             hp: hp,
@@ -13,14 +17,74 @@ const WeaponStat = function (hp, atk, brk, mag, crit, spd, def, abilityRank_arr)
             def: def,
         },
 
-        ability: abilityRank_arr
+        ability: abilityRanks
     }
 }
 
-const WeaponBoostCalculator = function (db) {
+const WeaponBoostCalculator = function (db, weaponId) {
 
-    const MOD_TIME = 24;
-    const MAX_STAT = 200;
+    var weaponData = db.weapon[weaponId];
+    var totalBoostCount = 0;
+    var totalModCount = 0;
+
+    var maxAbilityRank = {};
+    var abilityModCount = {};
+    for (var abilityId in weaponData.abilityRanks) {
+        maxAbilityRank[abilityId] =  db.ability[abilityId].stepCounts + 1;
+        abilityModCount[abilityId] = maxAbilityRank[abilityId] - weaponData.abilityRanks[abilityId];
+        totalModCount += abilityModCount[abilityId];
+    }
+
+    var weaponMaxStat = WeaponStat(MAX_STAT, MAX_STAT, MAX_STAT, MAX_STAT, 5, 2, 5, maxAbilityRank);
+    var weaponBaseStat = WeaponStat(weaponData.hp, weaponData.attack, weaponData.break, weaponData.magic,
+        weaponData.critical, weaponData.speed, weaponData.defense, weaponData.abilityRanks);
+
+
+    var statBoostCount = {};
+    for (var stat in weaponMaxStat.boost) {
+        var finalStat = weaponMaxStat.boost[stat];
+        var startingStat = weaponBaseStat.boost[stat];
+        
+        if (startingStat % 2 == 1)
+            startingStat--;
+
+        statBoostCount[stat] = (finalStat - startingStat) / 2;
+        totalBoostCount += statBoostCount[stat];
+    }
+
+    var statModCount = {};
+    for (var stat in weaponMaxStat.mod) {
+        statModCount[stat] = weaponMaxStat.mod[stat] - weaponBaseStat.mod[stat];
+        totalModCount += statModCount[stat];
+    }
+
+    var weaponMinStat;
+    if (totalBoostCount < totalModCount * BOOST_PER_MOD)
+        weaponMinStat = weaponMaxStat;
+    else {
+        var boostRequired = totalModCount * BOOST_PER_MOD;
+        var minBoostStat = [];
+        for (var stat in weaponBaseStat.boost){
+            minBoostStat.push({
+                stat: stat,
+                value: weaponBaseStat.boost[stat]
+            });
+        }
+
+        // don't look at me...
+        while (boostRequired > 0) {
+            minBoostStat.sort((a, b) => {
+                return a.value - b.value;
+            });
+            minBoostStat[0].value += 2;
+            boostRequired--;
+        }
+
+        weaponMinStat = WeaponStat(0, 0, 0, 0, 5, 2, 5, weaponMaxStat.ability);
+        minBoostStat.forEach(element => {
+            weaponMinStat.boost[element.stat] = element.value;
+        })
+    }
 
     var computeBoostTime = function (startingStat, finalStat) {
         var realStartingStep = startingStat + 2;
@@ -45,7 +109,7 @@ const WeaponBoostCalculator = function (db) {
         return MOD_TIME * (finalStat - startingStat);
     };
 
-    var computeTotalTime = function (weaponId, startingStats, finalStats) {
+    var computeTotalTime = function (startingStats, finalStats) {
         var totalTime = 0;
         for (var weaponBoostStat in startingStats.boost) {
             totalTime += computeBoostTime(startingStats.boost[weaponBoostStat], finalStats.boost[weaponBoostStat]);
@@ -55,29 +119,24 @@ const WeaponBoostCalculator = function (db) {
             totalTime += computeModTime(startingStats.mod[weaponModStat], finalStats.mod[weaponModStat]);
         }
 
-        for (var i = 0; i < startingStats.ability.length; i++) {
-            totalTime += computeModTime(startingStats.ability[i], finalStats.ability[i]);
+        for (var abilityId in startingStats.ability) {
+            totalTime += computeModTime(startingStats.ability[abilityId], finalStats.ability[abilityId]);
         }
 
         return totalTime;
     };
 
-    var computeMinimumBoostStat = function (weaponId, weaponStat) {
-
-    };
-
-    var computeMaximumBoostStat = function (weaponId) {
-        var maxWeaponRank = [];
-        var abilityList = db.weapon[weaponId].ability;
-        abilityList.forEach(element => {
-            maxWeaponRank.push(db.ability[element.id].stepCounts + 1);
-        });
-        return WeaponStat(MAX_STAT, MAX_STAT, MAX_STAT, MAX_STAT, 5, 2, 5, maxWeaponRank);
-    };
-
     return {
-        computeBoostTime: computeTotalTime,
-        computeMinimumMod: computeMinimumBoostStat,
-        computeMaximumMod: computeMaximumBoostStat
+        computeTotalTime: computeTotalTime,
+        baseStat: weaponBaseStat,
+        maxStat: weaponMaxStat,
+        minStat: weaponMinStat,
+        totalBoostModCounts: {
+            statBoost: statBoostCount,
+            statMod: statModCount,
+            abilityMod: abilityModCount,
+            totalBoostCount: totalBoostCount,
+            totalModCount: totalModCount
+        }
     };
 };
