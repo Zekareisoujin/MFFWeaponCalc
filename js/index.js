@@ -13,7 +13,11 @@ const WeaponCalcIndex = function () {
     };
 
     var initializeComponents = function () {
-
+        for (var weaponId in db.weapon) {
+            var weaponData = db.weapon[weaponId];
+            $('#weapon-select').append(
+                $('<option>').text(weaponData.name).val(weaponId));
+        }
     };
 
     var bindComponents = function () {
