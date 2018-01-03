@@ -29,9 +29,12 @@ const WeaponCalcIndex = function () {
     var initializeData = function () {
         weaponSlot = WeaponSlot({
             db: db,
-            weaponId: 'buster_sword'
-        });
-        weaponSlot.render('tablecontent');
+            weaponId: 'buster_sword',
+            userOptions: {
+                staminaLevel: 100
+            }
+        }, $('#weapon-boost-area'));
+        weaponSlot.render();
     }
 
     var test = function () {

@@ -1,4 +1,7 @@
-const GRID_CSS_CLASS = 'weaponstat';
+const WEAPON_SLOT_PREFIX = 'weapon-slot-';
+const WEAPON_SLOT_STAT_GRID_PREFIX = "stat-grid-";
+
+const GRID_CSS_CLASS = 'weapon-stat';
 const GRID_STAT_METADATA = [
     { name: 'headerCol', label: ' ', datatype: 'string', editable: false },
     { name: 'hp', label: 'HP', datatype: 'integer', editable: true },
@@ -22,14 +25,24 @@ const FINAL_VALUE_ROW = {
 
 /**
  * 
- * @param {Object} config - db, weaponId, initialStats
+ * @param {Object} config - db, weaponId, initialStats, userOptions
+ * @param {jQueryObject} parentContainer
  */
-const WeaponSlot = function (config) {
+const WeaponSlot = function (config, parentContainer) {
 
     var db = config.db;
     var weaponData = db.weapon[config.weaponId];
     var calc = WeaponBoostCalculator(config);
     var editableGrid = new EditableGrid(config.weaponId);
+    var abilityList = {}; // used as a Set
+
+    var $container = $('#weapon-slot-template').clone()
+            .attr('id', WEAPON_SLOT_PREFIX + config.weaponId)
+            .removeClass('hidden')
+            .appendTo(parentContainer);
+    var $gridContainer = $container.find('.stat-calc-input').attr('id', WEAPON_SLOT_STAT_GRID_PREFIX + config.weaponId);
+    var $resultTimeCost = $container.find('.time-cost');
+    var $resultElixirCost = $container.find('.elixir-cost');
 
     var convertToGridData = function (rowEnum, stat) {
         var values = {
@@ -44,6 +57,7 @@ const WeaponSlot = function (config) {
         }
         for (var type in stat.ability) {
             values[type] = stat.ability[type];
+            abilityList[type] = type;
         }
         return {
             id: rowEnum.id,
@@ -51,12 +65,35 @@ const WeaponSlot = function (config) {
         };
     }
 
+    var getStatData = function () {
+        var statData = [];
+        for (var i=0; i<2; i++) {
+            var newStat = WeaponStat();
+            var values = editableGrid.getRowValues(i);
+            for (var type in newStat.boost) {
+                newStat.boost[type] = values[type];
+            }
+            for (var type in newStat.mod) {
+                newStat.mod[type] = values[type];
+            }
+            newStat.ability = {};
+            for (var type in abilityList) {
+                newStat.ability[type] = values[type];
+            }
+            statData.push(newStat);
+        }
+        return {
+            startingValues: statData[0],
+            finalValues: statData[1]
+        }
+    }
+
     var metadata = GRID_STAT_METADATA.slice();
     for (var abilityId in weaponData.abilityRanks) {
         var abilityData = db.ability[abilityId];
         metadata.splice(metadata.length - 1, 0, {
             name: abilityData.id,
-            label: abilityData.name,
+            label: abilityData.name.toUpperCase(),
             datatype: 'integer',
             editable: true
         });
@@ -71,12 +108,22 @@ const WeaponSlot = function (config) {
         data.push(convertToGridData(FINAL_VALUE_ROW, calc.maxStat));
     }
 
-    var renderWeaponSlot = function (containerId) {
+    var updateBoostCost = function() {
+        var currentInput = getStatData();
+        var calcResult = calc.computeTotalTime(currentInput.startingValues, currentInput.finalValues);
+        $resultTimeCost.html(calcResult);
+        $resultElixirCost.html(calcResult/config.userOptions.staminaLevel);
+    }
+
+    var onGridValueChange = function(rowIndex, columnIndex, oldValue, newValue, row) {
+        updateBoostCost();
+    }
+
+    var renderWeaponSlot = function () {
         editableGrid.load({ 'metadata': metadata, 'data': data });
-        editableGrid.renderGrid(containerId, GRID_CSS_CLASS);
-        editableGrid.modelChanged = function (rowIndex, columnIndex, oldValue, newValue, row) {
-            console.log([rowIndex, columnIndex, oldValue, newValue, row]);
-        };
+        editableGrid.renderGrid($gridContainer.attr('id'), GRID_CSS_CLASS);
+        editableGrid.modelChanged = onGridValueChange;
+        updateBoostCost();
     }
 
     return {

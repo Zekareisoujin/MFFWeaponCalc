@@ -75,9 +75,16 @@
 
 body { font-family:'lucida grande', tahoma, verdana, arial, sans-serif; font-size:11px; }
 h1 { font-size: 15px; }
-a { color: #548dc4; text-decoration: none; }
-a:hover { text-decoration: underline; }
-table.weaponstat { border-collapse: collapse; border: 1px solid #CCB; width: 800px; }
-table.weaponstat td, table.weaponstat th { padding: 5px; border: 1px solid #E0E0E0; }
-table.weaponstat th { background: #E5E5E5; text-align: left; }
+/* a { color: #548dc4; text-decoration: none; }
+a:hover { text-decoration: underline; } */
+
+.hidden { display: none; }
+
+.stat-calc-input    { flex: 0 0 60%; max-width: 60% }
+.stat-calc-result   { flex: 0 0 40%; max-width: 40% }
+.stat-calc-result table td { font-weight: bold; text-align: center; }
+
+table.weapon-stat { border-collapse: collapse; border: 1px solid #CCB; width: 100%; }
+table.weapon-stat td, table.weapon-stat th { padding: 5px; border: 1px solid #E0E0E0; }
+table.weapon-stat th { background: #E5E5E5; text-align: center; min-width: 40px; }
 input.invalid { background: red; color: #FDFDFD; }
