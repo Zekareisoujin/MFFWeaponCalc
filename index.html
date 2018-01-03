@@ -11,13 +11,22 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
         crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
         crossorigin="anonymous"></script>
-
+    <script src="js/editablegrid/editablegrid.js"></script>
+    <script src="js/editablegrid/editablegrid_renderers.js" ></script>
+    <script src="js/editablegrid/editablegrid_editors.js" ></script>
+    <script src="js/editablegrid/editablegrid_validators.js" ></script>
+    <script src="js/editablegrid/editablegrid_utils.js" ></script>
+    <script src="js/editablegrid/editablegrid_charts.js" ></script>
+		
+    <link href="css/editablegrid.css" rel="stylesheet" type="text/css" media="screen">
     <link href="css/index.css" rel="stylesheet">
     <title>MFF Weapon Boost Calculator</title>
 </head>
@@ -26,174 +35,298 @@
     <div class="container-fluid">
         <div id="setting-area"></div>
         <div class="row">
-        <div id="weapon-select-area" class="col-sm-2">
-            <input id="weapon-search" type="text" class="form-control" placeholder="Search the list...">
-            <select id="weapon-select" class="form-control" size=10></select>
-            <button id="weapon-add" class="btn btn-primary">Add to Boost</button>
-        </div>
-        <div id="weapon-boost-area" class="col-sm-10">
-            <div class="weapon-boost-group row">
-                <div class="weapon-info">
-                    <img src="http://via.placeholder.com/50x50" width=50 height=50>
-                    <label>Weapon Name</label>
+            <div id="weapon-select-area" class="col-sm-2">
+                <input id="weapon-search" type="text" class="form-control" placeholder="Search the list...">
+                <select id="weapon-select" class="form-control" size=10></select>
+                <button id="weapon-add" class="btn btn-primary">Add to Boost</button>
+            </div>
+            <div id="weapon-boost-area" class="col-sm-10">
+                <!-- <div class="weapon-boost-group row">
+                    <div class="weapon-info">
+                        <img src="http://via.placeholder.com/50x50" width=50 height=50>
+                        <label>Weapon Name</label>
+                    </div>
+                    <div class="weapon-stat base-stat row">
+                        <div class="col">
+                            <div class="row">
+                                <label class="col-custom-label col-form-label col-form-label-sm">HP</label>
+                                <div class="col-custom-input">
+                                    <input type="number" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-custom-label col-form-label col-form-label-sm">Attack</label>
+                                <div class="col-custom-input">
+                                    <input type="number" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-custom-label col-form-label col-form-label-sm">Break</label>
+                                <div class="col-custom-input">
+                                    <input type="number" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-custom-label col-form-label col-form-label-sm">Magic</label>
+                                <div class="col-custom-input">
+                                    <input type="number" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <label class="col-custom-label col-form-label col-form-label-sm">Critical</label>
+                                <div class="col-custom-input">
+                                    <input type="number" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-custom-label col-form-label col-form-label-sm">Speed</label>
+                                <div class="col-custom-input">
+                                    <input type="number" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-custom-label col-form-label col-form-label-sm">Defense</label>
+                                <div class="col-custom-input">
+                                    <input type="number" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <label class="col-custom-label col-form-label col-form-label-sm">Ability 1</label>
+                                <div class="col-custom-input">
+                                    <input type="number" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-custom-label col-form-label col-form-label-sm">Ability 2</label>
+                                <div class="col-custom-input">
+                                    <input type="number" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-custom-label col-form-label col-form-label-sm">Ability 3</label>
+                                <div class="col-custom-input">
+                                    <input type="number" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-custom-label col-form-label col-form-label-sm">Ability 4</label>
+                                <div class="col-custom-input">
+                                    <input type="number" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weapon-stat desired-stat row">
+                        <div class="col">
+                            <div class="row">
+                                <label class="col-custom-label col-form-label col-form-label-sm">HP</label>
+                                <div class="col-custom-input">
+                                    <input type="number" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-custom-label col-form-label col-form-label-sm">Attack</label>
+                                <div class="col-custom-input">
+                                    <input type="number" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-custom-label col-form-label col-form-label-sm">Break</label>
+                                <div class="col-custom-input">
+                                    <input type="number" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-custom-label col-form-label col-form-label-sm">Magic</label>
+                                <div class="col-custom-input">
+                                    <input type="number" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <label class="col-custom-label col-form-label col-form-label-sm">Critical</label>
+                                <div class="col-custom-input">
+                                    <input type="number" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-custom-label col-form-label col-form-label-sm">Speed</label>
+                                <div class="col-custom-input">
+                                    <input type="number" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-custom-label col-form-label col-form-label-sm">Defense</label>
+                                <div class="col-custom-input">
+                                    <input type="number" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <label class="col-custom-label col-form-label col-form-label-sm">Ability 1</label>
+                                <div class="col-custom-input">
+                                    <input type="number" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-custom-label col-form-label col-form-label-sm">Ability 2</label>
+                                <div class="col-custom-input">
+                                    <input type="number" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-custom-label col-form-label col-form-label-sm">Ability 3</label>
+                                <div class="col-custom-input">
+                                    <input type="number" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-custom-label col-form-label col-form-label-sm">Ability 4</label>
+                                <div class="col-custom-input">
+                                    <input type="number" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="calculated-result">
+                    </div>
                 </div>
-                <div class="weapon-stat base-stat row">
-                    <div class="col">
-                        <div class="row">
-                            <label class="col-custom-label col-form-label col-form-label-sm">HP</label>
-                            <div class="col-custom-input">
-                                <input type="number" class="form-control form-control-sm">
+                <div class="weapon-boost-group row">
+                    <div class="weapon-info">
+                        <img src="http://via.placeholder.com/50x50" width=50 height=50>
+                        <label>Weapon Name</label>
+                    </div>
+                    <div class="weapon-stat base-stat row">
+                        <div class="col stat-raw">
+                            <div class="row">
+                                <label class="stat-label">Label</label>
+                                <input class="stat-input" type="number">
+                            </div>
+                            <div class="row">
+                                <label class="stat-label">Attack</label>
+                                <input class="stat-input" type="number">
+                            </div>
+                            <div class="row">
+                                <label class="stat-label">Label</label>
+                                <input class="stat-input" type="number">
+                            </div>
+                            <div class="row">
+                                <label class="stat-label">Label</label>
+                                <input class="stat-input" type="number">
                             </div>
                         </div>
-                        <div class="row">
-                            <label class="col-custom-label col-form-label col-form-label-sm">Attack</label>
-                            <div class="col-custom-input">
-                                <input type="number" class="form-control form-control-sm">
+                        <div class="col stat-star">
+                            <div class="row">
+                                <label class="stat-label">Critical</label>
+                                <input class="stat-input" type="number">
+                            </div>
+                            <div class="row">
+                                <label class="stat-label">Label</label>
+                                <input class="stat-input" type="number">
+                            </div>
+                            <div class="row">
+                                <label class="stat-label">Label</label>
+                                <input class="stat-input" type="number">
                             </div>
                         </div>
-                        <div class="row">
-                            <label class="col-custom-label col-form-label col-form-label-sm">Break</label>
-                            <div class="col-custom-input">
-                                <input type="number" class="form-control form-control-sm">
+                        <div class="col stat-ability">
+                            <div class="row">
+                                <label class="stat-label">Label</label>
+                                <div>
+                                    <input class="stat-input" type="number">
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <label class="col-custom-label col-form-label col-form-label-sm">Magic</label>
-                            <div class="col-custom-input">
-                                <input type="number" class="form-control form-control-sm">
+                            <div class="row">
+                                <label class="stat-label">Label</label>
+                                <input class="stat-input" type="number">
+                            </div>
+                            <div class="row">
+                                <label class="stat-label">Label</label>
+                                <input class="stat-input" type="number">
+                            </div>
+                            <div class="row">
+                                <label class="stat-label">Label</label>
+                                <input class="stat-input" type="number">
                             </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="row">
-                            <label class="col-custom-label col-form-label col-form-label-sm">Critical</label>
-                            <div class="col-custom-input">
-                                <input type="number" class="form-control form-control-sm">
+                    <div class="weapon-stat final-stat row">
+                        <div class="col">
+                            <div class="row">
+                                <label class="stat-label">Label</label>
+                                <input class="stat-input" type="number">
+                            </div>
+                            <div class="row">
+                                <label class="stat-label">Label</label>
+                                <input class="stat-input" type="number">
+                            </div>
+                            <div class="row">
+                                <label class="stat-label">Label</label>
+                                <input class="stat-input" type="number">
+                            </div>
+                            <div class="row">
+                                <label class="stat-label">Label</label>
+                                <input class="stat-input" type="number">
                             </div>
                         </div>
-                        <div class="row">
-                            <label class="col-custom-label col-form-label col-form-label-sm">Speed</label>
-                            <div class="col-custom-input">
-                                <input type="number" class="form-control form-control-sm">
+                        <div class="col">
+                            <div class="row">
+                                <label class="stat-label">Label</label>
+                                <input class="stat-input" type="number">
+                            </div>
+                            <div class="row">
+                                <label class="stat-label">Label</label>
+                                <input class="stat-input" type="number">
+                            </div>
+                            <div class="row">
+                                <label class="stat-label">Label</label>
+                                <input class="stat-input" type="number">
                             </div>
                         </div>
-                        <div class="row">
-                            <label class="col-custom-label col-form-label col-form-label-sm">Defense</label>
-                            <div class="col-custom-input">
-                                <input type="number" class="form-control form-control-sm">
+                        <div class="col">
+                            <div class="row">
+                                <label class="stat-label">Label</label>
+                                <input class="stat-input" type="number">
                             </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="row">
-                            <label class="col-custom-label col-form-label col-form-label-sm">Ability 1</label>
-                            <div class="col-custom-input">
-                                <input type="number" class="form-control form-control-sm">
+                            <div class="row">
+                                <label class="stat-label">Label</label>
+                                <input class="stat-input" type="number">
                             </div>
-                        </div>
-                        <div class="row">
-                            <label class="col-custom-label col-form-label col-form-label-sm">Ability 2</label>
-                            <div class="col-custom-input">
-                                <input type="number" class="form-control form-control-sm">
+                            <div class="row">
+                                <label class="stat-label">Label</label>
+                                <input class="stat-input" type="number">
                             </div>
-                        </div>
-                        <div class="row">
-                            <label class="col-custom-label col-form-label col-form-label-sm">Ability 3</label>
-                            <div class="col-custom-input">
-                                <input type="number" class="form-control form-control-sm">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <label class="col-custom-label col-form-label col-form-label-sm">Ability 4</label>
-                            <div class="col-custom-input">
-                                <input type="number" class="form-control form-control-sm">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="weapon-stat desired-stat row">
-                    <div class="col">
-                        <div class="row">
-                            <label class="col-custom-label col-form-label col-form-label-sm">HP</label>
-                            <div class="col-custom-input">
-                                <input type="number" class="form-control form-control-sm">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <label class="col-custom-label col-form-label col-form-label-sm">Attack</label>
-                            <div class="col-custom-input">
-                                <input type="number" class="form-control form-control-sm">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <label class="col-custom-label col-form-label col-form-label-sm">Break</label>
-                            <div class="col-custom-input">
-                                <input type="number" class="form-control form-control-sm">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <label class="col-custom-label col-form-label col-form-label-sm">Magic</label>
-                            <div class="col-custom-input">
-                                <input type="number" class="form-control form-control-sm">
+                            <div class="row">
+                                <label class="stat-label">Label</label>
+                                <input class="stat-input" type="number">
                             </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="row">
-                            <label class="col-custom-label col-form-label col-form-label-sm">Critical</label>
-                            <div class="col-custom-input">
-                                <input type="number" class="form-control form-control-sm">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <label class="col-custom-label col-form-label col-form-label-sm">Speed</label>
-                            <div class="col-custom-input">
-                                <input type="number" class="form-control form-control-sm">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <label class="col-custom-label col-form-label col-form-label-sm">Defense</label>
-                            <div class="col-custom-input">
-                                <input type="number" class="form-control form-control-sm">
-                            </div>
-                        </div>
+                    <div class="calculated-result">
                     </div>
-                    <div class="col">
-                        <div class="row">
-                            <label class="col-custom-label col-form-label col-form-label-sm">Ability 1</label>
-                            <div class="col-custom-input">
-                                <input type="number" class="form-control form-control-sm">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <label class="col-custom-label col-form-label col-form-label-sm">Ability 2</label>
-                            <div class="col-custom-input">
-                                <input type="number" class="form-control form-control-sm">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <label class="col-custom-label col-form-label col-form-label-sm">Ability 3</label>
-                            <div class="col-custom-input">
-                                <input type="number" class="form-control form-control-sm">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <label class="col-custom-label col-form-label col-form-label-sm">Ability 4</label>
-                            <div class="col-custom-input">
-                                <input type="number" class="form-control form-control-sm">
-                            </div>
-                        </div>
+                </div> -->
+                <div class="weapon-boost-group col">
+                    <div>
+                        <img src="http://via.placeholder.com/50x50" width=50 height=50>
+                        <label>Weapon Name</label>
                     </div>
-                </div>
-                <div class="calculated-result">
+                    <div>
+                        <div id="tablecontent"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
 
     <script src="js/db.js"></script>
     <script src="js/calc.js"></script>
+    <script src="js/weaponSlot.js"></script>
     <script src="js/index.js"></script>
 </body>
 

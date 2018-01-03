@@ -1,6 +1,6 @@
 const WeaponCalcIndex = function () {
 
-    var db, calc;
+    var db;
 
     var initialize = function () {
         $.getJSON('js/db.json', data => {
@@ -8,6 +8,8 @@ const WeaponCalcIndex = function () {
                 db = loadedDB;
                 initializeComponents();
                 bindComponents();
+                initializeData();
+                test();
             });
         });
     };
@@ -24,10 +26,18 @@ const WeaponCalcIndex = function () {
 
     };
 
+    var initializeData = function () {
+        weaponSlot = WeaponSlot({
+            db: db,
+            weaponId: 'buster_sword'
+        });
+        weaponSlot.render('tablecontent');
+    }
+
     var test = function () {
-        calc = WeaponBoostCalculator(db, 'buster_sword');
+        var calc = WeaponBoostCalculator({db: db, weaponId: 'buster_sword'});
         console.log(calc);
-        console.log(calc.minStat);
+        // console.log(calc.minStat);
         return calc.computeTotalTime(calc.baseStat, calc.minStat);
     };
 
