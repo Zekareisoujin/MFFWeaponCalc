@@ -41,7 +41,6 @@ const WeaponSlot = function (config, parentContainer) {
             abilityList[type][typeData] = db.ability[type][typeData];
         abilityList[type].requireUnlock = calc.baseStat.ability[type] == 0;
     }
-    console.log(abilityList);
 
     var $container = $('#weapon-slot-template').clone()
         .attr('id', WEAPON_SLOT_PREFIX + config.weaponId)
@@ -50,6 +49,7 @@ const WeaponSlot = function (config, parentContainer) {
     var $gridContainer = $container.find('.stat-calc-input').attr('id', WEAPON_SLOT_STAT_GRID_PREFIX + config.weaponId);
     var $resultTimeCost = $container.find('.time-cost');
     var $resultElixirCost = $container.find('.elixir-cost');
+    var $weaponName = $container.find('.weapon-slot-name').text(weaponData.name);
 
     var convertToGridData = function (rowEnum, stat) {
         var values = {
@@ -89,6 +89,8 @@ const WeaponSlot = function (config, parentContainer) {
             for (var type in abilityList) {
                 if (values[type] == 0)
                     newStat.ability[type] = 0;
+                else if (abilityList[type].startingValue == abilityList[type].finalValue)
+                    newStat.ability[type] = 1;
                 else
                     newStat.ability[type] = (values[type] - abilityList[type].startingValue) / abilityList[type].step + 1;
             }
@@ -116,7 +118,6 @@ const WeaponSlot = function (config, parentContainer) {
         data.push(convertToGridData(STARTING_VALUE_ROW, calc.baseStat));
         data.push(convertToGridData(FINAL_VALUE_ROW, calc.maxStat));
     }
-    console.log(data);
 
     var boostConstraints = {};
     for (var type in calc.baseStat.boost) {
@@ -147,13 +148,15 @@ const WeaponSlot = function (config, parentContainer) {
 
     var updateBoostCost = function () {
         var currentInput = getStatData();
-        var calcResult = calc.computeTotalTime(currentInput[0], currentInput[1]);
-        $resultTimeCost.html(calcResult);
-        $resultElixirCost.html(calcResult / config.userOptions.staminaLevel);
+        var boostTimeInHours = calc.computeTotalTime(currentInput[0], currentInput[1]);
+        var boostTimeInDays = (boostTimeInHours / 24).toFixed(1);
+        $resultTimeCost.html(boostTimeInHours + ' hour(s) | ' + boostTimeInDays + ' day(s)');
+        $resultElixirCost.html(
+            Math.ceil(boostTimeInHours * 60 / config.userOptions.staminaLevel * config.userOptions.staminaMultiplier)
+            + ' (tentative number)');
     }
 
     var onGridValueChange = function (rowIndex, columnIndex, oldValue, newValue, row) {
-        console.log(editableGrid.getColumnName(columnIndex));
         var currentInput = getStatData();
         var statValidity = calc.checkStatValidity(currentInput[rowIndex]);
         editableGrid.setValueAt(rowIndex, metadata.length - 1, statValidity.availableMod);
@@ -213,6 +216,7 @@ const WeaponSlot = function (config, parentContainer) {
     }
 
     return {
+        weaponId: config.weaponId,
         render: renderWeaponSlot
     }
 }
