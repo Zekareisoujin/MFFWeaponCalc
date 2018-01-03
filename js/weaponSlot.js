@@ -34,12 +34,19 @@ const WeaponSlot = function (config, parentContainer) {
     var weaponData = db.weapon[config.weaponId];
     var calc = WeaponBoostCalculator(config);
     var editableGrid = new EditableGrid(config.weaponId);
-    var abilityList = {}; // used as a Set
+    var abilityList = {};
+    for (var type in calc.baseStat.ability) {
+        abilityList[type] = {};
+        for (var typeData in db.ability[type])
+            abilityList[type][typeData] = db.ability[type][typeData];
+        abilityList[type].requireUnlock = calc.baseStat.ability[type] == 0;
+    }
+    console.log(abilityList);
 
     var $container = $('#weapon-slot-template').clone()
-            .attr('id', WEAPON_SLOT_PREFIX + config.weaponId)
-            .removeClass('hidden')
-            .appendTo(parentContainer);
+        .attr('id', WEAPON_SLOT_PREFIX + config.weaponId)
+        .removeClass('hidden')
+        .appendTo(parentContainer);
     var $gridContainer = $container.find('.stat-calc-input').attr('id', WEAPON_SLOT_STAT_GRID_PREFIX + config.weaponId);
     var $resultTimeCost = $container.find('.time-cost');
     var $resultElixirCost = $container.find('.elixir-cost');
@@ -56,8 +63,10 @@ const WeaponSlot = function (config, parentContainer) {
             values[type] = stat.mod[type];
         }
         for (var type in stat.ability) {
-            values[type] = stat.ability[type];
-            abilityList[type] = type;
+            if (stat.ability[type] == 0)
+                values[type] = 0;
+            else
+                values[type] = (stat.ability[type] - 1) * abilityList[type].step + abilityList[type].startingValue;
         }
         return {
             id: rowEnum.id,
@@ -67,7 +76,7 @@ const WeaponSlot = function (config, parentContainer) {
 
     var getStatData = function () {
         var statData = [];
-        for (var i=0; i<2; i++) {
+        for (var i = 0; i < 2; i++) {
             var newStat = WeaponStat();
             var values = editableGrid.getRowValues(i);
             for (var type in newStat.boost) {
@@ -78,14 +87,14 @@ const WeaponSlot = function (config, parentContainer) {
             }
             newStat.ability = {};
             for (var type in abilityList) {
-                newStat.ability[type] = values[type];
+                if (values[type] == 0)
+                    newStat.ability[type] = 0;
+                else
+                    newStat.ability[type] = (values[type] - abilityList[type].startingValue) / abilityList[type].step + 1;
             }
             statData.push(newStat);
         }
-        return {
-            startingValues: statData[0],
-            finalValues: statData[1]
-        }
+        return statData;
     }
 
     var metadata = GRID_STAT_METADATA.slice();
@@ -107,20 +116,97 @@ const WeaponSlot = function (config, parentContainer) {
         data.push(convertToGridData(STARTING_VALUE_ROW, calc.baseStat));
         data.push(convertToGridData(FINAL_VALUE_ROW, calc.maxStat));
     }
+    console.log(data);
 
-    var updateBoostCost = function() {
-        var currentInput = getStatData();
-        var calcResult = calc.computeTotalTime(currentInput.startingValues, currentInput.finalValues);
-        $resultTimeCost.html(calcResult);
-        $resultElixirCost.html(calcResult/config.userOptions.staminaLevel);
+    var boostConstraints = {};
+    for (var type in calc.baseStat.boost) {
+        boostConstraints[type] = {
+            min: calc.baseStat.boost[type],
+            max: calc.maxStat.boost[type],
+        }
+    }
+    var modConstraints = {};
+    for (var type in calc.baseStat.mod) {
+        modConstraints[type] = {
+            min: calc.baseStat.mod[type],
+            max: calc.maxStat.mod[type]
+        }
+    }
+    var abilityConstraints = {};
+    for (var abilityId in abilityList) {
+        abilityConstraints[abilityId] = {};
+        var abilityData = abilityList[abilityId];
+        if (abilityData.requireUnlock)
+            abilityConstraints[abilityId][0] = true;
+        if (abilityData.startingValue == abilityData.finalValue)
+            abilityConstraints[abilityId][abilityData.startingValue] = true;
+        else
+            for (var i = abilityData.startingValue; i <= abilityData.finalValue; i += abilityData.step)
+                abilityConstraints[abilityId][i] = true;
     }
 
-    var onGridValueChange = function(rowIndex, columnIndex, oldValue, newValue, row) {
+    var updateBoostCost = function () {
+        var currentInput = getStatData();
+        var calcResult = calc.computeTotalTime(currentInput[0], currentInput[1]);
+        $resultTimeCost.html(calcResult);
+        $resultElixirCost.html(calcResult / config.userOptions.staminaLevel);
+    }
+
+    var onGridValueChange = function (rowIndex, columnIndex, oldValue, newValue, row) {
+        console.log(editableGrid.getColumnName(columnIndex));
+        var currentInput = getStatData();
+        var statValidity = calc.checkStatValidity(currentInput[rowIndex]);
+        editableGrid.setValueAt(rowIndex, metadata.length - 1, statValidity.availableMod);
+        // if (statValidity.isValid)
         updateBoostCost();
+    }
+
+    var hpValueRenderer = new CellRenderer({
+        render: function (cell, value) {
+            var intValue = parseInt(value);
+            if (!isNaN(intValue))
+                cell.innerHTML = intValue * 10;
+        }
+    })
+
+    var getStatValidator = function (constraint) {
+        return new CellValidator({
+            isValid: function (value) {
+                var intValue = parseInt(value);
+                if (isNaN(intValue)) return false;
+                if (intValue == constraint.max) return true;
+                return intValue >= constraint.min && intValue < constraint.max && intValue % 2 == constraint.min % 2;
+            }
+        });
+    }
+
+    var getModValidator = function (constraint) {
+        return new CellValidator({
+            isValid: function (value) {
+                var intValue = parseInt(value);
+                return !isNaN(intValue) && intValue >= constraint.min && intValue <= constraint.max;
+            }
+        });
+    }
+
+    var getAbilityValidator = function (constraint) {
+        return new CellValidator({
+            isValid: function (value) {
+                var intValue = parseInt(value);
+                return !isNaN(intValue) && constraint[intValue] != undefined && constraint[intValue];
+            }
+        })
     }
 
     var renderWeaponSlot = function () {
         editableGrid.load({ 'metadata': metadata, 'data': data });
+        editableGrid.setCellRenderer('hp', hpValueRenderer);
+        for (var type in boostConstraints)
+            editableGrid.addCellValidator(type, getStatValidator(boostConstraints[type]));
+        for (var type in modConstraints)
+            editableGrid.addCellValidator(type, getModValidator(modConstraints[type]));
+        for (var type in abilityConstraints)
+            editableGrid.addCellValidator(type, getAbilityValidator(abilityConstraints[type]));
         editableGrid.renderGrid($gridContainer.attr('id'), GRID_CSS_CLASS);
         editableGrid.modelChanged = onGridValueChange;
         updateBoostCost();
