@@ -50,6 +50,7 @@ const WeaponSlot = function (config, parentContainer) {
     var $resultTimeCost = $container.find('.time-cost');
     var $resultElixirCost = $container.find('.elixir-cost');
     var $weaponName = $container.find('.weapon-slot-name').text(weaponData.name);
+    var $weaponThumbs = $container.find('img').attr('src', weaponData.thumbnailUrl);
 
     var convertToGridData = function (rowEnum, stat) {
         var values = {
