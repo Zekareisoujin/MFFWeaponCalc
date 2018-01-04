@@ -35,6 +35,9 @@ const WeaponCalcIndex = function () {
         $weaponBoostArea = $('#weapon-boost-area');
         $boostSettings = $('#boost-settings input[type=checkbox]');
         $staminaInput = $('#boost-settings input[type=number]');
+        $otherSettings = $('#other-settings input[type=checkbox]');
+
+        $boostSettings.tooltip();
 
         for (var weaponId in db.weapon) {
             var weaponData = db.weapon[weaponId];

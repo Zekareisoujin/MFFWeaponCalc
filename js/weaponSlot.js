@@ -35,6 +35,13 @@ const PRESET_BASE_STAT = 'preset-base';
 const PRESET_MIN_STAT = 'preset-min';
 const PRESET_MAX_STAT = 'preset-max';
 
+const MSG = {
+    STAT_UNEVEN : "Unable to reach this value with a base stat of ",
+    LOWERBOUND_EXCEEDED : "Value must not be lower than base stat of ",
+    UPPERBOUND_EXCEEDED : "Value must not be higher than max stat of ",
+    IS_NAN : "Value must be an integer."
+}
+
 /**
  * 
  * @param {Object} config - db, weaponId, initialStats, userOptions
@@ -71,6 +78,7 @@ const WeaponSlot = function (config, parentContainer) {
     var $weaponThumbs = $container.find('img').attr('src', weaponData.thumbnailUrl);
     var $presetTemplate = $('#preset-template .dropdown');
     var $removeButton = $container.find('button.close');
+    var $notificationLabel = $container.find('.weapon-slot-notification label');
 
     var flattenStatData = function (stat) {
         var values = {};
@@ -193,6 +201,7 @@ const WeaponSlot = function (config, parentContainer) {
         var statValidity = calc.checkStatValidity(currentInput[rowIndex]);
         editableGrid.setValueAt(rowIndex, metadata.length - EXTRA_COL, statValidity.availableMod);
         // if (statValidity.isValid)
+        $notificationLabel.text("");
         updateBoostCost();
     }
 
@@ -223,13 +232,22 @@ const WeaponSlot = function (config, parentContainer) {
         }
     })
 
+    var validate = function (condition, msg) {
+        if (condition)
+            return true;
+        $notificationLabel.text(msg);
+        return false;
+    }
+
     var getStatValidator = function (constraint) {
         return new CellValidator({
             isValid: function (value) {
                 var intValue = parseInt(value);
-                if (isNaN(intValue)) return false;
+                if (!validate(!isNaN(intValue), MSG.IS_NAN)) return false;
                 if (intValue == constraint.max) return true;
-                return intValue >= constraint.min && intValue < constraint.max && intValue % 2 == constraint.min % 2;
+                return validate(intValue >= constraint.min, MSG.LOWERBOUND_EXCEEDED + constraint.min)
+                    && validate(intValue < constraint.max, MSG.UPPERBOUND_EXCEEDED + constraint.max)
+                    && validate(intValue % 2 == constraint.min % 2, MSG.STAT_UNEVEN + constraint.min);
             }
         });
     }
@@ -238,7 +256,9 @@ const WeaponSlot = function (config, parentContainer) {
         return new CellValidator({
             isValid: function (value) {
                 var intValue = parseInt(value);
-                return !isNaN(intValue) && intValue >= constraint.min && intValue <= constraint.max;
+                return validate(!isNaN(intValue), MSG.IS_NAN)
+                    && validate(intValue >= constraint.min, MSG.LOWERBOUND_EXCEEDED + constraint.min)
+                    && validate(intValue < constraint.max, MSG.UPPERBOUND_EXCEEDED + constraint.max);
             }
         });
     }
@@ -247,7 +267,9 @@ const WeaponSlot = function (config, parentContainer) {
         return new CellValidator({
             isValid: function (value) {
                 var intValue = parseInt(value);
-                return !isNaN(intValue) && constraint[intValue] != undefined && constraint[intValue];
+                return validate(!isNaN(intValue), MSG.IS_NAN)
+                    && validate(intValue >= constraint.min, MSG.LOWERBOUND_EXCEEDED + constraint.min)
+                    && validate(intValue < constraint.max, MSG.UPPERBOUND_EXCEEDED + constraint.max);
             }
         })
     }

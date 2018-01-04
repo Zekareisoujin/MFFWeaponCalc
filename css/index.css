@@ -10,6 +10,7 @@ a:hover { text-decoration: underline; } */
 .stat-calc-input    { flex: 0 0 50%; max-width: 50% }
 .stat-calc-result   { flex: 0 0 40%; max-width: 40% }
 .stat-calc-result table td { font-weight: bold; text-align: center; }
+.weapon-slot-notification { font-weight: bold; color: red; }
 
 table.weapon-stat { border-collapse: collapse; border: 1px solid #CCB; width: 100%; }
 table.weapon-stat td, table.weapon-stat th { padding: 5px; border: 1px solid #E0E0E0; }
