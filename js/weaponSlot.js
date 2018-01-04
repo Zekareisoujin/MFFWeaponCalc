@@ -36,10 +36,12 @@ const PRESET_MIN_STAT = 'preset-min';
 const PRESET_MAX_STAT = 'preset-max';
 
 const MSG = {
-    STAT_UNEVEN : "Unable to reach this value with a base stat of ",
-    LOWERBOUND_EXCEEDED : "Value must not be lower than base stat of ",
-    UPPERBOUND_EXCEEDED : "Value must not be higher than max stat of ",
-    IS_NAN : "Value must be an integer."
+    STAT_UNEVEN: "Unable to reach this value with a base stat of ",
+    LOWERBOUND_EXCEEDED: "Value must not be lower than base stat of ",
+    UPPERBOUND_EXCEEDED: "Value must not be higher than max stat of ",
+    IS_NAN: "Value must be an integer.",
+    INVALID_MOD_COUNT: "Available mod counts must be either 0 or 1.",
+    INVALID_ABILITY_VALUE: "This ability value is not achieveable."
 }
 
 /**
@@ -200,9 +202,12 @@ const WeaponSlot = function (config, parentContainer) {
         var currentInput = getStatData();
         var statValidity = calc.checkStatValidity(currentInput[rowIndex]);
         editableGrid.setValueAt(rowIndex, metadata.length - EXTRA_COL, statValidity.availableMod);
-        // if (statValidity.isValid)
-        $notificationLabel.text("");
-        updateBoostCost();
+        if (!statValidity.isValid)
+            $notificationLabel.text(MSG.INVALID_MOD_COUNT);
+        else {
+            $notificationLabel.text("");
+            updateBoostCost();
+        }
     }
 
     var hpValueRenderer = new CellRenderer({
@@ -216,9 +221,8 @@ const WeaponSlot = function (config, parentContainer) {
     var applyPreset = function () {
         var rowIndex = $(this).attr(ATTR_ROW_IDX);
         var preset = $(this).attr(ATTR_PRESET);
-        console.log(preset);
-        console.log(statPresets);
         var values = flattenStatData(statPresets[preset]);
+        values.availableMod = 0;
         for (var type in values) {
             editableGrid.setValueAt(rowIndex, editableGrid.getColumnIndex(type), values[type]);
         }
@@ -258,7 +262,7 @@ const WeaponSlot = function (config, parentContainer) {
                 var intValue = parseInt(value);
                 return validate(!isNaN(intValue), MSG.IS_NAN)
                     && validate(intValue >= constraint.min, MSG.LOWERBOUND_EXCEEDED + constraint.min)
-                    && validate(intValue < constraint.max, MSG.UPPERBOUND_EXCEEDED + constraint.max);
+                    && validate(intValue <= constraint.max, MSG.UPPERBOUND_EXCEEDED + constraint.max);
             }
         });
     }
@@ -268,8 +272,7 @@ const WeaponSlot = function (config, parentContainer) {
             isValid: function (value) {
                 var intValue = parseInt(value);
                 return validate(!isNaN(intValue), MSG.IS_NAN)
-                    && validate(intValue >= constraint.min, MSG.LOWERBOUND_EXCEEDED + constraint.min)
-                    && validate(intValue < constraint.max, MSG.UPPERBOUND_EXCEEDED + constraint.max);
+                    && validate(constraint[intValue], MSG.INVALID_ABILITY_VALUE);
             }
         })
     }
