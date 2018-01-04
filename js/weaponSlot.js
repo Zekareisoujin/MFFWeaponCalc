@@ -184,37 +184,6 @@ const WeaponSlot = function (config, parentContainer) {
                 abilityConstraints[abilityId][i] = true;
     }
 
-    var updateBoostCost = function (userOptions) {
-        if (!userOptions)
-            userOptions = config.userOptions;
-
-        var currentInput = getStatData();
-        var boostTimeInHours = Math.max(0, calc.computeTotalTime(currentInput[0], currentInput[1]));
-        var boostTimeInDays = (boostTimeInHours / 24).toFixed(1);
-        var boostTimeNatural = (boostTimeInHours * 60 / (24 * 60 + userOptions.dailyStamina * userOptions.staminaMultiplier)).toFixed(1);
-        $resultTimeCost.text(boostTimeInHours + ' hour(s) | ' + boostTimeInDays + ' day(s)');
-        $resultTimeCostNatural.text(boostTimeNatural + ' day(s)');
-        $resultElixirCost.text(
-            Math.ceil(boostTimeInHours * 60 / ((userOptions.staminaLevel + userOptions.bonusStamina) * userOptions.staminaMultiplier))
-            + ' elixir(s)');
-    }
-
-    var onGridValueChange = function (rowIndex, columnIndex, oldValue, newValue, row) {
-        console.log([oldValue, newValue]);
-        var currentInput = getStatData();
-        var statValidity = calc.checkStatValidity(currentInput[rowIndex]);
-        editableGrid.setValueAt(rowIndex, metadata.length - EXTRA_COL, statValidity.availableMod);
-        if (!statValidity.isValid) {
-            if (statValidity.allBoostDone)
-                $notificationLabel.text(MSG.MINIMUM_MOD_REQUIRED + statValidity.allowedMod);
-            else
-                $notificationLabel.text(MSG.INVALID_MOD_COUNT);
-        }else {
-            $notificationLabel.text("");
-            updateBoostCost();
-        }
-    }
-
     var hpValueRenderer = new CellRenderer({
         render: function (cell, value) {
             var intValue = parseInt(value);
@@ -285,6 +254,61 @@ const WeaponSlot = function (config, parentContainer) {
         })
     }
 
+    var updateBoostCost = function (userOptions) {
+        if (!userOptions)
+            userOptions = config.userOptions;
+
+        var currentInput = getStatData();
+        var boostTimeInHours = Math.max(0, calc.computeTotalTime(currentInput[0], currentInput[1]));
+        var boostTimeInDays = (boostTimeInHours / 24).toFixed(1);
+        var boostTimeNatural = (boostTimeInHours * 60 / (24 * 60 + userOptions.dailyStamina * userOptions.staminaMultiplier)).toFixed(1);
+        $resultTimeCost.text(boostTimeInHours + ' hour(s) | ' + boostTimeInDays + ' day(s)');
+        $resultTimeCostNatural.text(boostTimeNatural + ' day(s)');
+        $resultElixirCost.text(
+            Math.ceil(boostTimeInHours * 60 / ((userOptions.staminaLevel + userOptions.bonusStamina) * userOptions.staminaMultiplier))
+            + ' elixir(s)');
+    }
+
+    var onGridValueChange = function (rowIndex, columnIndex, oldValue, newValue, row) {
+        var currentInput = getStatData();
+        var statValidity = calc.checkStatValidity(currentInput[rowIndex]);
+        editableGrid.setValueAt(rowIndex, metadata.length - EXTRA_COL, statValidity.availableMod);
+        if (!statValidity.isValid) {
+            if (statValidity.allBoostDone)
+                $notificationLabel.text(MSG.MINIMUM_MOD_REQUIRED + statValidity.allowedMod);
+            else
+                $notificationLabel.text(MSG.INVALID_MOD_COUNT);
+        }else {
+            $notificationLabel.text("");
+            updateBoostCost();
+        }
+    }
+
+    var generateConstraintHint = function(columnName) {
+        if (boostConstraints[columnName])
+            return "<b>Base value:</b> " + boostConstraints[columnName].min + '<br/> <b>Max value:</b> ' + boostConstraints[columnName].max;
+        if (modConstraints[columnName])
+            return "<b>Base value:</b> " + modConstraints[columnName].min + '<br/> <b>Max value:</b> ' + modConstraints[columnName].max;
+        if (abilityConstraints[columnName]) {
+            possibleValues = [];
+            for (var key in abilityConstraints[columnName])
+                possibleValues.push(key);
+            return "<b>Possible values:</b> <br/>" + possibleValues.join(' ');
+        }
+    }
+
+    var onEditorOpen = function(rowIndex, columnIndex) {
+        var cell = editableGrid.getCell(rowIndex, columnIndex);
+        var $input = $(cell).children('input');
+        $input.popover({
+            trigger: 'focus',
+            placement: 'right',
+            container: 'body',
+            html: true,
+            content: generateConstraintHint(editableGrid.getColumnName(columnIndex))
+        })
+    };
+
     var renderWeaponSlot = function () {
         editableGrid.load({ 'metadata': metadata, 'data': data });
         editableGrid.setCellRenderer('hp', hpValueRenderer);
@@ -297,6 +321,7 @@ const WeaponSlot = function (config, parentContainer) {
             editableGrid.addCellValidator(type, getAbilityValidator(abilityConstraints[type]));
         editableGrid.renderGrid($gridContainer.attr('id'), GRID_CSS_CLASS);
         editableGrid.modelChanged = onGridValueChange;
+        editableGrid.openedCellEditor = onEditorOpen;
         updateBoostCost();
     }
 
