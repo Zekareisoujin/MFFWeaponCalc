@@ -1,16 +1,26 @@
 body { font-family:'lucida grande', tahoma, verdana, arial, sans-serif; padding-top: 50px; }
 #weapon-boost-area { font-size: 11px; }
 #weapon-boost-area h1 { font-size: 15px; }
-#weapon-select-area { display: flex; flex-direction: column; }
-/* a { color: #548dc4; text-decoration: none; }
-a:hover { text-decoration: underline; } */
+#weapon-select-area { 
+    display: flex; flex-direction: column; 
+    position: fixed;
+    top: 50px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+}
 
 .hidden { display: none; }
 
-.stat-calc-input    { flex: 0 0 50%; max-width: 50% }
-.stat-calc-result   { flex: 0 0 40%; max-width: 40% }
+.stat-calc-input    { flex: 0 0 60%; max-width: 60% }
+.stat-calc-result   { flex: 0 0 30%; max-width: 30% }
 .stat-calc-result table td { font-weight: bold; text-align: center; }
+
+.weapon-boost-group { border-bottom: 2px solid gray; padding: 5px; margin: 5px 0px 5px 0px; }
+.weapon-slot-info, .weapon-slot-stat { display: flex; justify-content: space-between; align-items: center; }
+.weapon-slot-info { padding-bottom: 5px; }
 .weapon-slot-notification { font-weight: bold; color: red; }
+.weapon-slot-close { align-self: flex-start; }
 
 table.weapon-stat { border-collapse: collapse; border: 1px solid #CCB; width: 100%; }
 table.weapon-stat td, table.weapon-stat th { padding: 5px; border: 1px solid #E0E0E0; }
@@ -19,3 +29,20 @@ input.invalid { background: red; color: #FDFDFD; }
 
 #boost-settings input[type=number] { width: 100px; }
 table .editable:hover { cursor: pointer; background: #E5E5E5 }
+
+input:focus, select:focus, button:focus { outline: none }
+button.btn-dark { background-color: #222; color: white; border: none; }
+button.btn-close {
+    color: #333;
+    font-weight: bold;
+    font-size: 20px;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 25px;
+    background: transparent;
+}
+
+button.btn-close:hover {
+    background: lightgray;
+}

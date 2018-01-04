@@ -86,10 +86,11 @@ const WeaponSlot = function (config, parentContainer) {
     var $resultTimeCost = $container.find('.time-cost');
     var $resultTimeCostNatural = $container.find('.time-cost-natural');
     var $resultElixirCost = $container.find('.elixir-cost');
-    var $weaponName = $container.find('.weapon-slot-name').text(weaponData.name);
-    var $weaponThumbs = $container.find('img').attr('src', weaponData.thumbnailUrl);
+    var $weaponName = $container.find('.weapon-slot-name label').text(weaponData.name);
+    var $weaponThumbs = $container.find('.weapon-slot-name img').attr('src', weaponData.thumbnailUrl);
+    var $weaponMaxModCount = $container.find('.weapon-mod-count span').text(calc.totalBoostModCounts.totalModCount);
     var $presetTemplate = $('#preset-template .dropdown');
-    var $removeButton = $container.find('button.close');
+    var $removeButton = $container.find('button.btn-close');
     var $notificationLabel = $container.find('.weapon-slot-notification label');
 
     var flattenStatData = function (stat) {
@@ -228,8 +229,6 @@ const WeaponSlot = function (config, parentContainer) {
             }).render(cell, value);
         }
     })
-
-    // var editableRenderer = new NumberCellRenderer();
 
     var validate = function (condition, msg) {
         if (condition) {

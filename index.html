@@ -21,102 +21,108 @@
         <span class="navbar-brand">Mobius Final Fantasy Weapon Boost Calculator</span>
     </nav>
     <div class="container-fluid">
-        <div option="area"></div>
         <div class="row">
-            <div id="weapon-select-area" class="col-sm-2">
-                <h4>Weapon List</h4>
-                <input id="weapon-search" type="text" placeholder="Search weapons...">
-                <select id="weapon-select" size=10></select>
-                <button id="weapon-add">Add to Boost</button>
-                <div id="boost-settings">
-                    <h4>Boost Settings</h4>
-                    <form>
-                        <div class="checkbox">
-                            <label data-toggle="tooltip" title="288 natural stamina regeneration per day">
-                                <input type="checkbox" data-option="natural-sp-stam" checked> Use natural SP stamina
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label data-toggle="tooltip" title="288 natural stamina regeneration per day">
-                                <input type="checkbox" data-option="natural-mp-stam" checked> Use natural MP stamina
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label data-toggle="tooltip" title="per elixir used">
-                                <input type="checkbox" data-option="mobius-day"> Double Stamina Refill
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label data-toggle="tooltip" title="4.5 minutes per stamina spent, instead of 3">
-                                <input type="checkbox" data-option="bahamut-lagoon"> Bahamut Lagoon
-                            </label>
-                        </div>
-
-                        <div class="form-group">
-                            <label>
-                                Max SP Stamina
-                                <input type="number" min=0 value=90>
-                            </label>
-                        </div>
-                    </form>
-                </div>
-                <div id="other-settings">
-                    <h4>Other Settings</h4>
+        <div id="weapon-select-area" class="col-sm-2">
+            <h4>Weapon List</h4>
+            <input id="weapon-search" type="text" placeholder="Search weapons...">
+            <select id="weapon-select" size=16></select>
+            <button id="weapon-add" class="btn-dark">Add to Boost</button>
+            <div id="boost-settings">
+                <h4>Boost Settings</h4>
+                <form>
                     <div class="checkbox">
-                        <label data-toggle="tooltip" title="Includes all weapons that are in JP version">
-                            <input type="checkbox" data-option="jp-only"> JP Content
+                        <label data-toggle="tooltip" title="288 natural stamina regeneration per day">
+                            <input type="checkbox" data-option="natural-sp-stam" checked> Use natural SP stamina
                         </label>
                     </div>
-                </div>
+                    <div class="checkbox">
+                        <label data-toggle="tooltip" title="288 natural stamina regeneration per day">
+                            <input type="checkbox" data-option="natural-mp-stam" checked> Use natural MP stamina
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label data-toggle="tooltip" title="per elixir used">
+                            <input type="checkbox" data-option="mobius-day"> Double Stamina Refill
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label data-toggle="tooltip" title="4.5 minutes per stamina spent, instead of 3">
+                            <input type="checkbox" data-option="bahamut-lagoon"> Bahamut Lagoon
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Max SP Stamina
+                            <input type="number" min=0 value=90>
+                        </label>
+                    </div>
+                </form>
             </div>
-            <div id="weapon-boost-area" class="col-sm-10">
-                <div id="weapon-slot-template" class="weapon-boost-group col hidden">
-                    <div class="row">
-                        <img src="http://via.placeholder.com/50x50" width=50 height=50>
-                        <label class="weapon-slot-name">Weapon Name</label>
-                        <div class="pull-right">
-                            <button type="button" class="close">
-                                <span>&times</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="stat-calc-input"></div>
-                        <div class="stat-calc-result">
-                            <table class="weapon-stat">
-                                <tr>
-                                    <th>Total Boost Time</th>
-                                    <th>Natural Boost Time</th>
-                                    <th>Elixir Cost</th>
-                                </tr>
-                                <tr>
-                                    <td class="time-cost">0</td>
-                                    <td class="time-cost-natural">0</td>
-                                    <td class="elixir-cost">0</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row weapon-slot-notification">
-                        <label></label>
-                    </div>
-                </div>
-                <div id="preset-template" class="hidden">
-                    <div class="dropdown">
-                        <button class="dropdown-toggle" type="button" data-toggle="dropdown">
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="#" data-preset="preset-base">Base Stat</a>
-                                <a href="#" data-preset="preset-min">Minimum Stat (with all mods)</a>
-                                <a href="#" data-preset="preset-max">Max Boost</a>
-                            </li>
-                        </ul>
-                    </div>
+            <div id="other-settings" class="hidden">
+                <h4>Other Settings</h4>
+                <div class="checkbox">
+                    <label data-toggle="tooltip" title="Includes all weapons that are in JP version">
+                        <input type="checkbox" data-option="jp-only"> JP Content
+                    </label>
                 </div>
             </div>
         </div>
+        <div id="weapon-boost-area" class="col-sm-10 col-sm-offset-2">
+            <div id="weapon-slot-template" class="weapon-boost-group col hidden">
+                <div class="weapon-slot-info">
+                    <div class="weapon-slot-name">
+                        <img src="http://via.placeholder.com/50x50" width=50 height=50>
+                        <label>Weapon Name</label>
+                    </div>
+                    <div class="weapon-mod-count">
+                        <label>Number of modifications available:
+                            <span>0</span>
+                        </label>
+                    </div>
+                    <div class="weapon-slot-close">
+                        <button type="button" class="btn-close">
+                            <span>&times</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="weapon-slot-stat">
+                    <div class="stat-calc-input"></div>
+                    <div class="stat-calc-result">
+                        <table class="weapon-stat">
+                            <tr>
+                                <th>TOTAL BOOST TIME</th>
+                                <th>NATURAL BOOST TIME</th>
+                                <th>ELIXIR COST</th>
+                            </tr>
+                            <tr>
+                                <td class="time-cost">0</td>
+                                <td class="time-cost-natural">0</td>
+                                <td class="elixir-cost">0</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="weapon-slot-notification">
+                    <label></label>
+                </div>
+            </div>
+            <div id="preset-template" class="hidden">
+                <div class="dropdown">
+                    <button class="dropdown-toggle btn-dark" type="button" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#" data-preset="preset-base">Base Stat</a>
+                            <a href="#" data-preset="preset-min">Minimum Stat (with all mods)</a>
+                            <a href="#" data-preset="preset-max">Max Boost</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 
 
