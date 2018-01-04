@@ -65,6 +65,7 @@ const WeaponSlot = function (config, parentContainer) {
         .appendTo(parentContainer);
     var $gridContainer = $container.find('.stat-calc-input').attr('id', WEAPON_SLOT_STAT_GRID_PREFIX + config.weaponId);
     var $resultTimeCost = $container.find('.time-cost');
+    var $resultTimeCostNatural = $container.find('.time-cost-natural');
     var $resultElixirCost = $container.find('.elixir-cost');
     var $weaponName = $container.find('.weapon-slot-name').text(weaponData.name);
     var $weaponThumbs = $container.find('img').attr('src', weaponData.thumbnailUrl);
@@ -92,7 +93,7 @@ const WeaponSlot = function (config, parentContainer) {
         values.headerCol = rowEnum.label;
         values.availableMod = calc.checkStatValidity(stat).availableMod;
         values.preset = rowEnum.rowId;
-        
+
         return {
             id: rowEnum.id,
             values: values
@@ -178,10 +179,12 @@ const WeaponSlot = function (config, parentContainer) {
         var currentInput = getStatData();
         var boostTimeInHours = Math.max(0, calc.computeTotalTime(currentInput[0], currentInput[1]));
         var boostTimeInDays = (boostTimeInHours / 24).toFixed(1);
-        $resultTimeCost.html(boostTimeInHours + ' hour(s) | ' + boostTimeInDays + ' day(s)');
-        $resultElixirCost.html(
-            Math.ceil(boostTimeInHours * 60 / userOptions.staminaLevel * userOptions.staminaMultiplier)
-            + ' (tentative number)');
+        var boostTimeNatural = (boostTimeInHours * 60 / (24 * 60 + userOptions.dailyStamina * userOptions.staminaMultiplier)).toFixed(1);
+        $resultTimeCost.text(boostTimeInHours + ' hour(s) | ' + boostTimeInDays + ' day(s)');
+        $resultTimeCostNatural.text(boostTimeNatural + ' day(s)');
+        $resultElixirCost.text(
+            Math.ceil(boostTimeInHours * 60 / ((userOptions.staminaLevel + userOptions.bonusStamina) * userOptions.staminaMultiplier))
+            + ' elixir(s)');
     }
 
     var onGridValueChange = function (rowIndex, columnIndex, oldValue, newValue, row) {

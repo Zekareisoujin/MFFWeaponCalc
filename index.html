@@ -21,42 +21,52 @@
         <span class="navbar-brand">Mobius Final Fantasy Weapon Boost Calculator</span>
     </nav>
     <div class="container-fluid">
-        <div id="setting-area"></div>
+        <div option="area"></div>
         <div class="row">
             <div id="weapon-select-area" class="col-sm-2">
                 <h4>Weapon List</h4>
                 <input id="weapon-search" type="text" placeholder="Search weapons...">
                 <select id="weapon-select" size=10></select>
                 <button id="weapon-add">Add to Boost</button>
-                <div>
-                    <h4>Settings</h4>
+                <div id="boost-settings">
+                    <h4>Boost Settings</h4>
                     <form>
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" id="setting-natural-sp-stam" checked> Use natural SP stamina
+                                <input type="checkbox" option="natural-sp-stam" checked> Use natural SP stamina
                             </label>
                         </div>
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" id="setting-natural-mp-stam" checked> Use natural MP stamina
+                                <input type="checkbox" option="natural-mp-stam" checked> Use natural MP stamina
                             </label>
                         </div>
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" id="setting-mobius-day"> Mobius Day elixir spam
+                                <input type="checkbox" option="mobius-day"> Mobius Day elixir spam
                             </label>
                         </div>
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" id="setting-bahamut-lagoon"> Bahamut Lagoon
+                                <input type="checkbox" option="bahamut-lagoon"> Bahamut Lagoon
                             </label>
                         </div>
-                        <div class="checkbox">
+
+                        <div class="form-group">
                             <label>
-                                <input type="checkbox" id="setting-jp-only"> JP Content
+                                Stamina Level
+                                <input type="number" min=0 value=90>
                             </label>
                         </div>
                     </form>
+                </div>
+                <div id="other-settings">
+                    <h4>Other Settings</h4>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" option="jp-only"> JP Content
+                        </label>
+                    </div>
                 </div>
             </div>
             <div id="weapon-boost-area" class="col-sm-10">
@@ -71,10 +81,12 @@
                             <table class="weapon-stat">
                                 <tr>
                                     <th>Total Boost Time</th>
+                                    <th>Natural Boost Time</th>
                                     <th>Elixir Cost</th>
                                 </tr>
                                 <tr>
                                     <td class="time-cost">0</td>
+                                    <td class="time-cost-natural">0</td>
                                     <td class="elixir-cost">0</td>
                                 </tr>
                             </table>

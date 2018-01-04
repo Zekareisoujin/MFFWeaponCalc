@@ -1,8 +1,19 @@
+const NATURAL_STAMINA = 12 * 24;
+const MOBIUS_DAY_BONUS = 1; // 100% more stamina
+const BAHAMUT_LAGOON_MULTIPLER = 1.5;
+const BASE_MULTIPLIER = 3;
+
+const OPTION_NATURAL_STAMINA_SP = 'natural-sp-stam';
+const OPTION_NATURAL_STAMINA_MP = 'natural-mp-stam';
+const OPTION_MOBIUS_DAY = 'mobius-day';
+const OPTION_BAHAMUT_LAGOON = 'bahamut-lagoon';
+
 const WeaponCalcIndex = function () {
 
     var db;
     var weaponBoostSlots = {};
     var $weaponSearch, $weaponSelect, $weaponAdd, $weaponBoostArea;
+    var $boostSettings, $staminaInput;
     var $weaponSelectOptions = {};
 
     var initialize = function () {
@@ -21,6 +32,8 @@ const WeaponCalcIndex = function () {
         $weaponSearch = $('#weapon-search');
         $weaponAdd = $('#weapon-add');
         $weaponBoostArea = $('#weapon-boost-area');
+        $boostSettings = $('#boost-settings input[type=checkbox]');
+        $staminaInput = $('#boost-settings input[type=number]');
 
         for (var weaponId in db.weapon) {
             var weaponData = db.weapon[weaponId];
@@ -32,6 +45,8 @@ const WeaponCalcIndex = function () {
     var bindComponents = function () {
         $weaponAdd.click(addWeaponToBoostArea);
         $weaponSearch.on('input', filterSelectList);
+        $boostSettings.change(settingChange);
+        $staminaInput.change(settingChange);
     };
 
     var addWeaponToBoostArea = function (e) {
@@ -41,10 +56,7 @@ const WeaponCalcIndex = function () {
             weaponSlot = WeaponSlot({
                 db: db,
                 weaponId: weaponId,
-                userOptions: {
-                    staminaLevel: 100,
-                    staminaMultiplier: 3
-                }
+                userOptions: getBoostSettings()
             }, $weaponBoostArea);
             weaponSlot.render();
             weaponBoostSlots[weaponId] = weaponSlot;
@@ -63,6 +75,40 @@ const WeaponCalcIndex = function () {
                     || db.weapon[id].class.toLowerCase().contains(key);
                 match ? $weaponSelectOptions[id].show() : $weaponSelectOptions[id].hide();
             }
+        }
+    }
+
+    var getBoostSettings = function () {
+        var boostSettings = {};
+        $boostSettings.each(function (index, element) {
+            boostSettings[$(element).attr('option')] = $(element).prop('checked');
+        });
+        var staminaLevel = parseInt($staminaInput.val());
+        var staminaMultiplier = BASE_MULTIPLIER;
+        var bonusStamina = 0;
+        var dailyStamina = 0;
+
+        if (boostSettings[OPTION_MOBIUS_DAY])
+            bonusStamina += staminaLevel * MOBIUS_DAY_BONUS;
+        if (boostSettings[OPTION_BAHAMUT_LAGOON])
+            staminaMultiplier *= BAHAMUT_LAGOON_MULTIPLER;
+        if (boostSettings[OPTION_NATURAL_STAMINA_MP])
+            dailyStamina += NATURAL_STAMINA;
+        if (boostSettings[OPTION_NATURAL_STAMINA_MP])
+            dailyStamina += NATURAL_STAMINA;
+
+        return {
+            staminaLevel: staminaLevel,
+            staminaMultiplier: staminaMultiplier,
+            bonusStamina: bonusStamina,
+            dailyStamina: dailyStamina
+        }
+    }
+
+    var settingChange = function (e) {
+        var boostSettings = getBoostSettings();
+        for (var weaponId in weaponBoostSlots) {
+            weaponBoostSlots[weaponId].updateBoostCost(boostSettings);
         }
     }
 
