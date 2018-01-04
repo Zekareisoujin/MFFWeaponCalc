@@ -12,8 +12,8 @@ body { font-family:'lucida grande', tahoma, verdana, arial, sans-serif; padding-
 
 .hidden { display: none; }
 
-.stat-calc-input    { flex: 0 0 60%; max-width: 60% }
-.stat-calc-result   { flex: 0 0 30%; max-width: 30% }
+.stat-calc-input    { flex: 0 0 60%; }
+.stat-calc-result   { flex: 0 0 30%; margin-top: 10px; }
 .stat-calc-result table td { font-weight: bold; text-align: center; }
 
 .weapon-boost-group { border-bottom: 2px solid gray; padding: 5px; margin: 5px 0px 5px 0px; }
