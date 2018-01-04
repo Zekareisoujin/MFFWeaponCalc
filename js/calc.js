@@ -169,22 +169,23 @@ const WeaponBoostCalculator = function (config) {
         var boostDone = computeBoostCount(weaponBaseStat, currentStats).totalBoostCount;
         var modDone = computeStatModCount(weaponBaseStat, currentStats).totalStatModCount
             + computeAbilityModCount(weaponBaseStat.ability, currentStats.ability).totalAbilityModCount;
-        var allowedMod = Math.floor(boostDone / BOOST_PER_MOD);
+        var modAllowed = Math.floor(boostDone / BOOST_PER_MOD);
         var isValid = false;
         var availableMod = 0;
 
         if (boostDone < totalBoostCount) {
-            availableMod = allowedMod - modDone;
+            availableMod = modAllowed - modDone;
             isValid = (availableMod == 1 || availableMod == 0);
         } else {
             availableMod = totalModCount - modDone;
-            isValid = (modDone >= allowedMod);
+            isValid = (modDone >= modAllowed);
         }
 
         return {
             isValid: isValid,
             availableMod: availableMod,
-            allowedMod: allowedMod,
+            modAllowed: modAllowed,
+            modDone: modDone,
             allBoostDone: boostDone >= totalBoostCount
         }
     }

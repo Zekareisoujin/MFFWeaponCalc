@@ -18,3 +18,4 @@ table.weapon-stat th { background: #E5E5E5; text-align: center; min-width: 50px;
 input.invalid { background: red; color: #FDFDFD; }
 
 #boost-settings input[type=number] { width: 100px; }
+table .editable:hover { cursor: pointer; background: #E5E5E5 }

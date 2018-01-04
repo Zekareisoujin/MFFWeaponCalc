@@ -8,7 +8,8 @@ const OPTION_NATURAL_STAMINA_MP = 'natural-mp-stam';
 const OPTION_MOBIUS_DAY = 'mobius-day';
 const OPTION_BAHAMUT_LAGOON = 'bahamut-lagoon';
 
-const ATTR_CLOSE_ID = 'close-id';
+const ATTR_CLOSE_ID = 'data-close-id';
+const ATTR_OPTION = 'data-option';
 
 const WeaponCalcIndex = function () {
 
@@ -86,7 +87,7 @@ const WeaponCalcIndex = function () {
     var getBoostSettings = function () {
         var boostSettings = {};
         $boostSettings.each(function (index, element) {
-            boostSettings[$(element).attr('option')] = $(element).prop('checked');
+            boostSettings[$(element).attr(ATTR_OPTION)] = $(element).prop('checked');
         });
         var staminaLevel = parseInt($staminaInput.val());
         var staminaMultiplier = BASE_MULTIPLIER;

@@ -1,7 +1,11 @@
 const WEAPON_SLOT_PREFIX = 'weapon-slot-';
 const WEAPON_SLOT_STAT_GRID_PREFIX = "stat-grid-";
 
-const GRID_CSS_CLASS = 'weapon-stat';
+const CSS_CLASS = {
+    GRID: 'weapon-stat',
+    EDITABLE: 'editable'
+}
+
 const GRID_STAT_METADATA = [
     { name: 'headerCol', label: ' ', datatype: 'string', editable: false },
     { name: 'hp', label: 'HP', datatype: 'integer', editable: true },
@@ -11,11 +15,14 @@ const GRID_STAT_METADATA = [
     { name: 'crit', label: 'CRITICAL', datatype: 'integer', editable: true },
     { name: 'spd', label: 'SPEED', datatype: 'integer', editable: true },
     { name: 'def', label: 'DEFENSE', datatype: 'integer', editable: true },
-    { name: 'availableMod', label: 'AVAILALBE MODS', datatype: 'integer', editable: false },
+    { name: 'modDone', label: 'MODS DONE', datatype: 'integer', editable: false },
+    { name: 'modAllowed', label: 'MODS UNLOCKED', datatype: 'integer', editable: false },
     { name: 'preset', label: 'PRESETS', datatype: 'string', editable: false }
 ];
 
-const EXTRA_COL = 2;
+const EXTRA_COL = 3;
+const STAT_FACTOR = { hp: 10, atk: 1, brk: 1, mag: 1 };
+const STAT_STEP = 2;
 
 const STARTING_VALUE_ROW = {
     id: 'starting_values',
@@ -28,8 +35,8 @@ const FINAL_VALUE_ROW = {
     rowId: 1
 };
 
-const ATTR_PRESET = 'preset';
-const ATTR_ROW_IDX = 'rowIdx';
+const ATTR_PRESET = 'data-preset';
+const ATTR_ROW_IDX = 'data-row-id';
 
 const PRESET_BASE_STAT = 'preset-base';
 const PRESET_MIN_STAT = 'preset-min';
@@ -40,9 +47,11 @@ const MSG = {
     LOWERBOUND_EXCEEDED: "Value must not be lower than base stat of ",
     UPPERBOUND_EXCEEDED: "Value must not be higher than max stat of ",
     IS_NAN: "Value must be an integer.",
-    INVALID_MOD_COUNT: "Available mod counts must be either 0 or 1.",
-    MINIMUM_MOD_REQUIRED: "Total mod done must be at least ",
+    INVALID_MOD_COUNT: "Number of modification done must be 1 less than or equal to number of modification allowed by stat boosting.",
+    MINIMUM_MOD_REQUIRED: "Number of modification done must be at least ",
     INVALID_ABILITY_VALUE: "This ability value is not achieveable.",
+    MOD_DONE_HINT: "Total number of modifications made given the number of stars & ability levels on the weapon.",
+    MOD_ALLOWED_HINT: "Total number of modifications allowed given the number of stat boosts made on the weapon. Total modification done must not exceed this value.",
 }
 
 /**
@@ -55,7 +64,7 @@ const WeaponSlot = function (config, parentContainer) {
     var db = config.db;
     var weaponData = db.weapon[config.weaponId];
     var calc = WeaponBoostCalculator(config);
-    var editableGrid = new EditableGrid(config.weaponId);
+    var editableGrid = new EditableGrid(config.weaponId, { enableSort: false });
     var abilityList = {};
     for (var type in calc.baseStat.ability) {
         abilityList[type] = {};
@@ -86,7 +95,7 @@ const WeaponSlot = function (config, parentContainer) {
     var flattenStatData = function (stat) {
         var values = {};
         for (var type in stat.boost) {
-            values[type] = stat.boost[type];
+            values[type] = stat.boost[type] * STAT_FACTOR[type];
         }
         for (var type in stat.mod) {
             values[type] = stat.mod[type];
@@ -103,7 +112,9 @@ const WeaponSlot = function (config, parentContainer) {
     var convertToGridData = function (rowEnum, stat) {
         var values = flattenStatData(stat);
         values.headerCol = rowEnum.label;
-        values.availableMod = calc.checkStatValidity(stat).availableMod;
+        var validity = calc.checkStatValidity(stat);
+        values.modDone = validity.modDone;
+        values.modAllowed = validity.modAllowed;
         values.preset = rowEnum.rowId;
 
         return {
@@ -118,7 +129,7 @@ const WeaponSlot = function (config, parentContainer) {
             var newStat = WeaponStat();
             var values = editableGrid.getRowValues(i);
             for (var type in newStat.boost) {
-                newStat.boost[type] = values[type];
+                newStat.boost[type] = values[type] / STAT_FACTOR[type];
             }
             for (var type in newStat.mod) {
                 newStat.mod[type] = values[type];
@@ -160,8 +171,8 @@ const WeaponSlot = function (config, parentContainer) {
     var boostConstraints = {};
     for (var type in calc.baseStat.boost) {
         boostConstraints[type] = {
-            min: calc.baseStat.boost[type],
-            max: calc.maxStat.boost[type],
+            min: calc.baseStat.boost[type] * STAT_FACTOR[type],
+            max: calc.maxStat.boost[type] * STAT_FACTOR[type],
         }
     }
     var modConstraints = {};
@@ -184,19 +195,14 @@ const WeaponSlot = function (config, parentContainer) {
                 abilityConstraints[abilityId][i] = true;
     }
 
-    var hpValueRenderer = new CellRenderer({
-        render: function (cell, value) {
-            var intValue = parseInt(value);
-            if (!isNaN(intValue))
-                $(cell).text(intValue * 10);
-        }
-    })
-
     var applyPreset = function () {
         var rowIndex = $(this).attr(ATTR_ROW_IDX);
         var preset = $(this).attr(ATTR_PRESET);
         var values = flattenStatData(statPresets[preset]);
-        values.availableMod = 0;
+        var validity = calc.checkStatValidity(statPresets[preset]);
+        values.modDone = validity.modDone;
+        values.modAllowed = validity.modAllowed;
+
         for (var type in values) {
             editableGrid.setValueAt(rowIndex, editableGrid.getColumnIndex(type), values[type]);
         }
@@ -210,6 +216,21 @@ const WeaponSlot = function (config, parentContainer) {
         }
     })
 
+    var editableRenderer = new CellRenderer({
+        render: function (cell, value) {
+            $(cell).addClass(CSS_CLASS.EDITABLE);
+            new NumberCellRenderer({
+                column: {
+                    nansymbol: 'NaN',
+                    precision: null,
+                    unit: null
+                }
+            }).render(cell, value);
+        }
+    })
+
+    // var editableRenderer = new NumberCellRenderer();
+
     var validate = function (condition, msg) {
         if (condition) {
             $notificationLabel.text("");
@@ -220,7 +241,8 @@ const WeaponSlot = function (config, parentContainer) {
         }
     }
 
-    var getStatValidator = function (constraint) {
+    var getStatValidator = function (column, constraint) {
+        var statStep = STAT_STEP * STAT_FACTOR[column];
         return new CellValidator({
             isValid: function (value) {
                 var intValue = parseInt(value);
@@ -228,7 +250,7 @@ const WeaponSlot = function (config, parentContainer) {
                 if (intValue == constraint.max) return true;
                 return validate(intValue >= constraint.min, MSG.LOWERBOUND_EXCEEDED + constraint.min)
                     && validate(intValue < constraint.max, MSG.UPPERBOUND_EXCEEDED + constraint.max)
-                    && validate(intValue % 2 == constraint.min % 2, MSG.STAT_UNEVEN + constraint.min);
+                    && validate(intValue % statStep == constraint.min % statStep, MSG.STAT_UNEVEN + constraint.min);
             }
         });
     }
@@ -272,19 +294,20 @@ const WeaponSlot = function (config, parentContainer) {
     var onGridValueChange = function (rowIndex, columnIndex, oldValue, newValue, row) {
         var currentInput = getStatData();
         var statValidity = calc.checkStatValidity(currentInput[rowIndex]);
-        editableGrid.setValueAt(rowIndex, metadata.length - EXTRA_COL, statValidity.availableMod);
+        editableGrid.setValueAt(rowIndex, metadata.length - EXTRA_COL, statValidity.modDone);
+        editableGrid.setValueAt(rowIndex, metadata.length - EXTRA_COL + 1, statValidity.modAllowed);
         if (!statValidity.isValid) {
             if (statValidity.allBoostDone)
-                $notificationLabel.text(MSG.MINIMUM_MOD_REQUIRED + statValidity.allowedMod);
+                $notificationLabel.text(MSG.MINIMUM_MOD_REQUIRED + statValidity.modAllowed);
             else
                 $notificationLabel.text(MSG.INVALID_MOD_COUNT);
-        }else {
+        } else {
             $notificationLabel.text("");
             updateBoostCost();
         }
     }
 
-    var generateConstraintHint = function(columnName) {
+    var generateConstraintHint = function (columnName) {
         if (boostConstraints[columnName])
             return "<b>Base value:</b> " + boostConstraints[columnName].min + '<br/> <b>Max value:</b> ' + boostConstraints[columnName].max;
         if (modConstraints[columnName])
@@ -297,7 +320,7 @@ const WeaponSlot = function (config, parentContainer) {
         }
     }
 
-    var onEditorOpen = function(rowIndex, columnIndex) {
+    var onEditorOpen = function (rowIndex, columnIndex) {
         var cell = editableGrid.getCell(rowIndex, columnIndex);
         var $input = $(cell).children('input');
         $input.popover({
@@ -311,17 +334,37 @@ const WeaponSlot = function (config, parentContainer) {
 
     var renderWeaponSlot = function () {
         editableGrid.load({ 'metadata': metadata, 'data': data });
-        editableGrid.setCellRenderer('hp', hpValueRenderer);
         editableGrid.setCellRenderer('preset', presetRenderer);
-        for (var type in boostConstraints)
-            editableGrid.addCellValidator(type, getStatValidator(boostConstraints[type]));
-        for (var type in modConstraints)
+        for (var type in boostConstraints) {
+            editableGrid.setCellRenderer(type, editableRenderer);
+            editableGrid.addCellValidator(type, getStatValidator(type, boostConstraints[type]));
+        }
+        for (var type in modConstraints) {
+            editableGrid.setCellRenderer(type, editableRenderer);
             editableGrid.addCellValidator(type, getModValidator(modConstraints[type]));
-        for (var type in abilityConstraints)
+        }
+        for (var type in abilityConstraints) {
+            editableGrid.setCellRenderer(type, editableRenderer);
             editableGrid.addCellValidator(type, getAbilityValidator(abilityConstraints[type]));
-        editableGrid.renderGrid($gridContainer.attr('id'), GRID_CSS_CLASS);
+        }
+        editableGrid.renderGrid($gridContainer.attr('id'), CSS_CLASS.GRID);
         editableGrid.modelChanged = onGridValueChange;
         editableGrid.openedCellEditor = onEditorOpen;
+
+        // hack this first
+        $container.find('.editablegrid-modDone').popover({
+            trigger: 'hover',
+            placement: 'top',
+            container: 'body',
+            content: MSG.MOD_DONE_HINT
+        });
+        $container.find('.editablegrid-modAllowed').popover({
+            trigger: 'hover',
+            placement: 'top',
+            container: 'body',
+            content: MSG.MOD_ALLOWED_HINT
+        });
+
         updateBoostCost();
     }
 
