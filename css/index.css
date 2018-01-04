@@ -1,86 +1,13 @@
-/* .col-custom-label, .col-custom-input, .weapon-info, .weapon-stat, .calculated-result {
-    position: relative;
-    width: 100%;
-    min-height: 1px;
-    padding-right: 15px;
-    padding-left: 15px;
-}
-
-.col-custom-label {
-    -ms-flex: 0 0 30%;
-    flex: 0 0 30%;
-    max-width: 30%;
-}
-
-.col-custom-input {
-    -ms-flex: 0 0 50%;
-    flex: 0 0 50%;
-    max-width: 50%;
-}
-
-.weapon-info, .weapon-stat, .calculated-result {
-    padding: 10px 10px 10px 10px;
-    margin: 0px 0px 0px 0px;
-    border-style: dotted;
-    border-width: 1px;
-}
-
-.weapon-info {
-    -ms-flex: 0 0 10%;
-    flex: 0 0 10%;
-    max-width: 10%;
-}
-
-.weapon-stat {
-    -ms-flex: 0 0 30%;
-    flex: 0 0 30%;
-    max-width: 30%;
-}
-
-.calculated-result {
-    flex: 0 0 30%;
-    max-width: 30%;
-}
-
-.stat-label, .stat-input {
-    position: relative;
-    width: 100%;
-    padding: 0px 15px 0px 15px;
-}
-
-.stat-label {
-    margin-bottom: 0;
-}
-
-.stat-raw .stat-label, .stat-star .stat-label {
-    flex: 0 0 45%;
-    max-width: 45%;
-}
-
-.stat-ability .stat-label {
-    flex: 0 0 60%;
-    max-width: 60%;
-    word-wrap: normal;
-}
-
-.stat-raw .stat-input {
-    flex: 0 0 50%;
-    max-width: 50%;
-}
-
-.stat-star .stat-input, .stat-ability .stat-input {
-    flex: 0 0 40%;
-    max-width: 40%;
-} */
-
-body { font-family:'lucida grande', tahoma, verdana, arial, sans-serif; font-size:11px; }
-h1 { font-size: 15px; }
+body { font-family:'lucida grande', tahoma, verdana, arial, sans-serif; padding-top: 50px; }
+#weapon-boost-area { font-size: 11px; }
+#weapon-boost-area h1 { font-size: 15px; }
+#weapon-select-area { display: flex; flex-direction: column; }
 /* a { color: #548dc4; text-decoration: none; }
 a:hover { text-decoration: underline; } */
 
 .hidden { display: none; }
 
-.stat-calc-input    { flex: 0 0 60%; max-width: 60% }
+.stat-calc-input    { flex: 0 0 50%; max-width: 50% }
 .stat-calc-result   { flex: 0 0 40%; max-width: 40% }
 .stat-calc-result table td { font-weight: bold; text-align: center; }
 
