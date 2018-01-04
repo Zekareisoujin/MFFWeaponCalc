@@ -41,7 +41,8 @@ const MSG = {
     UPPERBOUND_EXCEEDED: "Value must not be higher than max stat of ",
     IS_NAN: "Value must be an integer.",
     INVALID_MOD_COUNT: "Available mod counts must be either 0 or 1.",
-    INVALID_ABILITY_VALUE: "This ability value is not achieveable."
+    MINIMUM_MOD_REQUIRED: "Total mod done must be at least ",
+    INVALID_ABILITY_VALUE: "This ability value is not achieveable.",
 }
 
 /**
@@ -199,12 +200,16 @@ const WeaponSlot = function (config, parentContainer) {
     }
 
     var onGridValueChange = function (rowIndex, columnIndex, oldValue, newValue, row) {
+        console.log([oldValue, newValue]);
         var currentInput = getStatData();
         var statValidity = calc.checkStatValidity(currentInput[rowIndex]);
         editableGrid.setValueAt(rowIndex, metadata.length - EXTRA_COL, statValidity.availableMod);
-        if (!statValidity.isValid)
-            $notificationLabel.text(MSG.INVALID_MOD_COUNT);
-        else {
+        if (!statValidity.isValid) {
+            if (statValidity.allBoostDone)
+                $notificationLabel.text(MSG.MINIMUM_MOD_REQUIRED + statValidity.allowedMod);
+            else
+                $notificationLabel.text(MSG.INVALID_MOD_COUNT);
+        }else {
             $notificationLabel.text("");
             updateBoostCost();
         }
@@ -237,10 +242,13 @@ const WeaponSlot = function (config, parentContainer) {
     })
 
     var validate = function (condition, msg) {
-        if (condition)
+        if (condition) {
+            $notificationLabel.text("");
             return true;
-        $notificationLabel.text(msg);
-        return false;
+        } else {
+            $notificationLabel.text(msg);
+            return false;
+        }
     }
 
     var getStatValidator = function (constraint) {

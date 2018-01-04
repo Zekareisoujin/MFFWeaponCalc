@@ -183,7 +183,9 @@ const WeaponBoostCalculator = function (config) {
 
         return {
             isValid: isValid,
-            availableMod: availableMod
+            availableMod: availableMod,
+            allowedMod: allowedMod,
+            allBoostDone: boostDone >= totalBoostCount
         }
     }
 
