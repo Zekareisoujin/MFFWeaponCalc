@@ -11,17 +11,29 @@ const GRID_STAT_METADATA = [
     { name: 'crit', label: 'CRITICAL', datatype: 'integer', editable: true },
     { name: 'spd', label: 'SPEED', datatype: 'integer', editable: true },
     { name: 'def', label: 'DEFENSE', datatype: 'integer', editable: true },
-    { name: 'availableMod', label: 'AVAILALBE MODS', datatype: 'integer', editable: false }
+    { name: 'availableMod', label: 'AVAILALBE MODS', datatype: 'integer', editable: false },
+    { name: 'preset', label: 'PRESETS', datatype: 'string', editable: false }
 ];
+
+const EXTRA_COL = 2;
 
 const STARTING_VALUE_ROW = {
     id: 'starting_values',
-    label: 'STARTING VALUES'
+    label: 'STARTING VALUES',
+    rowId: 0
 };
 const FINAL_VALUE_ROW = {
     id: 'final_values',
-    label: 'DESIRED VALUES'
+    label: 'DESIRED VALUES',
+    rowId: 1
 };
+
+const ATTR_PRESET = 'preset';
+const ATTR_ROW_IDX = 'rowIdx';
+
+const PRESET_BASE_STAT = 'preset-base';
+const PRESET_MIN_STAT = 'preset-min';
+const PRESET_MAX_STAT = 'preset-max';
 
 /**
  * 
@@ -41,6 +53,11 @@ const WeaponSlot = function (config, parentContainer) {
             abilityList[type][typeData] = db.ability[type][typeData];
         abilityList[type].requireUnlock = calc.baseStat.ability[type] == 0;
     }
+    var statPresets = {
+        [PRESET_BASE_STAT]: calc.baseStat,
+        [PRESET_MIN_STAT]: calc.minStat,
+        [PRESET_MAX_STAT]: calc.maxStat
+    }
 
     var $container = $('#weapon-slot-template').clone()
         .attr('id', WEAPON_SLOT_PREFIX + config.weaponId)
@@ -51,12 +68,10 @@ const WeaponSlot = function (config, parentContainer) {
     var $resultElixirCost = $container.find('.elixir-cost');
     var $weaponName = $container.find('.weapon-slot-name').text(weaponData.name);
     var $weaponThumbs = $container.find('img').attr('src', weaponData.thumbnailUrl);
+    var $presetTemplate = $('#preset-template .dropdown');
 
-    var convertToGridData = function (rowEnum, stat) {
-        var values = {
-            headerCol: rowEnum.label,
-            availableMod: calc.checkStatValidity(stat).availableMod
-        };
+    var flattenStatData = function (stat) {
+        var values = {};
         for (var type in stat.boost) {
             values[type] = stat.boost[type];
         }
@@ -69,6 +84,15 @@ const WeaponSlot = function (config, parentContainer) {
             else
                 values[type] = (stat.ability[type] - 1) * abilityList[type].step + abilityList[type].startingValue;
         }
+        return values;
+    }
+
+    var convertToGridData = function (rowEnum, stat) {
+        var values = flattenStatData(stat);
+        values.headerCol = rowEnum.label;
+        values.availableMod = calc.checkStatValidity(stat).availableMod;
+        values.preset = rowEnum.rowId;
+        
         return {
             id: rowEnum.id,
             values: values
@@ -103,7 +127,7 @@ const WeaponSlot = function (config, parentContainer) {
     var metadata = GRID_STAT_METADATA.slice();
     for (var abilityId in weaponData.abilityRanks) {
         var abilityData = db.ability[abilityId];
-        metadata.splice(metadata.length - 1, 0, {
+        metadata.splice(metadata.length - EXTRA_COL, 0, {
             name: abilityData.id,
             label: abilityData.name.toUpperCase(),
             datatype: 'integer',
@@ -147,20 +171,23 @@ const WeaponSlot = function (config, parentContainer) {
                 abilityConstraints[abilityId][i] = true;
     }
 
-    var updateBoostCost = function () {
+    var updateBoostCost = function (userOptions) {
+        if (!userOptions)
+            userOptions = config.userOptions;
+
         var currentInput = getStatData();
-        var boostTimeInHours = calc.computeTotalTime(currentInput[0], currentInput[1]);
+        var boostTimeInHours = Math.max(0, calc.computeTotalTime(currentInput[0], currentInput[1]));
         var boostTimeInDays = (boostTimeInHours / 24).toFixed(1);
         $resultTimeCost.html(boostTimeInHours + ' hour(s) | ' + boostTimeInDays + ' day(s)');
         $resultElixirCost.html(
-            Math.ceil(boostTimeInHours * 60 / config.userOptions.staminaLevel * config.userOptions.staminaMultiplier)
+            Math.ceil(boostTimeInHours * 60 / userOptions.staminaLevel * userOptions.staminaMultiplier)
             + ' (tentative number)');
     }
 
     var onGridValueChange = function (rowIndex, columnIndex, oldValue, newValue, row) {
         var currentInput = getStatData();
         var statValidity = calc.checkStatValidity(currentInput[rowIndex]);
-        editableGrid.setValueAt(rowIndex, metadata.length - 1, statValidity.availableMod);
+        editableGrid.setValueAt(rowIndex, metadata.length - EXTRA_COL, statValidity.availableMod);
         // if (statValidity.isValid)
         updateBoostCost();
     }
@@ -169,7 +196,26 @@ const WeaponSlot = function (config, parentContainer) {
         render: function (cell, value) {
             var intValue = parseInt(value);
             if (!isNaN(intValue))
-                cell.innerHTML = intValue * 10;
+                $(cell).text(intValue * 10);
+        }
+    })
+
+    var applyPreset = function () {
+        var rowIndex = $(this).attr(ATTR_ROW_IDX);
+        var preset = $(this).attr(ATTR_PRESET);
+        console.log(preset);
+        console.log(statPresets);
+        var values = flattenStatData(statPresets[preset]);
+        for (var type in values) {
+            editableGrid.setValueAt(rowIndex, editableGrid.getColumnIndex(type), values[type]);
+        }
+        updateBoostCost();
+    }
+
+    var presetRenderer = new CellRenderer({
+        render: function (cell, value) {
+            var $presetDropdown = $presetTemplate.clone().appendTo($(cell));
+            $presetDropdown.find('a').attr(ATTR_ROW_IDX, value).click(applyPreset);
         }
     })
 
@@ -205,6 +251,7 @@ const WeaponSlot = function (config, parentContainer) {
     var renderWeaponSlot = function () {
         editableGrid.load({ 'metadata': metadata, 'data': data });
         editableGrid.setCellRenderer('hp', hpValueRenderer);
+        editableGrid.setCellRenderer('preset', presetRenderer);
         for (var type in boostConstraints)
             editableGrid.addCellValidator(type, getStatValidator(boostConstraints[type]));
         for (var type in modConstraints)
@@ -218,6 +265,7 @@ const WeaponSlot = function (config, parentContainer) {
 
     return {
         weaponId: config.weaponId,
-        render: renderWeaponSlot
+        render: renderWeaponSlot,
+        updateBoostCost: updateBoostCost
     }
 }
