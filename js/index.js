@@ -70,7 +70,7 @@ const WeaponCalcIndex = function () {
     }
 
     var filterSelectList = function (e) {
-        var key = $(this).val();
+        var key = $(this).val().toLowerCase();
         if (key.isEmpty()) {
             for (var id in $weaponSelectOptions)
                 $weaponSelectOptions[id].show();
@@ -98,7 +98,7 @@ const WeaponCalcIndex = function () {
             bonusStamina += staminaLevel * MOBIUS_DAY_BONUS;
         if (boostSettings[OPTION_BAHAMUT_LAGOON])
             staminaMultiplier *= BAHAMUT_LAGOON_MULTIPLER;
-        if (boostSettings[OPTION_NATURAL_STAMINA_MP])
+        if (boostSettings[OPTION_NATURAL_STAMINA_SP])
             dailyStamina += NATURAL_STAMINA;
         if (boostSettings[OPTION_NATURAL_STAMINA_MP])
             dailyStamina += NATURAL_STAMINA;

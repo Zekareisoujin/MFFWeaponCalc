@@ -17,7 +17,7 @@ body { font-family:'lucida grande', tahoma, verdana, arial, sans-serif; padding-
 .stat-calc-result table td { font-weight: bold; text-align: center; }
 
 .weapon-boost-group { border-bottom: 2px solid gray; padding: 5px; margin: 5px 0px 5px 0px; }
-.weapon-slot-info, .weapon-slot-stat { display: flex; justify-content: space-between; align-items: center; }
+.weapon-slot-info, .weapon-slot-stat { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
 .weapon-slot-info { padding-bottom: 5px; }
 .weapon-slot-notification { font-weight: bold; color: red; }
 .weapon-slot-close { align-self: flex-start; }
