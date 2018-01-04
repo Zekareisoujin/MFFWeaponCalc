@@ -8,6 +8,8 @@ const OPTION_NATURAL_STAMINA_MP = 'natural-mp-stam';
 const OPTION_MOBIUS_DAY = 'mobius-day';
 const OPTION_BAHAMUT_LAGOON = 'bahamut-lagoon';
 
+const ATTR_CLOSE_ID = 'close-id';
+
 const WeaponCalcIndex = function () {
 
     var db;
@@ -22,7 +24,6 @@ const WeaponCalcIndex = function () {
                 db = loadedDB;
                 initializeComponents();
                 bindComponents();
-                // test();
             });
         });
     };
@@ -60,6 +61,7 @@ const WeaponCalcIndex = function () {
             }, $weaponBoostArea);
             weaponSlot.render();
             weaponBoostSlots[weaponId] = weaponSlot;
+            weaponSlot.$removeButton.attr(ATTR_CLOSE_ID, weaponId).click(removeWeaponSlot);
         }
     }
 
@@ -112,14 +114,17 @@ const WeaponCalcIndex = function () {
         }
     }
 
-    var test = function () {
-        var calc = WeaponBoostCalculator({ db: db, weaponId: 'buster_sword' });
-        console.log(calc);
-    };
+    var removeWeaponSlot = function () {
+        var weaponId = $(this).attr(ATTR_CLOSE_ID);
+        var $element = weaponBoostSlots[weaponId].$element;
+        weaponBoostSlots[weaponId] = {};
+        delete weaponBoostSlots[weaponId];
+        $element.remove();
+        $weaponSelectOptions[weaponId].prop('disabled', false);
+    }
 
     return {
-        initialize: initialize,
-        test: test
+        initialize: initialize
     }
 };
 

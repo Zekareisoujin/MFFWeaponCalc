@@ -70,6 +70,7 @@ const WeaponSlot = function (config, parentContainer) {
     var $weaponName = $container.find('.weapon-slot-name').text(weaponData.name);
     var $weaponThumbs = $container.find('img').attr('src', weaponData.thumbnailUrl);
     var $presetTemplate = $('#preset-template .dropdown');
+    var $removeButton = $container.find('button.close');
 
     var flattenStatData = function (stat) {
         var values = {};
@@ -269,6 +270,8 @@ const WeaponSlot = function (config, parentContainer) {
     return {
         weaponId: config.weaponId,
         render: renderWeaponSlot,
-        updateBoostCost: updateBoostCost
+        updateBoostCost: updateBoostCost,
+        $element: $container,
+        $removeButton: $removeButton
     }
 }
