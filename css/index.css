@@ -30,8 +30,14 @@ input.invalid { background: red; color: #FDFDFD; }
 #boost-settings input[type=number] { width: 100px; }
 table .editable:hover { cursor: pointer; background: #E5E5E5 }
 
-input:focus, select:focus, button:focus { outline: none }
+.modal-header { background: #222; color: white; }
+.modal-body { padding: 25px 15px 25px 15px; }
+
+.export-group p { color: gray; }
+
+input:focus, select:focus, button:focus, a:focus { outline: none }
 button.btn-dark { background-color: #222; color: white; border: none; }
+button.btn-modal { width: 150px; margin-top: 10px; padding-top: 5px; padding-bottom: 5px; }
 button.btn-close {
     color: #333;
     font-weight: bold;

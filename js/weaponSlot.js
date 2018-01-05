@@ -371,6 +371,7 @@ const WeaponSlot = function (config, parentContainer) {
         weaponId: config.weaponId,
         render: renderWeaponSlot,
         updateBoostCost: updateBoostCost,
+        exportData: getStatData,
         $element: $container,
         $removeButton: $removeButton
     }
