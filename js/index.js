@@ -12,6 +12,11 @@ const OPTION_STAMINA_LEVEL = 'stamina-level';
 const ATTR_CLOSE_ID = 'data-close-id';
 const ATTR_OPTION = 'data-option';
 
+const PATH_PARAM_IMPORT = 'import';
+
+const COOKIE_NAME = 'boost-data';
+const COOKIE_DURATION = 180;
+
 const WeaponCalcIndex = function () {
 
     var db;
@@ -26,6 +31,7 @@ const WeaponCalcIndex = function () {
                 db = loadedDB;
                 initializeComponents();
                 bindComponents();
+                initializeData();
             });
         });
     };
@@ -37,6 +43,7 @@ const WeaponCalcIndex = function () {
         $weaponBoostArea = $('#weapon-boost-area');
         $boostSettings = $('#boost-settings input');
         $otherSettings = $('#other-settings input');
+        $saveCookie = $('#save-cookie');
         $exportModal = $('#exportModal');
         $importModal = $('#importModal');
         $resetAll = $('#reset-all');
@@ -54,11 +61,19 @@ const WeaponCalcIndex = function () {
         $weaponAdd.click(onWeaponAddClick);
         $weaponSearch.on('input', filterSelectList);
         $boostSettings.change(boostSettingsChange);
+        $saveCookie.click(saveToCookie);
         $exportModal.find('.export-group input[type="text"]').focus(clickToCopyFocus).blur(clickToCopyBlur);
         $exportModal.on('show.bs.modal', onExportModalOpen);
         $importModal.on('show.bs.modal', onImportModalOpen);
         $importModal.find('.btn-modal').click(onImportingSettings);
         $resetAll.click(resetCalculator);
+    };
+
+    var initializeData = function() {
+        var importPathParam = $.urlParam(PATH_PARAM_IMPORT) || Cookie.getCookie(COOKIE_NAME);
+        if (importPathParam)
+            applyImportData(importPathParam);
+            
     };
 
     var addWeaponSlot = function (weaponId, initialStats) {
@@ -164,6 +179,11 @@ const WeaponCalcIndex = function () {
         }
     }
 
+    var saveToCookie = function() {
+        var packedExportData = generateExportData();
+        Cookie.setCookie(COOKIE_NAME, packedExportData, COOKIE_DURATION);
+    }
+
     var clickToCopyFocus = function () {
         $(this).select();
         document.execCommand('Copy');
@@ -180,24 +200,28 @@ const WeaponCalcIndex = function () {
             weaponBoostData[weaponId] = weaponBoostSlots[weaponId].exportData();
         }
 
-        return {
+        return JSONC.pack({
             weaponBoostData: weaponBoostData,
             boostSettings: getBoostSettings()
-        }
+        });
     }
 
     var onExportModalOpen = function () {
-        var exportData = generateExportData();
-        var packedExportData = JSONC.pack(exportData);
+        var packedExportData = generateExportData();
+        var exportUrl = window.location.href + '?' + PATH_PARAM_IMPORT + '=' + packedExportData;
         $exportModal.find('.export-code').val(packedExportData);
-        $exportModal.find('.export-url').val("");
+        $exportModal.find('.export-url').val(exportUrl);
     }
 
     var onImportModalOpen = function() {
         $importModal.find('input[type=text]').val("");
     }
 
-    var applyImportData = function (data) {
+    var applyImportData = function (packedImportData) {
+        var data = JSONC.unpack(packedImportData);
+
+        // do basic data verification here
+
         var boostSettings = data.boostSettings
         for (var inputType in boostSettings) {
             for (var option in boostSettings[inputType]) {
@@ -225,8 +249,7 @@ const WeaponCalcIndex = function () {
 
     var onImportingSettings = function () {
         var packedImportData = $importModal.find('input[type=text]').val().trim();
-        var importedSettings = JSONC.unpack(packedImportData);
-        applyImportData(importedSettings);
+        applyImportData(packedImportData);
     }
 
     var resetCalculator = function () {
