@@ -75,17 +75,17 @@ const WeaponBoostCalculator = function (config) {
     }
 
     var maxAbilityRank = {};
-    for (var abilityId in weaponData.abilityRanks) {
-        maxAbilityRank[abilityId] = db.ability[abilityId].stepCounts + 1;
+    for (var abilityId in weaponData.abilities) {
+        maxAbilityRank[abilityId] = weaponData.abilities[abilityId].stepCounts + 1;
     }
 
-    var allAbilityModCount = computeAbilityModCount(weaponData.abilityRanks, maxAbilityRank);
+    var allAbilityModCount = computeAbilityModCount(weaponData.startingRanks, maxAbilityRank);
     var abilityModCount = allAbilityModCount.abilityModCount;
     var totalModCount = allAbilityModCount.totalAbilityModCount;
 
     var weaponMaxStat = WeaponStat(MAX_STAT, MAX_STAT, MAX_STAT, MAX_STAT, 5, 2, 5, maxAbilityRank);
     var weaponBaseStat = WeaponStat(weaponData.hp, weaponData.attack, weaponData.break, weaponData.magic,
-        weaponData.critical, weaponData.speed, weaponData.defense, weaponData.abilityRanks);
+        weaponData.critical, weaponData.speed, weaponData.defense, weaponData.startingRanks);
 
     var allBoostCount = computeBoostCount(weaponBaseStat, weaponMaxStat);
     var statBoostCount = allBoostCount.statBoostCount;

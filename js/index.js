@@ -8,6 +8,7 @@ const OPTION_NATURAL_STAMINA_MP = 'natural-mp-stam';
 const OPTION_MOBIUS_DAY = 'mobius-day';
 const OPTION_BAHAMUT_LAGOON = 'bahamut-lagoon';
 const OPTION_STAMINA_LEVEL = 'stamina-level';
+const OPTION_JP_ONLY = "jp-only";
 
 const ATTR_CLOSE_ID = 'data-close-id';
 const ATTR_OPTION = 'data-option';
@@ -23,6 +24,7 @@ const WeaponCalcIndex = function () {
     var weaponBoostSlots = {};
     var $weaponSearch, $weaponSelect, $weaponAdd, $weaponBoostArea;
     var $boostSettings, $otherSettings;
+    var $saveCookie, $exportModal, $importModal, $resetAll, $notificationBox;
     var $weaponSelectOptions = {};
 
     var initialize = function () {
@@ -32,6 +34,7 @@ const WeaponCalcIndex = function () {
                 initializeComponents();
                 bindComponents();
                 initializeData();
+                filterSelectList('');
             });
         });
     };
@@ -60,8 +63,9 @@ const WeaponCalcIndex = function () {
 
     var bindComponents = function () {
         $weaponAdd.click(onWeaponAddClick);
-        $weaponSearch.on('input', filterSelectList);
+        $weaponSearch.on('input', onWeaponSearchInput);
         $boostSettings.change(boostSettingsChange);
+        $otherSettings.change(onWeaponSearchInput);
         $saveCookie.click(saveToCookie);
         $exportModal.find('.export-group input[type="text"]').focus(clickToCopyFocus).blur(clickToCopyBlur);
         $exportModal.on('show.bs.modal', onExportModalOpen);
@@ -110,19 +114,30 @@ const WeaponCalcIndex = function () {
         removeWeaponSlot(weaponId);
     }
 
-    var filterSelectList = function (e) {
-        var key = $(this).val().toLowerCase();
+    var filterSelectList = function (key) {
+        var otherSettings = getOtherSettings();
+        var jpOnly = otherSettings['checkbox'][OPTION_JP_ONLY];
+
         if (key.isEmpty()) {
             for (var id in $weaponSelectOptions)
-                $weaponSelectOptions[id].show();
+                if (jpOnly || !db.weapon[id].jpOnry)
+                    $weaponSelectOptions[id].show();
+                else
+                    $weaponSelectOptions[id].hide();
         } else {
             for (var id in $weaponSelectOptions) {
-                var match = db.weapon[id].name.toLowerCase().contains(key)
+                var match = (db.weapon[id].name.toLowerCase().contains(key)
                     || db.weapon[id].origin.toLowerCase().contains(key)
-                    || db.weapon[id].class.toLowerCase().contains(key);
+                    || db.weapon[id].class.toLowerCase().contains(key))
+                    && (jpOnly || !db.weapon[id].jpOnry)
                 match ? $weaponSelectOptions[id].show() : $weaponSelectOptions[id].hide();
             }
         }
+    }
+
+    var onWeaponSearchInput = function (e) {
+        var key = $weaponSearch.val().toLowerCase();
+        filterSelectList(key);
     }
 
     var getBoostSettings = function () {
@@ -147,6 +162,30 @@ const WeaponCalcIndex = function () {
         });
 
         return boostSettings;
+    }
+
+    var getOtherSettings = function () {
+        var otherSettings = {}
+
+        $otherSettings.each(function (index, element) {
+            var type = $(element).attr('type');
+            var option = $(element).attr(ATTR_OPTION);
+            if (!otherSettings[type])
+                otherSettings[type] = {};
+            switch (type) {
+                case 'checkbox':
+                    otherSettings[type][option] = $(element).prop('checked');
+                    break;
+                case 'number':
+                    otherSettings[type][option] = parseInt($(element).val());
+                    break;
+                default:
+                    otherSettings[type][option] = $(element).val();
+                    break;
+            }
+        });
+
+        return otherSettings;
     }
 
     var generateUserOptions = function (boostSettings) {
@@ -204,7 +243,8 @@ const WeaponCalcIndex = function () {
 
         return JSONC.pack({
             weaponBoostData: weaponBoostData,
-            boostSettings: getBoostSettings()
+            boostSettings: getBoostSettings(),
+            otherSettings: getOtherSettings()
         });
     }
 
@@ -232,6 +272,21 @@ const WeaponCalcIndex = function () {
                         break;
                     default:
                         $(selector).val(boostSettings[inputType][option]);
+                        break;
+                }
+            }
+        }
+
+        var otherSettings = data.otherSettings
+        for (var inputType in otherSettings) {
+            for (var option in otherSettings[inputType]) {
+                var selector = '#other-settings input[type=' + inputType + '][' + ATTR_OPTION + '=' + option + ']';
+                switch (inputType) {
+                    case 'checkbox':
+                        $(selector).prop('checked', otherSettings[inputType][option]);
+                        break;
+                    default:
+                        $(selector).val(otherSettings[inputType][option]);
                         break;
                 }
             }

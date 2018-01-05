@@ -63,15 +63,9 @@ const WeaponSlot = function (config, parentContainer) {
 
     var db = config.db;
     var weaponData = db.weapon[config.weaponId];
+    var weaponAbilities = weaponData.abilities;
     var calc = WeaponBoostCalculator(config);
     var editableGrid = new EditableGrid(config.weaponId, { enableSort: false });
-    var abilityList = {};
-    for (var type in calc.baseStat.ability) {
-        abilityList[type] = {};
-        for (var typeData in db.ability[type])
-            abilityList[type][typeData] = db.ability[type][typeData];
-        abilityList[type].requireUnlock = calc.baseStat.ability[type] == 0;
-    }
     var statPresets = {
         [PRESET_BASE_STAT]: calc.baseStat,
         [PRESET_MIN_STAT]: calc.minStat,
@@ -95,17 +89,17 @@ const WeaponSlot = function (config, parentContainer) {
 
     var flattenStatData = function (stat) {
         var values = {};
-        for (var type in stat.boost) {
-            values[type] = stat.boost[type] * STAT_FACTOR[type];
+        for (var statId in stat.boost) {
+            values[statId] = stat.boost[statId] * STAT_FACTOR[statId];
         }
-        for (var type in stat.mod) {
-            values[type] = stat.mod[type];
+        for (var statId in stat.mod) {
+            values[statId] = stat.mod[statId];
         }
-        for (var type in stat.ability) {
-            if (stat.ability[type] == 0)
-                values[type] = 0;
+        for (var abilityId in stat.ability) {
+            if (stat.ability[abilityId] == 0)
+                values[abilityId] = 0;
             else
-                values[type] = (stat.ability[type] - 1) * abilityList[type].step + abilityList[type].startingValue;
+                values[abilityId] = (stat.ability[abilityId] - 1) * weaponAbilities[abilityId].step + weaponAbilities[abilityId].startingValue;
         }
         return values;
     }
@@ -129,20 +123,20 @@ const WeaponSlot = function (config, parentContainer) {
         for (var i = 0; i < 2; i++) {
             var newStat = WeaponStat();
             var values = editableGrid.getRowValues(i);
-            for (var type in newStat.boost) {
-                newStat.boost[type] = values[type] / STAT_FACTOR[type];
+            for (var statId in newStat.boost) {
+                newStat.boost[statId] = values[statId] / STAT_FACTOR[statId];
             }
-            for (var type in newStat.mod) {
-                newStat.mod[type] = values[type];
+            for (var statId in newStat.mod) {
+                newStat.mod[statId] = values[statId];
             }
             newStat.ability = {};
-            for (var type in abilityList) {
-                if (values[type] == 0)
-                    newStat.ability[type] = 0;
-                else if (abilityList[type].startingValue == abilityList[type].finalValue)
-                    newStat.ability[type] = 1;
+            for (var abilityId in weaponAbilities) {
+                if (values[abilityId] == 0)
+                    newStat.ability[abilityId] = 0;
+                else if (weaponAbilities[abilityId].startingValue == weaponAbilities[abilityId].finalValue)
+                    newStat.ability[abilityId] = 1;
                 else
-                    newStat.ability[type] = (values[type] - abilityList[type].startingValue) / abilityList[type].step + 1;
+                    newStat.ability[abilityId] = (values[abilityId] - weaponAbilities[abilityId].startingValue) / weaponAbilities[abilityId].step + 1;
             }
             statData.push(newStat);
         }
@@ -150,8 +144,8 @@ const WeaponSlot = function (config, parentContainer) {
     }
 
     var metadata = GRID_STAT_METADATA.slice();
-    for (var abilityId in weaponData.abilityRanks) {
-        var abilityData = db.ability[abilityId];
+    for (var abilityId in weaponAbilities) {
+        var abilityData = weaponAbilities[abilityId];
         metadata.splice(metadata.length - EXTRA_COL, 0, {
             name: abilityData.id,
             label: abilityData.name.toUpperCase(),
@@ -170,24 +164,24 @@ const WeaponSlot = function (config, parentContainer) {
     }
 
     var boostConstraints = {};
-    for (var type in calc.baseStat.boost) {
-        boostConstraints[type] = {
-            min: calc.baseStat.boost[type] * STAT_FACTOR[type],
-            max: calc.maxStat.boost[type] * STAT_FACTOR[type],
+    for (var startId in calc.baseStat.boost) {
+        boostConstraints[startId] = {
+            min: calc.baseStat.boost[startId] * STAT_FACTOR[startId],
+            max: calc.maxStat.boost[startId] * STAT_FACTOR[startId],
         }
     }
     var modConstraints = {};
-    for (var type in calc.baseStat.mod) {
-        modConstraints[type] = {
-            min: calc.baseStat.mod[type],
-            max: calc.maxStat.mod[type]
+    for (var startId in calc.baseStat.mod) {
+        modConstraints[startId] = {
+            min: calc.baseStat.mod[startId],
+            max: calc.maxStat.mod[startId]
         }
     }
     var abilityConstraints = {};
-    for (var abilityId in abilityList) {
+    for (var abilityId in weaponAbilities) {
         abilityConstraints[abilityId] = {};
-        var abilityData = abilityList[abilityId];
-        if (abilityData.requireUnlock)
+        var abilityData = weaponAbilities[abilityId];
+        if (weaponData.startingRanks[abilityId] == 0)
             abilityConstraints[abilityId][0] = true;
         if (abilityData.startingValue == abilityData.finalValue)
             abilityConstraints[abilityId][abilityData.startingValue] = true;
@@ -204,8 +198,8 @@ const WeaponSlot = function (config, parentContainer) {
         values.modDone = validity.modDone;
         values.modAllowed = validity.modAllowed;
 
-        for (var type in values) {
-            editableGrid.setValueAt(rowIndex, editableGrid.getColumnIndex(type), values[type]);
+        for (var colName in values) {
+            editableGrid.setValueAt(rowIndex, editableGrid.getColumnIndex(colName), values[colName]);
         }
         updateBoostCost();
     }
@@ -334,17 +328,17 @@ const WeaponSlot = function (config, parentContainer) {
     var renderWeaponSlot = function () {
         editableGrid.load({ 'metadata': metadata, 'data': data });
         editableGrid.setCellRenderer('preset', presetRenderer);
-        for (var type in boostConstraints) {
-            editableGrid.setCellRenderer(type, editableRenderer);
-            editableGrid.addCellValidator(type, getStatValidator(type, boostConstraints[type]));
+        for (var statId in boostConstraints) {
+            editableGrid.setCellRenderer(statId, editableRenderer);
+            editableGrid.addCellValidator(statId, getStatValidator(statId, boostConstraints[statId]));
         }
-        for (var type in modConstraints) {
-            editableGrid.setCellRenderer(type, editableRenderer);
-            editableGrid.addCellValidator(type, getModValidator(modConstraints[type]));
+        for (var statId in modConstraints) {
+            editableGrid.setCellRenderer(statId, editableRenderer);
+            editableGrid.addCellValidator(statId, getModValidator(modConstraints[statId]));
         }
-        for (var type in abilityConstraints) {
-            editableGrid.setCellRenderer(type, editableRenderer);
-            editableGrid.addCellValidator(type, getAbilityValidator(abilityConstraints[type]));
+        for (var abilityId in abilityConstraints) {
+            editableGrid.setCellRenderer(abilityId, editableRenderer);
+            editableGrid.addCellValidator(abilityId, getAbilityValidator(abilityConstraints[abilityId]));
         }
         editableGrid.renderGrid($gridContainer.attr('id'), CSS_CLASS.GRID);
         editableGrid.modelChanged = onGridValueChange;
