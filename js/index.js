@@ -47,6 +47,7 @@ const WeaponCalcIndex = function () {
         $exportModal = $('#exportModal');
         $importModal = $('#importModal');
         $resetAll = $('#reset-all');
+        $notificationBox = $('#notification-all');
 
         $('[data-toggle="tooltip"]').tooltip();
 
@@ -69,11 +70,11 @@ const WeaponCalcIndex = function () {
         $resetAll.click(resetCalculator);
     };
 
-    var initializeData = function() {
+    var initializeData = function () {
         var importPathParam = $.urlParam(PATH_PARAM_IMPORT) || Cookie.getCookie(COOKIE_NAME);
         if (importPathParam)
             applyImportData(importPathParam);
-            
+
     };
 
     var addWeaponSlot = function (weaponId, initialStats) {
@@ -104,7 +105,7 @@ const WeaponCalcIndex = function () {
         $weaponSelectOptions[weaponId].prop('disabled', false);
     }
 
-    var onWeaponRemoveClick = function(weaponId) {
+    var onWeaponRemoveClick = function (weaponId) {
         var weaponId = $(this).attr(ATTR_CLOSE_ID);
         removeWeaponSlot(weaponId);
     }
@@ -179,9 +180,10 @@ const WeaponCalcIndex = function () {
         }
     }
 
-    var saveToCookie = function() {
+    var saveToCookie = function () {
         var packedExportData = generateExportData();
         Cookie.setCookie(COOKIE_NAME, packedExportData, COOKIE_DURATION);
+        showNotification('Calculator data saved to cookie!');
     }
 
     var clickToCopyFocus = function () {
@@ -213,14 +215,12 @@ const WeaponCalcIndex = function () {
         $exportModal.find('.export-url').val(exportUrl);
     }
 
-    var onImportModalOpen = function() {
+    var onImportModalOpen = function () {
         $importModal.find('input[type=text]').val("");
     }
 
     var applyImportData = function (packedImportData) {
         var data = JSONC.unpack(packedImportData);
-
-        // do basic data verification here
 
         var boostSettings = data.boostSettings
         for (var inputType in boostSettings) {
@@ -249,13 +249,25 @@ const WeaponCalcIndex = function () {
 
     var onImportingSettings = function () {
         var packedImportData = $importModal.find('input[type=text]').val().trim();
-        applyImportData(packedImportData);
+        if (!packedImportData.isEmpty()) {
+            try {
+                applyImportData(packedImportData);
+                showNotification('Calculator data imported!');
+            } catch (e) {
+                showNotification('Unable to import, data might be corrupted.');
+            }
+        }
     }
 
     var resetCalculator = function () {
         for (var weaponId in weaponBoostSlots) {
             removeWeaponSlot(weaponId);
         }
+    }
+
+    var showNotification = function (msg) {
+        $notificationBox.text(msg);
+        $notificationBox.fadeIn().delay(2000).fadeOut();
     }
 
     return {

@@ -10,8 +10,6 @@ body { font-family:'lucida grande', tahoma, verdana, arial, sans-serif; padding-
     z-index: 1000;
 }
 
-.hidden { display: none; }
-
 .stat-calc-input    { flex: 0 0 60%; }
 .stat-calc-result   { flex: 0 0 30%; margin-top: 10px; }
 .stat-calc-result table td { font-weight: bold; text-align: center; }
@@ -51,4 +49,19 @@ button.btn-close {
 
 button.btn-close:hover {
     background: lightgray;
+}
+
+.toaster {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background: #222;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    z-index: 2000;
 }
