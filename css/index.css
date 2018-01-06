@@ -3,7 +3,8 @@ body { font-family:'lucida grande', tahoma, verdana, arial, sans-serif; padding-
 #weapon-boost-area { font-size: 11px; }
 #weapon-boost-area h1 { font-size: 15px; }
 #weapon-select-area { 
-    display: flex; flex-direction: column; 
+    display: flex; 
+    flex-direction: column; 
     position: fixed;
     top: 50px;
     bottom: 0;
@@ -66,3 +67,15 @@ button.btn-close:hover {
     height: 50px;
     z-index: 2000;
 }
+
+.weapon-card { 
+    display: flex; 
+    flex-direction: column; 
+    width: 244px; 
+    font-family:'lucida grande', tahoma, verdana, arial, sans-serif; 
+    font-size: 13px;
+}
+.weapon-card .card-title { padding-bottom: 10px; }
+.weapon-card .separator { border: 1px solid gray; margin: 5px 0px 5px 0px; align-self: stretch; }
+.weapon-card .card-col { display: flex; justify-content: space-between; align-items:center; }
+.weapon-card .card-col .card-col-value { text-align: right; padding-left: 15px; }

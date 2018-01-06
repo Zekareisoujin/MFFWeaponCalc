@@ -138,6 +138,7 @@
       </div>
     </div>
   </div>
+
   <div class="modal fade" id="exportModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -161,6 +162,7 @@
       </div>
     </div>
   </div>
+
   <div class="modal fade" id="importModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -177,9 +179,74 @@
     </div>
   </div>
 
-  <span id="notification-all" class="toaster" style="display: none;">
-        Placeholder Notification
-    </span>
+  <div id="weapon-card-template" class="hidden">
+    <div class="weapon-card">
+      <div class="card-title">
+        <img src="https://via.placeholder.com/50x50" width=50 height=50>
+        <label data-card="name">Weapon Name</label>
+      </div>
+      <div class="card-col">
+        <div>
+          <b>Class: </b><span data-card="class">Mage</span>
+        </div>
+        <div>
+          <b>Origin: </b><span data-card="origin">Meia 2nd</span>
+        </div>
+      </div>
+
+      <div class="separator"></div>
+      <div><b>Starting stats</b></div>
+      <div class="card-col">
+        <div class="card-col">
+          <div>
+            <div>HP:</div>
+            <div>Attack:</div>
+            <div>Break:</div>
+            <div>Magic:</div>
+          </div>
+          <div class="card-col-value">
+            <div data-card="hp">0</div>
+            <div data-card="attack">20</div>
+            <div data-card="break">100</div>
+            <div data-card="magic">200</div>
+          </div>
+        </div>
+        <div class="separator"></div>
+        <div class="card-col">
+          <div>
+            <div>Critical:</div>
+            <div>Speed:</div>
+            <div>Defense:</div>
+          </div>
+          <div class="card-col-value">
+            <div data-card="critical">&#9733&#9733</div>
+            <div data-card="speed">&#9733</div>
+            <div data-card="defense">&#9733&#9733&#9733&#9733&#9733</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="separator"></div>
+      <table style="width: 100%">
+        <thead>
+          <tr>
+            <th>Abilities</th>
+            <th class="text-center">Initial</th>
+            <th class="text-center">Final</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="text-right"><b><i>Unlocks required</i></b></div>
+
+      <div class="separator"></div>
+      <div>
+        <b>Total modifications count: </b><span data-card="mod-count">0</span>
+      </div>
+    </div>
+  </div>
+
+  <span id="notification-all" class="toaster" style="display: none;">Placeholder Notification</span>
 
   <script src="js/editablegrid/editablegrid.js"></script>
   <script src="js/editablegrid/editablegrid_renderers.js"></script>
@@ -196,8 +263,9 @@
 
   <script src="js/global.js"></script>
   <script src="js/db.js"></script>
-  <script src="js/weaponStat.js"></script>
   <script src="js/calc.js"></script>
+  <script src="js/weaponStat.js"></script>
+  <script src="js/weaponCard.js"></script>
   <script src="js/weaponSlot.js"></script>
   <script src="js/index.js"></script>
 </body>

@@ -1,4 +1,5 @@
 /* exported WeaponBoostDB */
+/* global WeaponBoostCalculator */
 const WeaponBoostDB = function ([weapon, ability]) {
 
   function _init() {
@@ -14,6 +15,13 @@ const WeaponBoostDB = function ([weapon, ability]) {
       for (var abilityId in w.startingRanks) {
         w.abilities[abilityId] = ability[abilityId];
       }
+
+      w.getCalc = function () {
+        if (!this.calc) {
+          this.calc = WeaponBoostCalculator(this);
+        }
+        return this.calc;
+      };
     }
 
     for (var abilityId in ability) {

@@ -1,15 +1,12 @@
 /* exported WeaponBoostCalculator */
 /* global WeaponStat */
-const WeaponBoostCalculator = function ({
-  db,
-  weaponId
-}) {
+const WeaponBoostCalculator = function (weaponData) {
 
   const MOD_TIME = 24,
     MAX_STAT = 200,
     BOOST_PER_MOD = 6;
 
-  var _wData = db.weapon[weaponId],
+  var _wData = weaponData,
     _wBaseStat, _wMaxStat, _wMinStat,
     _statBoostCount, _statModCount, _abilityModCount,
     _totalBoostCount, _totalModCount;
@@ -191,6 +188,7 @@ const WeaponBoostCalculator = function ({
   _init();
   return {
     /* property */
+    weaponId: _wData.id,
     baseStat: _wBaseStat,
     maxStat: _wMaxStat,
     minStat: _wMinStat,

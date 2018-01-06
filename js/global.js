@@ -48,6 +48,7 @@ const ATTR_KEY = {
   CLOSE_ID: 'data-close-id',
   OPTION: 'data-option',
   OPTION_GROUP: 'data-option-group',
+  CARD: 'data-card'
 };
 
 const ATTR_VAL = {
@@ -62,6 +63,7 @@ const ATTR_VAL = {
   JP_ONLY: 'jp-only',
   GROUP_BOOST: 'boost',
   GROUP_SEARCH: 'search',
+  MOD_COUNT: 'mod-count'
 };
 
 

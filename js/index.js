@@ -1,4 +1,4 @@
-/* global $, WeaponBoostDB, WeaponSlot, Cookie, JSONC
+/* global $, WeaponBoostDB, WeaponCard, WeaponSlot, Cookie, JSONC
 ATTR_KEY, ATTR_VAL, TEXT */
 (function () {
 
@@ -46,11 +46,12 @@ ATTR_KEY, ATTR_VAL, TEXT */
       .tooltip();
 
     for (var wId in _db.weapon) {
-      var weaponData = _db.weapon[wId];
+      var wData = _db.weapon[wId];
       $wSelectOptions[wId] = $('<option>')
-        .text(weaponData.name)
+        .text(wData.name)
         .val(wId);
       $wSelect.append($wSelectOptions[wId]);
+      WeaponCard.decorate($wSelectOptions[wId], wData);
     }
 
     $('#control-panel input')
@@ -86,8 +87,7 @@ ATTR_KEY, ATTR_VAL, TEXT */
     $wSelect.find('option:selected')
       .prop('disabled', true);
     var weaponSlot = WeaponSlot({
-      db: _db,
-      weaponId: wId,
+      weaponData: _db.weapon[wId],
       initialStats: initialStats,
       userOptions: _generateUserOptions()
     }, $wBoostArea);

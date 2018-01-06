@@ -1,10 +1,9 @@
 /* exported WeaponSlot */
-/* global $, WeaponStat, WeaponBoostCalculator, EditableGrid, 
+/* global $, WeaponStat, WeaponCard, EditableGrid, 
 CellRenderer, NumberCellRenderer, CellValidator,
 ATTR_VAL, ATTR_KEY, TEXT */
 const WeaponSlot = function ({
-  db,
-  weaponId,
+  weaponData,
   initialStats,
   userOptions
 }, $parentContainer) {
@@ -39,7 +38,7 @@ const WeaponSlot = function ({
     STAT_FACTOR = { hp: 10, atk: 1, brk: 1, mag: 1 },
     STAT_STEP = 2;
 
-  var _wData = db.weapon[weaponId],
+  var _wData = weaponData,
     _wAbilities = _wData.abilities,
     _calc, _statPresets, _grid,
 
@@ -78,35 +77,33 @@ const WeaponSlot = function ({
   });
 
   function _init() {
-    _calc = WeaponBoostCalculator({
-      db: db,
-      weaponId: weaponId
-    });
-
+    _calc = _wData.getCalc();
     _statPresets = {
       [ATTR_VAL.BASE_STAT]: _calc.baseStat,
       [ATTR_VAL.MIN_STAT]: _calc.minStat,
       [ATTR_VAL.MAX_STAT]: _calc.maxStat
     };
 
-    _grid = new EditableGrid(weaponId, {
+    _grid = new EditableGrid(_wData.id, {
       enableSort: false
     });
 
     $self = $('#weapon-slot-template')
       .clone()
-      .attr('id', WEAPON_SLOT_PREFIX + weaponId)
+      .attr('id', WEAPON_SLOT_PREFIX + _wData.id)
       .removeClass('hidden')
       .appendTo($parentContainer);
     $self.find('.weapon-slot-name label')
       .text(_wData.name);
-    $self.find('.weapon-slot-name img')
-      .attr('src', _wData.thumbnailUrl);
     $self.find('.weapon-mod-count span')
       .text(_calc.totalBoostModCounts.totalModCount);
 
+    var $img = $self.find('.weapon-slot-name img');
+    $img.attr('src', _wData.thumbnailUrl);
+    WeaponCard.decorate($img, _wData);
+
     $gridContainer = $self.find('.stat-calc-input')
-      .attr('id', WEAPON_SLOT_STAT_GRID_PREFIX + weaponId);
+      .attr('id', WEAPON_SLOT_STAT_GRID_PREFIX + _wData.id);
     $resultTimeCost = $self.find('.time-cost');
     $resultTimeCostNatural = $self.find('.time-cost-natural');
     $resultElixirCost = $self.find('.elixir-cost');
@@ -410,7 +407,7 @@ const WeaponSlot = function ({
   _init();
   return {
     /* property */
-    weaponId: weaponId,
+    weaponId: _wData.id,
     $element: $self,
     $control: {
       remove: $removeButton
