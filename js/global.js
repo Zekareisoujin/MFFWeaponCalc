@@ -46,7 +46,8 @@ const ATTR_KEY = {
   PRESET: 'data-preset',
   ROW_IDX: 'data-row-id',
   CLOSE_ID: 'data-close-id',
-  OPTION: 'data-option'
+  OPTION: 'data-option',
+  OPTION_GROUP: 'data-option-group',
 };
 
 const ATTR_VAL = {
@@ -58,7 +59,9 @@ const ATTR_VAL = {
   MOBIUS_DAY: 'mobius-day',
   BAHAMUT_LAGOON: 'bahamut-lagoon',
   STAMINA_LEVEL: 'stamina-level',
-  JP_ONLY: "jp-only"
+  JP_ONLY: 'jp-only',
+  GROUP_BOOST: 'boost',
+  GROUP_SEARCH: 'search',
 };
 
 

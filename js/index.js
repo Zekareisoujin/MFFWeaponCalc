@@ -11,8 +11,8 @@ ATTR_KEY, ATTR_VAL, TEXT */
     COOKIE_DURATION = 180;
 
   var _db, _wBoostSlots = {},
-    $wSearch, $wSelect, $wAdd, $wBoostArea,
-    $boostSettings, $otherSettings,
+    _settings = {},
+    $wSearch, $wSelect, $wAdd, $wBoostArea, $controlPanel,
     $saveCookie, $exportModal, $importModal, $resetAll, $notificationBox,
     $wSelectOptions = {};
 
@@ -35,8 +35,7 @@ ATTR_KEY, ATTR_VAL, TEXT */
     $wSearch = $('#weapon-search');
     $wAdd = $('#weapon-add');
     $wBoostArea = $('#weapon-boost-area');
-    $boostSettings = $('#boost-settings input');
-    $otherSettings = $('#other-settings input');
+    $controlPanel = $('#control-panel');
     $saveCookie = $('#save-cookie');
     $exportModal = $('#exportModal');
     $importModal = $('#importModal');
@@ -53,13 +52,18 @@ ATTR_KEY, ATTR_VAL, TEXT */
         .val(wId);
       $wSelect.append($wSelectOptions[wId]);
     }
+
+    $('#control-panel input')
+      .each(function (idx, element) {
+        _retrieveSetting($(element));
+      });
   };
 
   function _bindComponents() {
     $wAdd.click(_onWeaponAddClick);
     $wSearch.on('input', _onWeaponSearchInput);
-    $boostSettings.change(_boostSettingsChange);
-    $otherSettings.change(_onWeaponSearchInput);
+    $controlPanel.find('input')
+      .change(_onSettingsChange);
     $saveCookie.click(_saveToCookie);
     $exportModal.find('.export-group input[type="text"]')
       .focus(_clickToCopyFocus)
@@ -85,7 +89,7 @@ ATTR_KEY, ATTR_VAL, TEXT */
       db: _db,
       weaponId: wId,
       initialStats: initialStats,
-      userOptions: _generateUserOptions(_getBoostSettings())
+      userOptions: _generateUserOptions()
     }, $wBoostArea);
     weaponSlot.render();
     _wBoostSlots[wId] = weaponSlot;
@@ -115,8 +119,7 @@ ATTR_KEY, ATTR_VAL, TEXT */
   }
 
   function _filterSelectList(key) {
-    var otherSettings = _getOtherSettings();
-    var jpOnly = otherSettings['checkbox'][ATTR_VAL.JP_ONLY];
+    var jpOnly = _settings[ATTR_VAL.JP_ONLY];
 
     if (key.isEmpty()) {
       for (var id in $wSelectOptions)
@@ -146,77 +149,19 @@ ATTR_KEY, ATTR_VAL, TEXT */
     _filterSelectList(key);
   }
 
-  function _getBoostSettings() {
-    var boostSettings = {};
-
-    $boostSettings.each(function (index, element) {
-      var type = $(element)
-        .attr('type');
-      var option = $(element)
-        .attr(ATTR_KEY.OPTION);
-      if (!boostSettings[type])
-        boostSettings[type] = {};
-      switch (type) {
-        case 'checkbox':
-          boostSettings[type][option] = $(element)
-            .prop('checked');
-          break;
-        case 'number':
-          boostSettings[type][option] = parseInt($(element)
-            .val());
-          break;
-        default:
-          boostSettings[type][option] = $(element)
-            .val();
-          break;
-      }
-    });
-
-    return boostSettings;
-  }
-
-  function _getOtherSettings() {
-    var otherSettings = {};
-
-    $otherSettings.each(function (index, element) {
-      var type = $(element)
-        .attr('type');
-      var option = $(element)
-        .attr(ATTR_KEY.OPTION);
-      if (!otherSettings[type])
-        otherSettings[type] = {};
-      switch (type) {
-        case 'checkbox':
-          otherSettings[type][option] = $(element)
-            .prop('checked');
-          break;
-        case 'number':
-          otherSettings[type][option] = parseInt($(element)
-            .val());
-          break;
-        default:
-          otherSettings[type][option] = $(element)
-            .val();
-          break;
-      }
-    });
-
-    return otherSettings;
-  }
-
-  function _generateUserOptions(boostSettings) {
-    var staminaLevel = boostSettings['number'][ATTR_VAL.STAMINA_LEVEL];
+  function _generateUserOptions() {
+    var staminaLevel = _settings[ATTR_VAL.STAMINA_LEVEL];
     var staminaMultiplier = BASE_MULTIPLIER;
     var bonusStamina = 0;
     var dailyStamina = 0;
 
-    if (boostSettings['checkbox'][ATTR_VAL.MOBIUS_DAY])
+    if (_settings[ATTR_VAL.MOBIUS_DAY])
       bonusStamina += staminaLevel * MOBIUS_DAY_BONUS;
-    if (boostSettings['checkbox'][ATTR_VAL.BAHAMUT_LAGOON])
+    if (_settings[ATTR_VAL.BAHAMUT_LAGOON])
       staminaMultiplier *= BAHAMUT_LAGOON_MULTIPLER;
-    if (boostSettings['checkbox'][ATTR_VAL.NATURAL_STAMINA_SP])
+    if (_settings[ATTR_VAL.NATURAL_STAMINA_SP])
       dailyStamina += NATURAL_STAMINA;
-    if (boostSettings['checkbox'][ATTR_VAL.NATURAL_STAMINA_MP])
+    if (_settings[ATTR_VAL.NATURAL_STAMINA_MP])
       dailyStamina += NATURAL_STAMINA;
 
     return {
@@ -227,11 +172,40 @@ ATTR_KEY, ATTR_VAL, TEXT */
     };
   }
 
-  function _boostSettingsChange() {
-    var boostSettings = _getBoostSettings();
-    var userOptions = _generateUserOptions(boostSettings);
-    for (var wId in _wBoostSlots) {
-      _wBoostSlots[wId].updateBoostCost(userOptions);
+  function _retrieveSetting($element) {
+    var type = $element.attr('type');
+    var option = $element.attr(ATTR_KEY.OPTION);
+
+    switch (type) {
+      case 'checkbox':
+        _settings[option] = $element.prop('checked');
+        break;
+      case 'number':
+        _settings[option] = parseInt($element.val());
+        break;
+      default:
+        _settings[option] = $element.val();
+        break;
+    }
+  }
+
+  function _onSettingsChange() {
+    _retrieveSetting($(this));
+    var optionGroup = $(this)
+      .attr(ATTR_KEY.OPTION_GROUP);
+
+    switch (optionGroup) {
+      case ATTR_VAL.GROUP_BOOST:
+        var userOptions = _generateUserOptions();
+        for (var wId in _wBoostSlots) {
+          _wBoostSlots[wId].updateBoostCost(userOptions);
+        }
+        break;
+      case ATTR_VAL.GROUP_SEARCH:
+        _onWeaponSearchInput();
+        break;
+      default:
+        break;
     }
   }
 
@@ -257,15 +231,14 @@ ATTR_KEY, ATTR_VAL, TEXT */
   }
 
   function _generateExportData() {
-    var weaponBoostData = {};
+    var boostData = {};
     for (var wId in _wBoostSlots) {
-      weaponBoostData[wId] = _wBoostSlots[wId].exportData();
+      boostData[wId] = _wBoostSlots[wId].exportData();
     }
 
     return JSONC.pack({
-      weaponBoostData: weaponBoostData,
-      boostSettings: _getBoostSettings(),
-      otherSettings: _getOtherSettings()
+      weaponBoostData: boostData,
+      settings: _settings
     });
   }
 
@@ -284,52 +257,30 @@ ATTR_KEY, ATTR_VAL, TEXT */
       .val("");
   }
 
-  function _applyImportData(packedImportData) {
-    var data = JSONC.unpack(packedImportData);
+  function _applyImportData(packedData) {
+    _resetCalculator();
+    var data = JSONC.unpack(packedData);
+    _settings = data.settings || _settings;
 
-    var boostSettings = data.boostSettings;
-    for (var inputType in boostSettings) {
-      for (var option in boostSettings[inputType]) {
-        var selector = '#boost-settings input[type=' + inputType +
-          '][' + ATTR_KEY.OPTION + '=' + option + ']';
-        switch (inputType) {
-          case 'checkbox':
-            $(selector)
-              .prop('checked', boostSettings[inputType][option]);
-            break;
-          default:
-            $(selector)
-              .val(boostSettings[inputType][option]);
-            break;
-        }
+    for (var option in _settings) {
+      var selector = '#control-panel input[' +
+        ATTR_KEY.OPTION + '=' + option + ']';
+      var value = _settings[option];
+      switch (typeof value) {
+        case "boolean":
+          $(selector)
+            .prop('checked', value);
+          break;
+        default:
+          $(selector)
+            .val(value);
+          break;
       }
     }
 
-    var otherSettings = data.otherSettings;
-    for (var inputType in otherSettings) {
-      for (var option in otherSettings[inputType]) {
-        var selector = '#other-settings input[type=' + inputType +
-          '][' + ATTR_KEY.OPTION + '=' + option + ']';
-        switch (inputType) {
-          case 'checkbox':
-            $(selector)
-              .prop('checked', otherSettings[inputType][option]);
-            break;
-          default:
-            $(selector)
-              .val(otherSettings[inputType][option]);
-            break;
-        }
-      }
-    }
-
-    for (var wId in _wBoostSlots) {
-      _removeWeaponSlot(wId);
-    }
-
-    var weaponBoostData = data.weaponBoostData;
-    for (var wId in weaponBoostData) {
-      _addWeaponSlot(wId, weaponBoostData[wId]);
+    var boostData = data.weaponBoostData;
+    for (var wId in boostData) {
+      _addWeaponSlot(wId, boostData[wId]);
     }
   }
 
