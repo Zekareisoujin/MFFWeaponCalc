@@ -1,336 +1,364 @@
-const NATURAL_STAMINA = 12 * 24;
-const MOBIUS_DAY_BONUS = 1; // 100% more stamina
-const BAHAMUT_LAGOON_MULTIPLER = 1.5;
-const BASE_MULTIPLIER = 3;
+/* global $, WeaponBoostDB, WeaponSlot, Cookie, JSONC
+ATTR_KEY, ATTR_VAL, TEXT */
+(function () {
 
-const OPTION_NATURAL_STAMINA_SP = 'natural-sp-stam';
-const OPTION_NATURAL_STAMINA_MP = 'natural-mp-stam';
-const OPTION_MOBIUS_DAY = 'mobius-day';
-const OPTION_BAHAMUT_LAGOON = 'bahamut-lagoon';
-const OPTION_STAMINA_LEVEL = 'stamina-level';
-const OPTION_JP_ONLY = "jp-only";
+  const NATURAL_STAMINA = 12 * 24,
+    MOBIUS_DAY_BONUS = 1, // 100% more stamina
+    BAHAMUT_LAGOON_MULTIPLER = 1.5,
+    BASE_MULTIPLIER = 3,
+    PATH_PARAM_IMPORT = 'import',
+    COOKIE_NAME = 'boost-data',
+    COOKIE_DURATION = 180;
 
-const ATTR_CLOSE_ID = 'data-close-id';
-const ATTR_OPTION = 'data-option';
+  var _db, _wBoostSlots = {},
+    $wSearch, $wSelect, $wAdd, $wBoostArea,
+    $boostSettings, $otherSettings,
+    $saveCookie, $exportModal, $importModal, $resetAll, $notificationBox,
+    $wSelectOptions = {};
 
-const PATH_PARAM_IMPORT = 'import';
 
-const COOKIE_NAME = 'boost-data';
-const COOKIE_DURATION = 180;
-
-const WeaponCalcIndex = function () {
-
-    var db;
-    var weaponBoostSlots = {};
-    var $weaponSearch, $weaponSelect, $weaponAdd, $weaponBoostArea;
-    var $boostSettings, $otherSettings;
-    var $saveCookie, $exportModal, $importModal, $resetAll, $notificationBox;
-    var $weaponSelectOptions = {};
-
-    var initialize = function () {
-        $.getJSON('js/db.json', data => {
-            WeaponBoostDB(data).then((loadedDB) => {
-                db = loadedDB;
-                initializeComponents();
-                bindComponents();
-                initializeData();
-                filterSelectList('');
-            });
+  function _init() {
+    $.getJSON('js/db.json', data => {
+      WeaponBoostDB(data)
+        .then((loadedDB) => {
+          _db = loadedDB;
+          _initializeComponents();
+          _bindComponents();
+          _initializeData();
+          _filterSelectList('');
         });
-    };
+    });
+  };
 
-    var initializeComponents = function () {
-        $weaponSelect = $('#weapon-select');
-        $weaponSearch = $('#weapon-search');
-        $weaponAdd = $('#weapon-add');
-        $weaponBoostArea = $('#weapon-boost-area');
-        $boostSettings = $('#boost-settings input');
-        $otherSettings = $('#other-settings input');
-        $saveCookie = $('#save-cookie');
-        $exportModal = $('#exportModal');
-        $importModal = $('#importModal');
-        $resetAll = $('#reset-all');
-        $notificationBox = $('#notification-all');
+  function _initializeComponents() {
+    $wSelect = $('#weapon-select');
+    $wSearch = $('#weapon-search');
+    $wAdd = $('#weapon-add');
+    $wBoostArea = $('#weapon-boost-area');
+    $boostSettings = $('#boost-settings input');
+    $otherSettings = $('#other-settings input');
+    $saveCookie = $('#save-cookie');
+    $exportModal = $('#exportModal');
+    $importModal = $('#importModal');
+    $resetAll = $('#reset-all');
+    $notificationBox = $('#notification-all');
 
-        $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"]')
+      .tooltip();
 
-        for (var weaponId in db.weapon) {
-            var weaponData = db.weapon[weaponId];
-            $weaponSelectOptions[weaponId] = $('<option>').text(weaponData.name).val(weaponId);
-            $weaponSelect.append($weaponSelectOptions[weaponId]);
-        }
-    };
-
-    var bindComponents = function () {
-        $weaponAdd.click(onWeaponAddClick);
-        $weaponSearch.on('input', onWeaponSearchInput);
-        $boostSettings.change(boostSettingsChange);
-        $otherSettings.change(onWeaponSearchInput);
-        $saveCookie.click(saveToCookie);
-        $exportModal.find('.export-group input[type="text"]').focus(clickToCopyFocus).blur(clickToCopyBlur);
-        $exportModal.on('show.bs.modal', onExportModalOpen);
-        $importModal.on('show.bs.modal', onImportModalOpen);
-        $importModal.find('.btn-modal').click(onImportingSettings);
-        $resetAll.click(resetCalculator);
-    };
-
-    var initializeData = function () {
-        var importPathParam = $.urlParam(PATH_PARAM_IMPORT) || Cookie.getCookie(COOKIE_NAME);
-        if (importPathParam)
-            applyImportData(importPathParam);
-
-    };
-
-    var addWeaponSlot = function (weaponId, initialStats) {
-        $weaponSelect.find('option:selected').prop('disabled', true);
-        weaponSlot = WeaponSlot({
-            db: db,
-            weaponId: weaponId,
-            initialStats: initialStats,
-            userOptions: generateUserOptions(getBoostSettings())
-        }, $weaponBoostArea);
-        weaponSlot.render();
-        weaponBoostSlots[weaponId] = weaponSlot;
-        weaponSlot.$removeButton.attr(ATTR_CLOSE_ID, weaponId).click(onWeaponRemoveClick);
+    for (var wId in _db.weapon) {
+      var weaponData = _db.weapon[wId];
+      $wSelectOptions[wId] = $('<option>')
+        .text(weaponData.name)
+        .val(wId);
+      $wSelect.append($wSelectOptions[wId]);
     }
+  };
 
-    var onWeaponAddClick = function () {
-        var weaponId = $weaponSelect.val();
-        if (weaponId) {
-            addWeaponSlot(weaponId);
-        }
+  function _bindComponents() {
+    $wAdd.click(_onWeaponAddClick);
+    $wSearch.on('input', _onWeaponSearchInput);
+    $boostSettings.change(_boostSettingsChange);
+    $otherSettings.change(_onWeaponSearchInput);
+    $saveCookie.click(_saveToCookie);
+    $exportModal.find('.export-group input[type="text"]')
+      .focus(_clickToCopyFocus)
+      .blur(_clickToCopyBlur);
+    $exportModal.on('show.bs.modal', _onExportModalOpen);
+    $importModal.on('show.bs.modal', _onImportModalOpen);
+    $importModal.find('.btn-modal')
+      .click(_onImportingSettings);
+    $resetAll.click(_resetCalculator);
+  };
+
+  function _initializeData() {
+    var importPathParam = $.urlParam(PATH_PARAM_IMPORT) ||
+      Cookie.getCookie(COOKIE_NAME);
+    if (importPathParam)
+      _applyImportData(importPathParam);
+  };
+
+  function _addWeaponSlot(wId, initialStats) {
+    $wSelect.find('option:selected')
+      .prop('disabled', true);
+    var weaponSlot = WeaponSlot({
+      db: _db,
+      weaponId: wId,
+      initialStats: initialStats,
+      userOptions: _generateUserOptions(_getBoostSettings())
+    }, $wBoostArea);
+    weaponSlot.render();
+    _wBoostSlots[wId] = weaponSlot;
+    weaponSlot.$control.remove.attr(ATTR_KEY.CLOSE_ID, wId)
+      .click(_onWeaponRemoveClick);
+  }
+
+  function _onWeaponAddClick() {
+    var wId = $wSelect.val();
+    if (wId) {
+      _addWeaponSlot(wId);
     }
+  }
 
-    var removeWeaponSlot = function (weaponId) {
-        var $element = weaponBoostSlots[weaponId].$element;
-        weaponBoostSlots[weaponId] = {};
-        delete weaponBoostSlots[weaponId];
-        $element.remove();
-        $weaponSelectOptions[weaponId].prop('disabled', false);
+  function _removeWeaponSlot(wId) {
+    var $element = _wBoostSlots[wId].$element;
+    _wBoostSlots[wId] = {};
+    delete _wBoostSlots[wId];
+    $element.remove();
+    $wSelectOptions[wId].prop('disabled', false);
+  }
+
+  function _onWeaponRemoveClick(wId) {
+    var wId = $(this)
+      .attr(ATTR_KEY.CLOSE_ID);
+    _removeWeaponSlot(wId);
+  }
+
+  function _filterSelectList(key) {
+    var otherSettings = _getOtherSettings();
+    var jpOnly = otherSettings['checkbox'][ATTR_VAL.JP_ONLY];
+
+    if (key.isEmpty()) {
+      for (var id in $wSelectOptions)
+        if (jpOnly || !_db.weapon[id].jpOnry)
+          $wSelectOptions[id].show();
+        else
+          $wSelectOptions[id].hide();
+    } else {
+      for (var id in $wSelectOptions) {
+        var match = (_db.weapon[id].name.toLowerCase()
+            .contains(key) ||
+            _db.weapon[id].origin.toLowerCase()
+            .contains(key) ||
+            _db.weapon[id].class.toLowerCase()
+            .contains(key)) &&
+          (jpOnly || !_db.weapon[id].jpOnry);
+        match ?
+          $wSelectOptions[id].show() :
+          $wSelectOptions[id].hide();
+      }
     }
+  }
 
-    var onWeaponRemoveClick = function (weaponId) {
-        var weaponId = $(this).attr(ATTR_CLOSE_ID);
-        removeWeaponSlot(weaponId);
-    }
+  function _onWeaponSearchInput() {
+    var key = $wSearch.val()
+      .toLowerCase();
+    _filterSelectList(key);
+  }
 
-    var filterSelectList = function (key) {
-        var otherSettings = getOtherSettings();
-        var jpOnly = otherSettings['checkbox'][OPTION_JP_ONLY];
+  function _getBoostSettings() {
+    var boostSettings = {};
 
-        if (key.isEmpty()) {
-            for (var id in $weaponSelectOptions)
-                if (jpOnly || !db.weapon[id].jpOnry)
-                    $weaponSelectOptions[id].show();
-                else
-                    $weaponSelectOptions[id].hide();
-        } else {
-            for (var id in $weaponSelectOptions) {
-                var match = (db.weapon[id].name.toLowerCase().contains(key)
-                    || db.weapon[id].origin.toLowerCase().contains(key)
-                    || db.weapon[id].class.toLowerCase().contains(key))
-                    && (jpOnly || !db.weapon[id].jpOnry)
-                match ? $weaponSelectOptions[id].show() : $weaponSelectOptions[id].hide();
-            }
-        }
-    }
+    $boostSettings.each(function (index, element) {
+      var type = $(element)
+        .attr('type');
+      var option = $(element)
+        .attr(ATTR_KEY.OPTION);
+      if (!boostSettings[type])
+        boostSettings[type] = {};
+      switch (type) {
+        case 'checkbox':
+          boostSettings[type][option] = $(element)
+            .prop('checked');
+          break;
+        case 'number':
+          boostSettings[type][option] = parseInt($(element)
+            .val());
+          break;
+        default:
+          boostSettings[type][option] = $(element)
+            .val();
+          break;
+      }
+    });
 
-    var onWeaponSearchInput = function (e) {
-        var key = $weaponSearch.val().toLowerCase();
-        filterSelectList(key);
-    }
+    return boostSettings;
+  }
 
-    var getBoostSettings = function () {
-        var boostSettings = {}
+  function _getOtherSettings() {
+    var otherSettings = {};
 
-        $boostSettings.each(function (index, element) {
-            var type = $(element).attr('type');
-            var option = $(element).attr(ATTR_OPTION);
-            if (!boostSettings[type])
-                boostSettings[type] = {};
-            switch (type) {
-                case 'checkbox':
-                    boostSettings[type][option] = $(element).prop('checked');
-                    break;
-                case 'number':
-                    boostSettings[type][option] = parseInt($(element).val());
-                    break;
-                default:
-                    boostSettings[type][option] = $(element).val();
-                    break;
-            }
-        });
+    $otherSettings.each(function (index, element) {
+      var type = $(element)
+        .attr('type');
+      var option = $(element)
+        .attr(ATTR_KEY.OPTION);
+      if (!otherSettings[type])
+        otherSettings[type] = {};
+      switch (type) {
+        case 'checkbox':
+          otherSettings[type][option] = $(element)
+            .prop('checked');
+          break;
+        case 'number':
+          otherSettings[type][option] = parseInt($(element)
+            .val());
+          break;
+        default:
+          otherSettings[type][option] = $(element)
+            .val();
+          break;
+      }
+    });
 
-        return boostSettings;
-    }
+    return otherSettings;
+  }
 
-    var getOtherSettings = function () {
-        var otherSettings = {}
+  function _generateUserOptions(boostSettings) {
+    var staminaLevel = boostSettings['number'][ATTR_VAL.STAMINA_LEVEL];
+    var staminaMultiplier = BASE_MULTIPLIER;
+    var bonusStamina = 0;
+    var dailyStamina = 0;
 
-        $otherSettings.each(function (index, element) {
-            var type = $(element).attr('type');
-            var option = $(element).attr(ATTR_OPTION);
-            if (!otherSettings[type])
-                otherSettings[type] = {};
-            switch (type) {
-                case 'checkbox':
-                    otherSettings[type][option] = $(element).prop('checked');
-                    break;
-                case 'number':
-                    otherSettings[type][option] = parseInt($(element).val());
-                    break;
-                default:
-                    otherSettings[type][option] = $(element).val();
-                    break;
-            }
-        });
-
-        return otherSettings;
-    }
-
-    var generateUserOptions = function (boostSettings) {
-        var staminaLevel = boostSettings['number'][OPTION_STAMINA_LEVEL];
-        var staminaMultiplier = BASE_MULTIPLIER;
-        var bonusStamina = 0;
-        var dailyStamina = 0;
-
-        if (boostSettings['checkbox'][OPTION_MOBIUS_DAY])
-            bonusStamina += staminaLevel * MOBIUS_DAY_BONUS;
-        if (boostSettings['checkbox'][OPTION_BAHAMUT_LAGOON])
-            staminaMultiplier *= BAHAMUT_LAGOON_MULTIPLER;
-        if (boostSettings['checkbox'][OPTION_NATURAL_STAMINA_SP])
-            dailyStamina += NATURAL_STAMINA;
-        if (boostSettings['checkbox'][OPTION_NATURAL_STAMINA_MP])
-            dailyStamina += NATURAL_STAMINA;
-
-        return {
-            staminaLevel: staminaLevel,
-            staminaMultiplier: staminaMultiplier,
-            bonusStamina: bonusStamina,
-            dailyStamina: dailyStamina
-        }
-    }
-
-    var boostSettingsChange = function (e) {
-        var boostSettings = getBoostSettings();
-        var userOptions = generateUserOptions(boostSettings);
-        for (var weaponId in weaponBoostSlots) {
-            weaponBoostSlots[weaponId].updateBoostCost(userOptions);
-        }
-    }
-
-    var saveToCookie = function () {
-        var packedExportData = generateExportData();
-        Cookie.setCookie(COOKIE_NAME, packedExportData, COOKIE_DURATION);
-        showNotification('Calculator data saved to cookie!');
-    }
-
-    var clickToCopyFocus = function () {
-        $(this).select();
-        document.execCommand('Copy');
-        $(this).siblings('p').text('Copied to clipboard!');
-    }
-
-    var clickToCopyBlur = function () {
-        $(this).siblings('p').text('Click to copy');
-    }
-
-    var generateExportData = function () {
-        var weaponBoostData = {};
-        for (var weaponId in weaponBoostSlots) {
-            weaponBoostData[weaponId] = weaponBoostSlots[weaponId].exportData();
-        }
-
-        return JSONC.pack({
-            weaponBoostData: weaponBoostData,
-            boostSettings: getBoostSettings(),
-            otherSettings: getOtherSettings()
-        });
-    }
-
-    var onExportModalOpen = function () {
-        var packedExportData = generateExportData();
-        var exportUrl = window.location.href + '?' + PATH_PARAM_IMPORT + '=' + packedExportData;
-        $exportModal.find('.export-code').val(packedExportData);
-        $exportModal.find('.export-url').val(exportUrl);
-    }
-
-    var onImportModalOpen = function () {
-        $importModal.find('input[type=text]').val("");
-    }
-
-    var applyImportData = function (packedImportData) {
-        var data = JSONC.unpack(packedImportData);
-
-        var boostSettings = data.boostSettings
-        for (var inputType in boostSettings) {
-            for (var option in boostSettings[inputType]) {
-                var selector = '#boost-settings input[type=' + inputType + '][' + ATTR_OPTION + '=' + option + ']';
-                switch (inputType) {
-                    case 'checkbox':
-                        $(selector).prop('checked', boostSettings[inputType][option]);
-                        break;
-                    default:
-                        $(selector).val(boostSettings[inputType][option]);
-                        break;
-                }
-            }
-        }
-
-        var otherSettings = data.otherSettings
-        for (var inputType in otherSettings) {
-            for (var option in otherSettings[inputType]) {
-                var selector = '#other-settings input[type=' + inputType + '][' + ATTR_OPTION + '=' + option + ']';
-                switch (inputType) {
-                    case 'checkbox':
-                        $(selector).prop('checked', otherSettings[inputType][option]);
-                        break;
-                    default:
-                        $(selector).val(otherSettings[inputType][option]);
-                        break;
-                }
-            }
-        }
-
-        for (var weaponId in weaponBoostSlots) {
-            removeWeaponSlot(weaponId);
-        }
-
-        var weaponBoostData = data.weaponBoostData;
-        for (var weaponId in weaponBoostData) {
-            addWeaponSlot(weaponId, weaponBoostData[weaponId]);
-        }
-    }
-
-    var onImportingSettings = function () {
-        var packedImportData = $importModal.find('input[type=text]').val().trim();
-        if (!packedImportData.isEmpty()) {
-            try {
-                applyImportData(packedImportData);
-                showNotification('Calculator data imported!');
-            } catch (e) {
-                showNotification('Unable to import, data might be corrupted.');
-            }
-        }
-    }
-
-    var resetCalculator = function () {
-        for (var weaponId in weaponBoostSlots) {
-            removeWeaponSlot(weaponId);
-        }
-    }
-
-    var showNotification = function (msg) {
-        $notificationBox.text(msg);
-        $notificationBox.fadeIn().delay(2000).fadeOut();
-    }
+    if (boostSettings['checkbox'][ATTR_VAL.MOBIUS_DAY])
+      bonusStamina += staminaLevel * MOBIUS_DAY_BONUS;
+    if (boostSettings['checkbox'][ATTR_VAL.BAHAMUT_LAGOON])
+      staminaMultiplier *= BAHAMUT_LAGOON_MULTIPLER;
+    if (boostSettings['checkbox'][ATTR_VAL.NATURAL_STAMINA_SP])
+      dailyStamina += NATURAL_STAMINA;
+    if (boostSettings['checkbox'][ATTR_VAL.NATURAL_STAMINA_MP])
+      dailyStamina += NATURAL_STAMINA;
 
     return {
-        initialize: initialize
-    }
-};
+      staminaLevel: staminaLevel,
+      staminaMultiplier: staminaMultiplier,
+      bonusStamina: bonusStamina,
+      dailyStamina: dailyStamina
+    };
+  }
 
-$(document).ready(() => {
-    calcIndex = WeaponCalcIndex();
-    calcIndex.initialize();
-});
+  function _boostSettingsChange() {
+    var boostSettings = _getBoostSettings();
+    var userOptions = _generateUserOptions(boostSettings);
+    for (var wId in _wBoostSlots) {
+      _wBoostSlots[wId].updateBoostCost(userOptions);
+    }
+  }
+
+  function _saveToCookie() {
+    var packedExportData = _generateExportData();
+    Cookie.setCookie(COOKIE_NAME, packedExportData, COOKIE_DURATION);
+    _showNotification(TEXT.NOTIFICATION.COOKIE_SAVED);
+  }
+
+  function _clickToCopyFocus() {
+    $(this)
+      .select();
+    document.execCommand('Copy');
+    $(this)
+      .siblings('p')
+      .text(TEXT.MISC.CLIPBOARD_COPIED);
+  }
+
+  function _clickToCopyBlur() {
+    $(this)
+      .siblings('p')
+      .text(TEXT.MISC.CLICK_TO_COPY);
+  }
+
+  function _generateExportData() {
+    var weaponBoostData = {};
+    for (var wId in _wBoostSlots) {
+      weaponBoostData[wId] = _wBoostSlots[wId].exportData();
+    }
+
+    return JSONC.pack({
+      weaponBoostData: weaponBoostData,
+      boostSettings: _getBoostSettings(),
+      otherSettings: _getOtherSettings()
+    });
+  }
+
+  function _onExportModalOpen() {
+    var packedExportData = _generateExportData();
+    var exportUrl = window.location.href + '?' +
+      PATH_PARAM_IMPORT + '=' + packedExportData;
+    $exportModal.find('.export-code')
+      .val(packedExportData);
+    $exportModal.find('.export-url')
+      .val(exportUrl);
+  }
+
+  function _onImportModalOpen() {
+    $importModal.find('input[type=text]')
+      .val("");
+  }
+
+  function _applyImportData(packedImportData) {
+    var data = JSONC.unpack(packedImportData);
+
+    var boostSettings = data.boostSettings;
+    for (var inputType in boostSettings) {
+      for (var option in boostSettings[inputType]) {
+        var selector = '#boost-settings input[type=' + inputType +
+          '][' + ATTR_KEY.OPTION + '=' + option + ']';
+        switch (inputType) {
+          case 'checkbox':
+            $(selector)
+              .prop('checked', boostSettings[inputType][option]);
+            break;
+          default:
+            $(selector)
+              .val(boostSettings[inputType][option]);
+            break;
+        }
+      }
+    }
+
+    var otherSettings = data.otherSettings;
+    for (var inputType in otherSettings) {
+      for (var option in otherSettings[inputType]) {
+        var selector = '#other-settings input[type=' + inputType +
+          '][' + ATTR_KEY.OPTION + '=' + option + ']';
+        switch (inputType) {
+          case 'checkbox':
+            $(selector)
+              .prop('checked', otherSettings[inputType][option]);
+            break;
+          default:
+            $(selector)
+              .val(otherSettings[inputType][option]);
+            break;
+        }
+      }
+    }
+
+    for (var wId in _wBoostSlots) {
+      _removeWeaponSlot(wId);
+    }
+
+    var weaponBoostData = data.weaponBoostData;
+    for (var wId in weaponBoostData) {
+      _addWeaponSlot(wId, weaponBoostData[wId]);
+    }
+  }
+
+  function _onImportingSettings() {
+    var packedImportData = $importModal.find('input[type=text]')
+      .val()
+      .trim();
+    if (!packedImportData.isEmpty()) {
+      try {
+        _applyImportData(packedImportData);
+        _showNotification(TEXT.NOTIFICATION.DATA_IMPORTED);
+      } catch (e) {
+        _showNotification(TEXT.NOTIFICATION.DATA_IMPORT_ERROR);
+      }
+    }
+  }
+
+  function _resetCalculator() {
+    for (var wId in _wBoostSlots) {
+      _removeWeaponSlot(wId);
+    }
+  }
+
+  function _showNotification(msg) {
+    $notificationBox.text(msg);
+    $notificationBox.fadeIn()
+      .delay(2000)
+      .fadeOut();
+  }
+
+  _init();
+})();

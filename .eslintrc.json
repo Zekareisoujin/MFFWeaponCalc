@@ -1,0 +1,38 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": false,
+    "es6": true,
+    "node": false
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "sourceType": "script"
+  },
+  "extends": "eslint:recommended",
+  "rules": {
+    "no-const-assign": 1,
+    "no-extra-semi": 0,
+    "semi": ["error", "always"],
+    "max-len": ["warn", {
+      "code": 80
+    }],
+    "no-fallthrough": 0,
+    "no-empty": 0,
+    "no-mixed-spaces-and-tabs": 0,
+    "no-redeclare": 0,
+    "no-shadow": 1,
+    "no-this-before-super": 1,
+    "no-undef": 1,
+    "no-unreachable": 1,
+    "no-unused-vars": 1,
+    "no-use-before-define": 0,
+    "constructor-super": 1,
+    "curly": 0,
+    "eqeqeq": 0,
+    "func-names": 0,
+    "valid-typeof": 1
+  }
+}
