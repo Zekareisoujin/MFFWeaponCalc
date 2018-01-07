@@ -62,7 +62,8 @@ ATTR_KEY, ATTR_VAL, TEXT */
 
   function _bindComponents() {
     $wAdd.click(_onWeaponAddClick);
-    $wSearch.on('input', _onWeaponSearchInput);
+    // throttle keyword search, since moving the DOM element is costly
+    $wSearch.on('input', $.debounce(_onWeaponSearchInput, 250));
     $controlPanel.find('input')
       .change(_onSettingsChange);
     $saveCookie.click(_saveToCookie);
@@ -129,23 +130,17 @@ ATTR_KEY, ATTR_VAL, TEXT */
           $wSelectOptions[id].hide();
     } else {
       for (var id in $wSelectOptions) {
-        var match = (_db.weapon[id].name.toLowerCase()
-            .contains(key) ||
-            _db.weapon[id].origin.toLowerCase()
-            .contains(key) ||
-            _db.weapon[id].class.toLowerCase()
-            .contains(key)) &&
-          (jpOnly || !_db.weapon[id].jpOnry);
-        match ?
-          $wSelectOptions[id].show() :
-          $wSelectOptions[id].hide();
+        $wSelectOptions[id].hide();
       }
+      _db.search(key).forEach( function (wId) {
+        if (jpOnly || !_db.weapon[wId].jpOnry)
+          $wSelectOptions[wId].show().appendTo($wSelect);
+      });
     }
   }
 
   function _onWeaponSearchInput() {
-    var key = $wSearch.val()
-      .toLowerCase();
+    var key = $wSearch.val();
     _filterSelectList(key);
   }
 
