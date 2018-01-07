@@ -87,6 +87,7 @@ const TEXT = {
   },
   NOTIFICATION: {
     COOKIE_SAVED: 'Calculator data saved to cookie!',
+    COOKIE_ERROR: 'Unable to load from cookie, data might be corrupted.',
     DATA_IMPORTED: 'Calculator data imported!',
     DATA_IMPORT_ERROR: 'Unable to import, data might be corrupted.'
   },

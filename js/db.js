@@ -80,12 +80,12 @@ const WeaponBoostDB = function ([weapon, ability]) {
       return scoreMap[b] - scoreMap[a];
     });
 
-    var debug = [];
-    result.forEach((e) => debug.push({
-      id: e,
-      score: scoreMap[e]
-    }));
-    console.log(debug);
+    // var debug = [];
+    // result.forEach((e) => debug.push({
+    //   id: e,
+    //   score: scoreMap[e]
+    // }));
+    // console.log(debug);
 
     return result;
   }

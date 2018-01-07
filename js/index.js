@@ -81,7 +81,12 @@ ATTR_KEY, ATTR_VAL, TEXT */
     var importPathParam = $.urlParam(PATH_PARAM_IMPORT) ||
       Cookie.getCookie(COOKIE_NAME);
     if (importPathParam)
-      _applyImportData(importPathParam);
+      try {
+        _applyImportData(importPathParam);
+      } catch (e) {
+        Cookie.eraseCookie(COOKIE_NAME);
+        _showNotification(TEXT.NOTIFICATION.COOKIE_ERROR);
+      }
   };
 
   function _addWeaponSlot(wId, initialStats) {
@@ -132,10 +137,12 @@ ATTR_KEY, ATTR_VAL, TEXT */
       for (var id in $wSelectOptions) {
         $wSelectOptions[id].hide();
       }
-      _db.search(key).forEach( function (wId) {
-        if (jpOnly || !_db.weapon[wId].jpOnry)
-          $wSelectOptions[wId].show().appendTo($wSelect);
-      });
+      _db.search(key)
+        .forEach(function (wId) {
+          if (jpOnly || !_db.weapon[wId].jpOnry)
+            $wSelectOptions[wId].show()
+            .appendTo($wSelect);
+        });
     }
   }
 
