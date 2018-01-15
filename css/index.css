@@ -27,7 +27,7 @@ table.weapon-stat td, table.weapon-stat th { padding: 5px; border: 1px solid #E0
 table.weapon-stat th { background: #E5E5E5; text-align: center; min-width: 50px; }
 input.invalid { background: red; color: #FDFDFD; }
 
-#boost-settings input[type=number] { width: 100px; }
+#control-panel input[type=number] { width: 100px; }
 table .editable:hover { cursor: pointer; background: #E5E5E5 }
 
 .modal-header { background: #222; color: white; }
