@@ -2300,9 +2300,9 @@
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/451.jpg",
             "jpOnry": false
         },
-        "meroic_grave": {
-            "id": "meroic_grave",
-            "name": "Meroic Grave",
+        "hand_horns_grave": {
+            "id": "hand_horns_grave",
+            "name": "Hand-horns Grave",
             "origin": "Glam Vamp",
             "class": "Meia",
             "hp": 0,
@@ -2314,7 +2314,7 @@
             "defense": 3,
             "ability1": "medic_1",
             "startingRank1": 1,
-            "ability2": "prismatic_return_10",
+            "ability2": "prismatic_return_15",
             "startingRank2": 1,
             "ability3": "painful_break_30",
             "startingRank3": 0,
@@ -2381,9 +2381,9 @@
             "critical": 3,
             "speed": 2,
             "defense": 3,
-            "ability1": "improved_crit_25",
+            "ability1": "improved_crit_20",
             "startingRank1": 1,
-            "ability2": "painful_break_20",
+            "ability2": "painful_break_25",
             "startingRank2": 1,
             "ability3": "piercing_break_50",
             "startingRank3": 1,
@@ -3357,6 +3357,29 @@
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/635.jpg",
             "jpOnry": true
+        },
+        "septentrion": {
+            "id": "septentrion",
+            "name": "Septentrion",
+            "origin": "Proud Cygnus",
+            "class": "Sarah",
+            "hp": 0,
+            "attack": 20,
+            "break": 60,
+            "magic": 100,
+            "critical": 2,
+            "speed": 1,
+            "defense": 1,
+            "ability1": "prismatic_return_15",
+            "startingRank1": 1,
+            "ability2": "improved_crit_50",
+            "startingRank2": 1,
+            "ability3": "painful_break_30",
+            "startingRank3": 0,
+            "ability4": "boost_ult",
+            "startingRank4": 0,
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/639.jpg",
+            "jpOnry": true
         }
     },
     {
@@ -3429,6 +3452,13 @@
             "startingValue": 20,
             "finalValue": 70,
             "stepCounts": 50
+        },
+        "painful_break_25": {
+            "id": "painful_break_25",
+            "name": "Painful Break",
+            "startingValue": 25,
+            "finalValue": 70,
+            "stepCounts": 45
         },
         "painful_break_30": {
             "id": "painful_break_30",
@@ -3756,8 +3786,8 @@
             "id": "prism_starter_2",
             "name": "Prismatic Element Starter",
             "startingValue": 2,
-            "finalValue": 3,
-            "stepCounts": 1
+            "finalValue": 2,
+            "stepCounts": 0
         },
         "prism_starter_3": {
             "id": "prism_starter_3",
