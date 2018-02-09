@@ -2486,7 +2486,7 @@
         },
         "organics": {
             "id": "organics",
-            "name": "Organics",
+            "name": "Ogrenix",
             "origin": "Multiplayer",
             "class": "Warrior",
             "hp": 100,
@@ -3527,15 +3527,15 @@
             "id": "scourge_25",
             "name": "Scourge",
             "startingValue": 25,
-            "finalValue": 70,
-            "stepCounts": 45
+            "finalValue": 50,
+            "stepCounts": 25
         },
         "scourge_50": {
             "id": "scourge_50",
             "name": "Scourge",
             "startingValue": 50,
-            "finalValue": 70,
-            "stepCounts": 20
+            "finalValue": 50,
+            "stepCounts": 0
         },
         "ravage_10": {
             "id": "ravage_10",
