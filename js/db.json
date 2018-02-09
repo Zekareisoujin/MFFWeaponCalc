@@ -2413,7 +2413,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/483.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "prism_rod": {
             "id": "prism_rod",
@@ -2436,7 +2436,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/471.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "dragon_claw": {
             "id": "dragon_claw",
@@ -2459,7 +2459,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/479.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "twin_viper": {
             "id": "twin_viper",
@@ -2482,7 +2482,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/475.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "organics": {
             "id": "organics",
@@ -2505,7 +2505,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/467.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "heaven_s_axis": {
             "id": "heaven_s_axis",
