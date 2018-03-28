@@ -2392,9 +2392,9 @@
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/495.jpg",
             "jpOnry": true
         },
-        "guard_rod": {
-            "id": "guard_rod",
-            "name": "Guard Rod",
+        "guard_stick": {
+            "id": "guard_stick",
+            "name": "Guard Stick",
             "origin": "Midgar Flowergirl",
             "class": "Meia",
             "hp": 0,
@@ -2528,7 +2528,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/487.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "mace_of_zeus": {
             "id": "mace_of_zeus",
@@ -2551,7 +2551,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/491.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "yellow_megaphone": {
             "id": "yellow_megaphone",
@@ -2574,7 +2574,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/499.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "lightbringer": {
             "id": "lightbringer",
@@ -2597,11 +2597,11 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/503.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
-        "ame_no_murakumo": {
-            "id": "ame_no_murakumo",
-            "name": "Ame no Murakumo",
+        "murakumo": {
+            "id": "murakumo",
+            "name": "Murakumo",
             "origin": "Sword Saint 2nd",
             "class": "Warrior",
             "hp": 40,
@@ -2620,7 +2620,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/507.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "sventovit": {
             "id": "sventovit",
@@ -3379,6 +3379,29 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/639.jpg",
+            "jpOnry": true
+        },
+        "lune_noire": {
+            "id": "lune_noire",
+            "name": "Lune Noire",
+            "origin": "Nghtwalker",
+            "class": "Meia",
+            "hp": 400,
+            "attack": 10,
+            "break": 70,
+            "magic": 75,
+            "critical": 4,
+            "speed": 1,
+            "defense": 0,
+            "ability1": "ability_chain_30",
+            "startingRank1": 1,
+            "ability2": "improved_crit_30",
+            "startingRank2": 1,
+            "ability3": "exploit_weakness_50",
+            "startingRank3": 0,
+            "ability4": "boost_ult",
+            "startingRank4": 0,
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/651.jpg",
             "jpOnry": true
         }
     },
