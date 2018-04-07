@@ -9,6 +9,7 @@ const WeaponCard = (function () {
     ],
     STAR_FIELD = ['critical', 'speed', 'defense'],
     STAR_CHAR = '&#9733',
+    EMPTY_CHAR = '&nbsp;',
     SELECTOR = TEMPLATE_ID + ' [' + ATTR_KEY.CARD + '=' +
     REPLACEABLE_TOKEN + ']';
 
@@ -40,7 +41,7 @@ const WeaponCard = (function () {
 
     STAR_FIELD.forEach(function (key) {
       $(SELECTOR.replace(REPLACEABLE_TOKEN, key))
-        .html(STAR_CHAR.repeat(wData[key]));
+        .html(wData[key] == 0 ? EMPTY_CHAR : STAR_CHAR.repeat(wData[key]));
     });
 
     $abilityTbody.empty();

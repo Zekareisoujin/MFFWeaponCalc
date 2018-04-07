@@ -9,7 +9,7 @@ String.prototype.contains = function (s) {
 };
 
 $.urlParam = function (key) {
-  var results = new RegExp('[\?&]' + key + '=([^&#]*)')
+  var results = new RegExp('[?&]' + key + '=([^&#]*)')
     .exec(window.location.href);
   if (results == null)
     return null;

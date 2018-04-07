@@ -2643,7 +2643,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/511.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "vega": {
             "id": "vega",
@@ -2666,7 +2666,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/515.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "folding_epee": {
             "id": "folding_epee",
@@ -2689,7 +2689,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/519.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "cortana": {
             "id": "cortana",
