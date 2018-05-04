@@ -2390,7 +2390,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/495.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "guard_stick": {
             "id": "guard_stick",
@@ -2712,7 +2712,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/540.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "ultima_weapon": {
             "id": "ultima_weapon",
@@ -2735,7 +2735,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/520.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "ultima_mace": {
             "id": "ultima_mace",
@@ -2758,7 +2758,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/524.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "ultima_edge": {
             "id": "ultima_edge",
@@ -2781,7 +2781,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/528.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "ultima_claw": {
             "id": "ultima_claw",
@@ -2804,7 +2804,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/532.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "artemis_s_bow": {
             "id": "artemis_s_bow",
@@ -2827,7 +2827,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/547.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "ultima_arrow": {
             "id": "ultima_arrow",
@@ -2850,7 +2850,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/551.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "ultima_wing": {
             "id": "ultima_wing",
@@ -2873,7 +2873,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/539.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "arc_en_ciel": {
             "id": "arc_en_ciel",
@@ -2896,7 +2896,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/563.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "descent_arc": {
             "id": "descent_arc",
@@ -2919,7 +2919,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/555.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "twashtar": {
             "id": "twashtar",
