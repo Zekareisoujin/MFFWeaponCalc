@@ -25,7 +25,7 @@
         },
         "fatal_smasher": {
             "id": "fatal_smasher",
-            "name": "Fatal Smasher",
+            "name": "Fatal Masher",
             "origin": "Onion Knight 2nd",
             "class": "Warrior",
             "hp": 0,
@@ -278,7 +278,7 @@
         },
         "save_the_queen": {
             "id": "save_the_queen",
-            "name": "Save The Queen",
+            "name": "Save the Queen",
             "origin": "Paladin 1st",
             "class": "Warrior",
             "hp": 20,
@@ -301,7 +301,7 @@
         },
         "galateen": {
             "id": "galateen",
-            "name": "Galateen",
+            "name": "Galatyn",
             "origin": "Paladin 2nd",
             "class": "Warrior",
             "hp": 40,
@@ -324,7 +324,7 @@
         },
         "precieuse": {
             "id": "precieuse",
-            "name": "Precieuse",
+            "name": "Précieuse",
             "origin": "Berserker 1st",
             "class": "Warrior",
             "hp": 20,
@@ -393,7 +393,7 @@
         },
         "kains_lance": {
             "id": "kains_lance",
-            "name": "Kain’s Lance",
+            "name": "Kain's Lance",
             "origin": "Highwind 2nd",
             "class": "Warrior",
             "hp": 40,
@@ -463,7 +463,7 @@
         "buster_sword": {
             "id": "buster_sword",
             "name": "Buster Sword",
-            "origin": "Soldier 1st Class/Ultimate Cloud",
+            "origin": "SOLDIER 1st Class/Cloud Strife",
             "class": "Warrior",
             "hp": 0,
             "attack": 100,
@@ -601,7 +601,7 @@
         "masamune": {
             "id": "masamune",
             "name": "Masamune",
-            "origin": "FF7 Event",
+            "origin": "FF7 Event/Hero of Despair/Sephiroth",
             "class": "Warrior",
             "hp": 0,
             "attack": 60,
@@ -968,7 +968,7 @@
         },
         "judgement": {
             "id": "judgement",
-            "name": "Judgement",
+            "name": "Judgment",
             "origin": "Occultist 1st",
             "class": "Mage",
             "hp": 20,
@@ -1084,7 +1084,7 @@
         "staffuar": {
             "id": "staffuar",
             "name": "Staffuar",
-            "origin": "Tonberry Costume",
+            "origin": "Tonberry Suit",
             "class": "Mage",
             "hp": 40,
             "attack": 0,
@@ -1497,7 +1497,7 @@
         },
         "giant_axe": {
             "id": "giant_axe",
-            "name": "Giant Axe",
+            "name": "Gigant Axe",
             "origin": "Viking 2nd",
             "class": "Ranger",
             "hp": 40,
@@ -1589,7 +1589,7 @@
         },
         "orichalcon": {
             "id": "orichalcon",
-            "name": "Orichalcon",
+            "name": "Orichalcum",
             "origin": "Bard 2nd",
             "class": "Ranger",
             "hp": 40,
@@ -1727,7 +1727,7 @@
         },
         "flame_bone": {
             "id": "flame_bone",
-            "name": "Flame Bone",
+            "name": "Flamebone",
             "origin": "Last Hunter",
             "class": "Ranger",
             "hp": 40,
@@ -1865,7 +1865,7 @@
         },
         "tiger_fang": {
             "id": "tiger_fang",
-            "name": "Tiger Fang",
+            "name": "Tigerfang",
             "origin": "Monk 1st",
             "class": "Monk",
             "hp": 0,
@@ -1980,7 +1980,7 @@
         },
         "jarngreipr": {
             "id": "jarngreipr",
-            "name": "Járngreipr",
+            "name": "Jarngreipr",
             "origin": "Grappler 2nd",
             "class": "Monk",
             "hp": 0,
@@ -2096,7 +2096,7 @@
         "moomba_&_moomba": {
             "id": "moomba_&_moomba",
             "name": "Moomba & Moomba",
-            "origin": "Moogle Costume",
+            "origin": "Moogle Suit",
             "class": "Monk",
             "hp": 40,
             "attack": 65,
@@ -2233,7 +2233,7 @@
         },
         "damsel_wing": {
             "id": "damsel_wing",
-            "name": "Damsel Wing",
+            "name": "Damselwing",
             "origin": "Esmeralda",
             "class": "Meia",
             "hp": 0,
@@ -2395,7 +2395,7 @@
         "guard_stick": {
             "id": "guard_stick",
             "name": "Guard Stick",
-            "origin": "Midgar Flowergirl",
+            "origin": "Flower Girl of Midgar",
             "class": "Meia",
             "hp": 0,
             "attack": 20,
@@ -2532,7 +2532,7 @@
         },
         "mace_of_zeus": {
             "id": "mace_of_zeus",
-            "name": "Mace of Zeus",
+            "name": "Zeus Mace",
             "origin": "Sage 2nd",
             "class": "Mage",
             "hp": 40,
@@ -2556,7 +2556,7 @@
         "yellow_megaphone": {
             "id": "yellow_megaphone",
             "name": "Yellow Megaphone",
-            "origin": "Mascot Cait Sith",
+            "origin": "Cait Sith Suit",
             "class": "Ranger",
             "hp": 40,
             "attack": 0,
@@ -2693,8 +2693,8 @@
         },
         "cortana": {
             "id": "cortana",
-            "name": "Cortana",
-            "origin": "Eorzea Knight",
+            "name": "Curtana",
+            "origin": "Eorzean Paladin",
             "class": "Warrior",
             "hp": 40,
             "attack": 20,
@@ -2808,8 +2808,8 @@
         },
         "artemis_s_bow": {
             "id": "artemis_s_bow",
-            "name": "Artemis's Bow",
-            "origin": "Eorzea Bard",
+            "name": "Artemis Bow",
+            "origin": "Eorzean Bard",
             "class": "Sarah",
             "hp": 0,
             "attack": 20,
@@ -2877,8 +2877,8 @@
         },
         "arc_en_ciel": {
             "id": "arc_en_ciel",
-            "name": "Arc en Ciel",
-            "origin": "Princess of Fantasy",
+            "name": "Arc-en-Ciel",
+            "origin": "Battle Princess",
             "class": "Sarah",
             "hp": 0,
             "attack": 55,
@@ -2900,7 +2900,7 @@
         },
         "descent_arc": {
             "id": "descent_arc",
-            "name": "Descent Arc",
+            "name": "Descending Arc",
             "origin": "Crimson Archer",
             "class": "Sarah",
             "hp": 0,
@@ -3016,7 +3016,7 @@
         "wolfborgen": {
             "id": "wolfborgen",
             "name": "Wolfborgen",
-            "origin": "Nacht Fluke",
+            "origin": "Nachtflug",
             "class": "Sarah",
             "hp": 0,
             "attack": 30,
@@ -3085,7 +3085,7 @@
         "corepetiteur": {
             "id": "corepetiteur",
             "name": "Corépétiteur",
-            "origin": "Primadonna",
+            "origin": "Prima Donna",
             "class": "Sarah",
             "hp": 0,
             "attack": 40,
@@ -3245,7 +3245,7 @@
         },
         "tishtrya": {
             "id": "tishtrya",
-            "name": "Tishtrya ",
+            "name": "Tishtrya",
             "origin": "Vana'diel Geomancer",
             "class": "Meia",
             "hp": 0,
@@ -3408,7 +3408,7 @@
     {
         "boost_ult": {
             "id": "boost_ult",
-            "name": "Boost Ultimate +1",
+            "name": "Boost Ultimate",
             "startingValue": 1,
             "finalValue": 1,
             "stepCounts": 0
@@ -3709,14 +3709,14 @@
         },
         "seed_up_20": {
             "id": "seed_up_20",
-            "name": "Seed Up",
+            "name": "Skillseed Up",
             "startingValue": 20,
             "finalValue": 30,
             "stepCounts": 10
         },
         "seed_up_30": {
             "id": "seed_up_30",
-            "name": "Seed Up",
+            "name": "Skillseed Up",
             "startingValue": 30,
             "finalValue": 30,
             "stepCounts": 0
@@ -3919,14 +3919,14 @@
         },
         "wind_draw_50": {
             "id": "wind_draw_50",
-            "name": "Wind  Draw",
+            "name": "Wind Draw",
             "startingValue": 50,
             "finalValue": 70,
             "stepCounts": 20
         },
         "enhance_wind_100": {
             "id": "enhance_wind_100",
-            "name": "Enhance Wind ",
+            "name": "Enhance Wind",
             "startingValue": 100,
             "finalValue": 100,
             "stepCounts": 0
@@ -3947,14 +3947,14 @@
         },
         "enhance_light_100": {
             "id": "enhance_light_100",
-            "name": "Enhance Light ",
+            "name": "Enhance Light",
             "startingValue": 100,
             "finalValue": 100,
             "stepCounts": 0
         },
         "enhance_light_150": {
             "id": "enhance_light_150",
-            "name": "Enhance Light ",
+            "name": "Enhance Light",
             "startingValue": 150,
             "finalValue": 150,
             "stepCounts": 0
