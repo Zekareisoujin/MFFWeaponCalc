@@ -1,5 +1,35 @@
 /* exported WeaponBoostDB */
 /* global WeaponBoostCalculator */
+
+/*
+  Remove diacritics (accent and other marks) on characters.
+  Based on https://gist.github.com/instanceofme/1731620/d1fa4b56c74cf1924c9cb559e5bbd48d3075f91a
+*/
+var removeDiacritics = (function () {
+  var diacritics = {
+    'Á':'A', 'á':'a',
+    'É':'e', 'é':'e',
+    'Í':'I', 'í':'i',
+    'Ó':'O', 'ó':'o',
+    'Ú':'U', 'ú':'u',
+  };
+  return function (str) {
+    var chars = str.split(''),
+        isAltered = false;
+    for (var i = chars.length - 1; i >= 0; i--) {
+      var ch = chars[i];
+      if (diacritics.hasOwnProperty(ch)) {
+        chars[i] = diacritics[ch];
+        isAltered = true;
+      }
+    }
+    if (isAltered) {
+      str = chars.join('');
+    }
+    return str;
+  }
+})();
+
 const WeaponBoostDB = function ([weapon, ability]) {
 
   var _weaponIndex = {};
@@ -15,6 +45,12 @@ const WeaponBoostDB = function ([weapon, ability]) {
       };
 
       var searchableTerms = [w.name, w.origin, w.class];
+      
+      // add searchable weapon name without diacritics
+      var nonDiacriticName = removeDiacritics(w.name);
+      if (nonDiacriticName !== w.name) {
+        searchableTerms.push(nonDiacriticName);
+      }
 
       w.abilities = {};
       for (var abilityId in w.startingRanks) {
