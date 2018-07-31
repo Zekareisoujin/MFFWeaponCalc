@@ -59,6 +59,7 @@ const ATTR_VAL = {
   NATURAL_STAMINA_MP: 'natural-mp-stam',
   MOBIUS_DAY: 'mobius-day',
   BAHAMUT_LAGOON: 'bahamut-lagoon',
+  VIP_MODE: 'vip-mode',
   STAMINA_LEVEL: 'stamina-level',
   JP_ONLY: 'jp-only',
   GROUP_BOOST: 'boost',

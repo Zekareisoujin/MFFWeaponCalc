@@ -5,6 +5,7 @@ ATTR_KEY, ATTR_VAL, TEXT */
   const NATURAL_STAMINA = 12 * 24,
     MOBIUS_DAY_BONUS = 1, // 100% more stamina
     BAHAMUT_LAGOON_MULTIPLER = 1.5,
+    VIP_MULTIPLIER = 4/3,
     BASE_MULTIPLIER = 3,
     PATH_PARAM_IMPORT = 'import',
     COOKIE_NAME = 'boost-data',
@@ -161,6 +162,8 @@ ATTR_KEY, ATTR_VAL, TEXT */
       bonusStamina += staminaLevel * MOBIUS_DAY_BONUS;
     if (_settings[ATTR_VAL.BAHAMUT_LAGOON])
       staminaMultiplier *= BAHAMUT_LAGOON_MULTIPLER;
+    if (_settings[ATTR_VAL.VIP_MODE])
+      staminaMultiplier *= VIP_MULTIPLIER;
     if (_settings[ATTR_VAL.NATURAL_STAMINA_SP])
       dailyStamina += NATURAL_STAMINA;
     if (_settings[ATTR_VAL.NATURAL_STAMINA_MP])
