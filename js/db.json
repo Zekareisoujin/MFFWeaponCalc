@@ -3149,7 +3149,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/603.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "kotetsu": {
             "id": "kotetsu",
@@ -3172,7 +3172,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/599.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "zanmatou": {
             "id": "zanmatou",
@@ -3222,8 +3222,8 @@
         },
         "ikkitousen": {
             "id": "ikkitousen",
-            "name": "ikkitousen",
-            "origin": "EX Kensei",
+            "name": "Ikkitousen",
+            "origin": "Ascetic",
             "class": "Monk",
             "hp": 0,
             "attack": 120,
@@ -3241,7 +3241,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/615.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "tishtrya": {
             "id": "tishtrya",
@@ -3379,7 +3379,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/639.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "lune_noire": {
             "id": "lune_noire",
