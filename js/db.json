@@ -3199,7 +3199,7 @@
         },
         "trigger_happy": {
             "id": "trigger_happy",
-            "name": "Trigger Happy",
+            "name": "Magical Rave",
             "origin": "Al Bhed Hunter",
             "class": "Sarah",
             "hp": 0,
@@ -3222,7 +3222,7 @@
         },
         "ikkitousen": {
             "id": "ikkitousen",
-            "name": "Ikkitousen",
+            "name": "One Against Many",
             "origin": "Ascetic",
             "class": "Monk",
             "hp": 0,
@@ -3356,6 +3356,28 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/635.jpg",
+            "jpOnry": true
+        },
+        "amatsu_mikaboshi": {
+            "id": "amatsu_mikaboshi",
+            "name": "Amatsu Mikaboshi ",
+            "origin": "Tendoushi (Skyseer)",
+            "class": "Mage",
+            "hp": 0,
+            "attack": 65,
+            "break": 120,
+            "magic": 120,
+            "critical": 2,
+            "speed": 1,
+            "defense": 2,
+            "ability1": "improved_crit_30",
+            "startingRank1": 1,
+            "ability2": "prismatic_return_10",
+            "startingRank2": 1,
+            "ability3": "quick_break_5",
+            "startingRank3": 0,
+            "ability4": "boost_ult",
+            "startingRank4": 0,
             "jpOnry": true
         },
         "septentrion": {
