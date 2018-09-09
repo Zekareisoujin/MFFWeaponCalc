@@ -4,14 +4,14 @@ const WeaponCard = (function () {
 
   const TEMPLATE_ID = '#weapon-card-template',
     REPLACEABLE_TOKEN = 'replace-this',
-    NUMBER_FIELD = ['name', 'class', 'origin',
-      'hp', 'attack', 'break', 'magic'
-    ],
+    TEXT_FIELD = ['name', 'class', 'origin'],
+    NUMBER_FIELD = ['hp', 'attack', 'break', 'magic'],
     STAR_FIELD = ['critical', 'speed', 'defense'],
     STAR_CHAR = '&#9733',
     EMPTY_CHAR = '&nbsp;',
     SELECTOR = TEMPLATE_ID + ' [' + ATTR_KEY.CARD + '=' +
-    REPLACEABLE_TOKEN + ']';
+    REPLACEABLE_TOKEN + ']',
+    STAT_FACTOR = { 'hp': 10, 'attack': 1, 'break': 1, 'magic': 1 };
 
   var $template, $abilityTbody, $wThumbs;
 
@@ -34,9 +34,14 @@ const WeaponCard = (function () {
   }
 
   function _generatePopoverContent(wData) {
-    NUMBER_FIELD.forEach(function (key) {
+    TEXT_FIELD.forEach(function (key) {
       $(SELECTOR.replace(REPLACEABLE_TOKEN, key))
         .text(wData[key]);
+    });
+
+    NUMBER_FIELD.forEach(function (key) {
+      $(SELECTOR.replace(REPLACEABLE_TOKEN, key))
+        .text(wData[key] * STAT_FACTOR[key]);
     });
 
     STAR_FIELD.forEach(function (key) {
