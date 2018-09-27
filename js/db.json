@@ -3218,7 +3218,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/607.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "ikkitousen": {
             "id": "ikkitousen",
@@ -3264,7 +3264,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/619.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "failnaught": {
             "id": "failnaught",
@@ -3287,11 +3287,11 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/623.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "god_hand": {
             "id": "god_hand",
-            "name": "God Hand",
+            "name": "Godhands",
             "origin": "Vana'diel Monk",
             "class": "Monk",
             "hp": 0,
@@ -3310,7 +3310,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/627.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "laevateinn": {
             "id": "laevateinn",
