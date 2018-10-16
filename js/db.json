@@ -3315,7 +3315,7 @@
         "laevateinn": {
             "id": "laevateinn",
             "name": "Lævateinn",
-            "origin": "Gunshin (God of War)",
+            "origin": "Shorn One (Gunshin)",
             "class": "Warrior",
             "hp": 0,
             "attack": 120,
@@ -3333,7 +3333,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/631.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "sarasvati": {
             "id": "sarasvati",
@@ -3356,12 +3356,12 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/635.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "amatsu_mikaboshi": {
             "id": "amatsu_mikaboshi",
             "name": "Amatsu Mikaboshi ",
-            "origin": "Tendoushi (Skyseer)",
+            "origin": "Skyseer (Tendoushi)",
             "class": "Mage",
             "hp": 0,
             "attack": 65,
@@ -3378,7 +3378,7 @@
             "startingRank3": 0,
             "ability4": "boost_ult",
             "startingRank4": 0,
-            "jpOnry": true
+            "jpOnry": false
         },
         "septentrion": {
             "id": "septentrion",
@@ -3468,7 +3468,7 @@
             "startingRank3": 1,
             "ability4": "boost_ult",
             "startingRank4": 0,
-            "jpOnry": true
+            "jpOnry": false
         },
         "double_cross": {
             "id": "double_cross",
