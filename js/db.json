@@ -416,7 +416,7 @@
         },
         "brotherhood": {
             "id": "brotherhood",
-            "name": "Brotherhood",
+            "name": "Brotherhood (GL)",
             "origin": "Ace Striker",
             "class": "Warrior",
             "hp": 0,
@@ -436,6 +436,29 @@
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/148.jpg",
             "jpOnry": false
+        },
+        "brotherhood_jp": {
+            "id": "brotherhood_jp",
+            "name": "Brotherhood (JP)",
+            "origin": "Ace Striker",
+            "class": "Warrior",
+            "hp": 0,
+            "attack": 45,
+            "break": 45,
+            "magic": 45,
+            "critical": 1,
+            "speed": 1,
+            "defense": 1,
+            "ability1": "ult_charger_2",
+            "startingRank1": 1,
+            "ability2": "ele_third_strike_1",
+            "startingRank2": 1,
+            "ability3": "enhance_water_40",
+            "startingRank3": 0,
+            "ability4": "boost_ult",
+            "startingRank4": 0,
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/148.jpg",
+            "jpOnry": true
         },
         "braveheart": {
             "id": "braveheart",
@@ -3153,7 +3176,30 @@
         },
         "kotetsu": {
             "id": "kotetsu",
-            "name": "Kotetsu",
+            "name": "Kotetsu (GL)",
+            "origin": "Legendary Guardian",
+            "class": "Warrior",
+            "hp": 0,
+            "attack": 120,
+            "break": 80,
+            "magic": 50,
+            "critical": 1,
+            "speed": 1,
+            "defense": 3,
+            "ability1": "improved_crit_30",
+            "startingRank1": 1,
+            "ability2": "flash_break_30",
+            "startingRank2": 1,
+            "ability3": "prismatic_return_15",
+            "startingRank3": 0,
+            "ability4": "boost_ult",
+            "startingRank4": 0,
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/599.jpg",
+            "jpOnry": false
+        },
+        "kotetsu_jp": {
+            "id": "kotetsu_jp",
+            "name": "Kotetsu (JP)",
             "origin": "Legendary Guardian",
             "class": "Warrior",
             "hp": 0,
@@ -3172,7 +3218,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/599.jpg",
-            "jpOnry": false
+            "jpOnry": true
         },
         "zanmatou": {
             "id": "zanmatou",
@@ -3722,6 +3768,13 @@
             "finalValue": 100,
             "stepCounts": 0
         },
+        "flash_break_30": {
+            "id": "flash_break_30",
+            "name": "Flash Break",
+            "startingValue": 30,
+            "finalValue": 100,
+            "stepCounts": 70
+        },
         "extended_break_1": {
             "id": "extended_break_1",
             "name": "Extended Break",
@@ -4078,6 +4131,13 @@
             "startingValue": 100,
             "finalValue": 100,
             "stepCounts": 0
+        },
+        "enhance_water_40": {
+            "id": "enhance_water_40",
+            "name": "Enhance Water",
+            "startingValue": 40,
+            "finalValue": 100,
+            "stepCounts": 60
         },
         "water_resist_30": {
             "id": "water_resist_30",
