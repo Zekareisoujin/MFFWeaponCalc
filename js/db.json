@@ -384,7 +384,7 @@
             "startingRank1": 1,
             "ability2": "flash_break_100",
             "startingRank2": 0,
-            "ability3": "extended_break_1",
+            "ability3": "extended_break_2",
             "startingRank3": 0,
             "ability4": "boost_ult",
             "startingRank4": 0,
@@ -1051,7 +1051,7 @@
             "startingRank1": 1,
             "ability2": "flash_break_100",
             "startingRank2": 0,
-            "ability3": "extended_break_1",
+            "ability3": "extended_break_2",
             "startingRank3": 0,
             "ability4": "boost_ult",
             "startingRank4": 0,
@@ -1603,7 +1603,7 @@
             "startingRank1": 1,
             "ability2": "flash_break_100",
             "startingRank2": 0,
-            "ability3": "extended_break_1",
+            "ability3": "extended_break_2",
             "startingRank3": 0,
             "ability4": "boost_ult",
             "startingRank4": 0,
@@ -2040,7 +2040,7 @@
             "startingRank1": 1,
             "ability2": "flash_break_100",
             "startingRank2": 0,
-            "ability3": "extended_break_1",
+            "ability3": "extended_break_2",
             "startingRank3": 0,
             "ability4": "boost_ult",
             "startingRank4": 0,
@@ -2440,7 +2440,7 @@
         },
         "prism_rod": {
             "id": "prism_rod",
-            "name": "Prism Rod",
+            "name": "Prism Staff",
             "origin": "Multiplayer",
             "class": "Mage",
             "hp": 100,
@@ -3492,7 +3492,7 @@
             "startingRank3": 0,
             "ability4": "boost_ult",
             "startingRank4": 0,
-            "jpOnry": true
+            "jpOnry": false
         },
         "dynamis_wing": {
             "id": "dynamis_wing",
@@ -3518,7 +3518,7 @@
         },
         "double_cross": {
             "id": "double_cross",
-            "name": "Double Cross",
+            "name": "Double-cross",
             "origin": "Gambler",
             "class": "Ranger",
             "hp": 0,
@@ -3558,7 +3558,7 @@
             "startingRank3": 0,
             "ability4": "boost_ult",
             "startingRank4": 0,
-            "jpOnry": true
+            "jpOnry": false
         },
         "thunderbolt_blade": {
             "id": "thunderbolt_blade",
@@ -3780,6 +3780,13 @@
             "name": "Extended Break",
             "startingValue": 1,
             "finalValue": 1,
+            "stepCounts": 0
+        },
+        "extended_break_2": {
+            "id": "extended_break_2",
+            "name": "Extended Break",
+            "startingValue": 2,
+            "finalValue": 2,
             "stepCounts": 0
         },
         "scourge_25": {
