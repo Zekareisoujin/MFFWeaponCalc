@@ -2739,7 +2739,7 @@
         },
         "ultima_weapon": {
             "id": "ultima_weapon",
-            "name": "Ultima Weapon",
+            "name": "Ultimate Weapon",
             "origin": "Multiplayer",
             "class": "Warrior",
             "hp": 100,
@@ -2762,7 +2762,7 @@
         },
         "ultima_mace": {
             "id": "ultima_mace",
-            "name": "Ultima Mace",
+            "name": "Ultimate Mace",
             "origin": "Multiplayer",
             "class": "Mage",
             "hp": 100,
@@ -2785,7 +2785,7 @@
         },
         "ultima_edge": {
             "id": "ultima_edge",
-            "name": "Ultima Edge",
+            "name": "Ultimate Edge",
             "origin": "Multiplayer",
             "class": "Ranger",
             "hp": 100,
@@ -2808,7 +2808,7 @@
         },
         "ultima_claw": {
             "id": "ultima_claw",
-            "name": "Ultima Claw",
+            "name": "Ultimate Claw",
             "origin": "Multiplayer",
             "class": "Monk",
             "hp": 100,
@@ -2854,7 +2854,7 @@
         },
         "ultima_arrow": {
             "id": "ultima_arrow",
-            "name": "Ultima Arrow",
+            "name": "Ultimate Arrow",
             "origin": "Multiplayer",
             "class": "Sarah",
             "hp": 100,
@@ -2877,7 +2877,7 @@
         },
         "ultima_wing": {
             "id": "ultima_wing",
-            "name": "Ultima Wing",
+            "name": "Ultimate Wing",
             "origin": "Multiplayer",
             "class": "Meia",
             "hp": 100,
@@ -3424,6 +3424,7 @@
             "startingRank3": 0,
             "ability4": "boost_ult",
             "startingRank4": 0,
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/643.jpg",
             "jpOnry": false
         },
         "septentrion": {
@@ -3474,7 +3475,7 @@
         },
         "fuuma_isshi": {
             "id": "fuuma_isshi",
-            "name": "Fuuma Isshi",
+            "name": "Magic Arrow",
             "origin": "Materia Hunter",
             "class": "Sarah",
             "hp": 0,
@@ -3492,6 +3493,7 @@
             "startingRank3": 0,
             "ability4": "boost_ult",
             "startingRank4": 0,
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/655.jpg",
             "jpOnry": false
         },
         "dynamis_wing": {
@@ -3514,6 +3516,7 @@
             "startingRank3": 1,
             "ability4": "boost_ult",
             "startingRank4": 0,
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/659.jpg",
             "jpOnry": false
         },
         "double_cross": {
@@ -3536,12 +3539,13 @@
             "startingRank3": 0,
             "ability4": "boost_ult",
             "startingRank4": 0,
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/663.jpg",
             "jpOnry": false
         },
         "soul_grasper": {
             "id": "soul_grasper",
             "name": "Soul Grasper",
-            "origin": "Agent of Crimson Tears",
+            "origin": "Agent of Scarlet Woe",
             "class": "Monk",
             "hp": 0,
             "attack": 20,
@@ -3558,6 +3562,7 @@
             "startingRank3": 0,
             "ability4": "boost_ult",
             "startingRank4": 0,
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/667.jpg",
             "jpOnry": false
         },
         "thunderbolt_blade": {
@@ -3580,12 +3585,13 @@
             "startingRank3": 1,
             "ability4": "boost_ult",
             "startingRank4": 0,
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/671.jpg",
             "jpOnry": true
         },
         "ragnarok": {
             "id": "ragnarok",
             "name": "Ragnarok",
-            "origin": "Warrior of Ruin - Ch 1",
+            "origin": "Dawn Warrior (Season 2 Chapter 1 - A World Adrift)",
             "class": "Warrior",
             "hp": 100,
             "attack": 100,
@@ -3602,7 +3608,8 @@
             "startingRank3": 0,
             "ability4": "boost_ult",
             "startingRank4": 0,
-            "jpOnry": true
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/679.jpg",
+            "jpOnry": false
         },
         "magma_staff": {
             "id": "magma_staff",
@@ -3624,7 +3631,31 @@
             "startingRank3": 1,
             "ability4": "boost_ult",
             "startingRank4": 0,
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/683.jpg",
             "jpOnry": true
+        },
+        "valiant_bow": {
+            "id": "valiant_bow",
+            "name": "Valiant Bow",
+            "origin": "Multiplayer",
+            "class": "Sarah",
+            "hp": 100,
+            "attack": 100,
+            "break": 100,
+            "magic": 100,
+            "critical": 3,
+            "speed": 2,
+            "defense": 3,
+            "ability1": "improved_crit_20",
+            "startingRank1": 1,
+            "ability2": "painful_break_25",
+            "startingRank2": 1,
+            "ability3": "piercing_break_50",
+            "startingRank3": 1,
+            "ability4": "boost_ult",
+            "startingRank4": 0,
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/647.jpg",
+            "jpOnry": false
         }
     },
     {
