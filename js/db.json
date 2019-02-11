@@ -3656,6 +3656,52 @@
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/647.jpg",
             "jpOnry": false
+        },
+        "jester_cane": {
+            "id": "jester_cane",
+            "name": "Jester's Cane",
+            "origin": "Magitek Jester",
+            "class": "Mage",
+            "hp": 0,
+            "attack": 20,
+            "break": 60,
+            "magic": 100,
+            "critical": 2,
+            "speed": 1,
+            "defense": 1,
+            "ability1": "element_generator_3",
+            "startingRank1": 1,
+            "ability2": "prismatic_return_15",
+            "startingRank2": 1,
+            "ability3": "exploit_weakness_50",
+            "startingRank3": 1,
+            "ability4": "boost_ult",
+            "startingRank4": 0,
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/691.jpg",
+            "jpOnry": false
+        },
+        "maduin_code": {
+            "id": "maduin_code",
+            "name": "Maduin Code",
+            "origin": "Magitek Heroine",
+            "class": "Sarah",
+            "hp": 0,
+            "attack": 50,
+            "break": 50,
+            "magic": 90,
+            "critical": 2,
+            "speed": 1,
+            "defense": 2,
+            "ability1": "element_generator_3",
+            "startingRank1": 1,
+            "ability2": "prismatic_return_15",
+            "startingRank2": 1,
+            "ability3": "exploit_weakness_50",
+            "startingRank3": 1,
+            "ability4": "boost_ult",
+            "startingRank4": 0,
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/699.jpg",
+            "jpOnry": false
         }
     },
     {
@@ -4281,6 +4327,13 @@
             "startingValue": 30,
             "finalValue": 40,
             "stepCounts": 10
+        },
+        "element_generator_3": {
+            "id": "element_generator_3",
+            "name": "Element Generator",
+            "startingValue": 3,
+            "finalValue": 7,
+            "stepCounts": 4
         }
     }
 ]
