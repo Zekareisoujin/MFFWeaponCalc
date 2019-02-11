@@ -3702,6 +3702,29 @@
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/699.jpg",
             "jpOnry": false
+        },
+        "joyeuse": {
+            "id": "joyeuse",
+            "name": "Joyeuse",
+            "origin": "Epeiste",
+            "class": "Graff",
+            "hp": 0,
+            "attack": 40,
+            "break": 65,
+            "magic": 65,
+            "critical": 2,
+            "speed": 1,
+            "defense": 0,
+            "ability1": "kill_draw_2",
+            "startingRank1": 1,
+            "ability2": "ele_third_strike_2",
+            "startingRank2": 1,
+            "ability3": "prismatic_return_1",
+            "startingRank3": 0,
+            "ability4": "boost_ult",
+            "startingRank4": 0,
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/711.jpg",
+            "jpOnry": true
         }
     },
     {
