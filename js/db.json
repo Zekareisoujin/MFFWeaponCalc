@@ -3751,7 +3751,7 @@
         },
         "maduin_code": {
             "id": "maduin_code",
-            "name": "Maduin Code",
+            "name": "Maduin's Cord",
             "origin": "Magitek Heroine",
             "class": "Sarah",
             "hp": 0,
@@ -3959,7 +3959,7 @@
         "excalipoor": {
             "id": "excalipoor",
             "name": "Excalipoor",
-            "origin": "Gilgamesh Skin",
+            "origin": "Gilgamesh Skin (also Ultimate Coliseum event)",
             "class": "Ranger",
             "hp": 0,
             "attack": 0,
