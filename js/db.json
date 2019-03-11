@@ -3793,7 +3793,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/711.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "hauteclaire": {
             "id": "hauteclaire",
@@ -3816,7 +3816,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/707.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "fervor": {
             "id": "fervor",
@@ -3839,7 +3839,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/731.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "ultimate_arm": {
             "id": "ultimate_arm",
@@ -3862,7 +3862,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/695.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "ultimate_lance": {
             "id": "ultimate_lance",
@@ -3885,7 +3885,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/751.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "sweet_summer_punch": {
             "id": "sweet_summer_punch",
