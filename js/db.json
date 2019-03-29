@@ -3954,7 +3954,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/719.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "excalipoor": {
             "id": "excalipoor",
@@ -3977,7 +3977,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/723.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "saturnus": {
             "id": "saturnus",
@@ -4000,7 +4000,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/735.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "vigorous_fang": {
             "id": "vigorous_fang",
