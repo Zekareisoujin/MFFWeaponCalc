@@ -37,12 +37,15 @@ const WeaponBoostDB = function ([weapon, ability]) {
   function _init() {
     for (var weaponId in weapon) {
       var w = weapon[weaponId];
-      w.startingRanks = {
-        [w.ability1]: w.startingRank1,
-        [w.ability2]: w.startingRank2,
-        [w.ability3]: w.startingRank3,
-        [w.ability4]: w.startingRank4,
-      };
+      w.startingRanks = (function() {
+        var idx = 1,
+        startingRanks = {};
+        while (w.hasOwnProperty("ability" + idx)) {
+          startingRanks[[w["ability" + idx]]] = w["startingRank" + idx];
+          idx++;  
+        }        
+        return startingRanks;
+      }());
 
       var searchableTerms = [w.name, w.origin, w.class];
       
