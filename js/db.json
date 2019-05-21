@@ -4141,8 +4141,10 @@
             "startingRank2": 1,
             "ability3": "es_unlock_5",
             "startingRank3": 1,
-            "ability4": "boost_ult",
+            "ability4": "ability_chain_30",
             "startingRank4": 0,
+            "ability5": "boost_ult",
+            "startingRank5": 0,
             "thumbnailUrl": "https://i.imgur.com/eGtTgH3.png",
             "jpOnry": true
         },
