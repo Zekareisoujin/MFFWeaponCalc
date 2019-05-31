@@ -4728,6 +4728,13 @@
             "finalValue": 70,
             "stepCounts": 50
         },
+        "exploit_weakness_30": {
+            "id": "exploit_weakness_30",
+            "name": "Exploit Weakness",
+            "startingValue": 30,
+            "finalValue": 70,
+            "stepCounts": 40
+        },
         "exploit_weakness_50": {
             "id": "exploit_weakness_50",
             "name": "Exploit Weakness",
