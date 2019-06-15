@@ -4552,7 +4552,7 @@
             "startingRank3": 1,
             "ability4": "boost_ult",
             "startingRank4": 0,
-            "thumbnailUrl": "https://img.altema.jp/ffmobius/uploads/2019/05/2019y05m15d_2024538068.jpg",
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/818.jpg",
             "jpOnry": true
         },
         "sekhmet_claw": {
@@ -4575,7 +4575,7 @@
             "startingRank3": 1,
             "ability4": "boost_ult",
             "startingRank4": 0,
-            "thumbnailUrl": "https://img.altema.jp/ffmobius/uploads/2019/05/2019y05m15d_2024545595.jpg",
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/817.jpg",
             "jpOnry": true
         },
         "tyr_arc": {
@@ -4598,7 +4598,7 @@
             "startingRank3": 1,
             "ability4": "boost_ult",
             "startingRank4": 0,
-            "thumbnailUrl": "https://img.altema.jp/ffmobius/uploads/2019/05/2019y05m15d_2024554314.jpg",
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/816.jpg",
             "jpOnry": true
         },
         "taranis_sabre": {
@@ -4621,13 +4621,13 @@
             "startingRank3": 1,
             "ability4": "boost_ult",
             "startingRank4": 0,
-            "thumbnailUrl": "https://img.altema.jp/ffmobius/uploads/2019/05/2019y05m15d_2024525913.jpg",
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/819.jpg",
             "jpOnry": true
         },
         "temptation": {
             "id": "temptation",
-            "name": "temptation",
-            "origin": "Bewitching Black Mage (Lulu)",
+            "name": "Temptation",
+            "origin": "Bewitching Black Mage (FFX Lulu)",
             "class": "Meia",
             "hp": 100,
             "attack": 100,
@@ -4647,6 +4647,31 @@
             "ability5": "boost_ult",
             "startingRank5": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/815.jpg",
+            "jpOnry": true
+        },
+        "crimson_spirit": {
+            "id": "crimson_spirit",
+            "name": "Crimson Spirit",
+            "origin": "Sphere Getter (FFX-2 Paine)",
+            "class": "Sophie",
+            "hp": 100,
+            "attack": 100,
+            "break": 100,
+            "magic": 100,
+            "critical": 2,
+            "speed": 2,
+            "defense": 2,
+            "ability1": "exploit_weakness_30",
+            "startingRank1": 1,
+            "ability2": "ult_charge_abilities_1",
+            "startingRank2": 1,
+            "ability3": "ability_rising_1",
+            "startingRank3": 1,
+            "ability4": "prismatic_return_15",
+            "startingRank4": 0,
+            "ability5": "boost_ult",
+            "startingRank5": 0,
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/827.jpg",
             "jpOnry": true
         }
     },
@@ -5402,7 +5427,7 @@
         },
         "skilled_duelist_15": {
             "id": "skilled_duelist_15",
-            "name": "Skilled Duelist (MAX UNKNOWN)",
+            "name": "Skilled Duelist",
             "startingValue": 15,
             "finalValue": 15,
             "stepCounts": 0
