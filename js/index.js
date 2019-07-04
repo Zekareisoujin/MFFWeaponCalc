@@ -7,6 +7,7 @@ ATTR_KEY, ATTR_VAL, TEXT */
     BAHAMUT_LAGOON_MULTIPLER = 1.5,
     VIP_MULTIPLIER = 4/3,
     BASE_MULTIPLIER = 3,
+    JP_MULTIPLIER = 2,
     PATH_PARAM_IMPORT = 'import',
     COOKIE_NAME = 'boost-data',
     COOKIE_DURATION = 180;
@@ -164,6 +165,8 @@ ATTR_KEY, ATTR_VAL, TEXT */
       staminaMultiplier *= BAHAMUT_LAGOON_MULTIPLER;
     if (_settings[ATTR_VAL.VIP_MODE])
       staminaMultiplier *= VIP_MULTIPLIER;
+    if (_settings[ATTR_VAL.JP_VERSION])
+      staminaMultiplier *= JP_MULTIPLIER;
     if (_settings[ATTR_VAL.NATURAL_STAMINA_SP])
       dailyStamina += NATURAL_STAMINA;
     if (_settings[ATTR_VAL.NATURAL_STAMINA_MP])
