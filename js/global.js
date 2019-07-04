@@ -60,6 +60,7 @@ const ATTR_VAL = {
   MOBIUS_DAY: 'mobius-day',
   BAHAMUT_LAGOON: 'bahamut-lagoon',
   VIP_MODE: 'vip-mode',
+  JP_VERSION: 'jp-version',
   STAMINA_LEVEL: 'stamina-level',
   JP_ONLY: 'jp-only',
   GROUP_BOOST: 'boost',
