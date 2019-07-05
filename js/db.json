@@ -4029,7 +4029,7 @@
         },
         "stahlarm": {
             "id": "stahlarm",
-            "name": "Stahlarm",
+            "name": "Stahlfaust",
             "origin": "Kämpfer (EX 2)",
             "class": "Monk",
             "hp": 0,
@@ -4054,8 +4054,8 @@
         },
         "sweet_summer_punch": {
             "id": "sweet_summer_punch",
-            "name": "Sweet Summer Punch",
-            "origin": "Tropical Hopper",
+            "name": "Sweet Summer",
+            "origin": "Tropical Traveler",
             "class": "Sophie",
             "hp": 0,
             "attack": 100,
@@ -4073,7 +4073,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/715.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "relaxant": {
             "id": "relaxant",
@@ -4096,7 +4096,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/727.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "lionheart": {
             "id": "lionheart",
@@ -4145,7 +4145,7 @@
             "startingRank4": 0,
             "ability5": "boost_ult",
             "startingRank5": 0,
-            "thumbnailUrl": "https://i.imgur.com/eGtTgH3.png",
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/823.jpg",
             "jpOnry": true
         },
         "hyperion": {
@@ -4673,6 +4673,79 @@
             "startingRank5": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/827.jpg",
             "jpOnry": true
+        },
+        "joke_buster_sword": {
+            "id": "joke_buster_sword",
+            "name": "Joke Buster Sword",
+            "origin": "Tower (Everybody Gilgamesh Party)",
+            "class": "Warrior",
+            "hp": 198,
+            "attack": 200,
+            "break": 200,
+            "magic": 200,
+            "critical": 5,
+            "speed": 2,
+            "defense": 5,
+            "ability1": "exp_up_30",
+            "startingRank1": 1,
+            "ability2": "seed_up_30",
+            "startingRank2": 1,
+            "ability3": "crystal_seeker_1",
+            "startingRank3": 1,
+            "ability4": "gil_up_50",
+            "startingRank4": 1,
+            "ability5": "boost_ult",
+            "startingRank5": 0,
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/828.jpg",
+            "jpOnry": true
+        },
+        "guard_rod_replica": {
+            "id": "guard_rod_replica",
+            "name": "Guard Rod Replica",
+            "origin": "Tower (Everybody Gilgamesh Party)",
+            "class": "Meia",
+            "hp": 198,
+            "attack": 200,
+            "break": 200,
+            "magic": 200,
+            "critical": 5,
+            "speed": 2,
+            "defense": 5,
+            "ability1": "exploit_weakness_70",
+            "startingRank1": 1,
+            "ability2": "piercing_break_100",
+            "startingRank2": 1,
+            "ability3": "armor_break_100",
+            "startingRank3": 1,
+            "ability4": "boost_ult",
+            "startingRank4": 0,
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/829.jpg",
+            "jpOnry": true
+        },
+        "kurikara_sword": {
+            "id": "kurikara_sword",
+            "name": "Kurikara Sword",
+            "origin": "Ryujin / Dragon God (EX 3)",
+            "class": "Warrior",
+            "hp": 100,
+            "attack": 130,
+            "break": 120,
+            "magic": 100,
+            "critical": 4,
+            "speed": 1,
+            "defense": 0,
+            "ability1": "skilled_duelist_15",
+            "startingRank1": 1,
+            "ability2": "exploit_weakness_50",
+            "startingRank2": 1,
+            "ability3": "improved_crit_50",
+            "startingRank3": 1,
+            "ability4": "quick_break_15",
+            "startingRank4": 0,
+            "ability5": "boost_ult",
+            "startingRank5": 0,
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/830.jpg",
+            "jpOnry": true
         }
     },
     {
@@ -4829,6 +4902,13 @@
             "startingValue": 50,
             "finalValue": 100,
             "stepCounts": 50
+        },
+        "piercing_break_100": {
+            "id": "piercing_break_100",
+            "name": "Piercing Break",
+            "startingValue": 100,
+            "finalValue": 100,
+            "stepCounts": 0
         },
         "quick_break_5": {
             "id": "quick_break_5",
@@ -5067,6 +5147,13 @@
             "startingValue": 45,
             "finalValue": 50,
             "stepCounts": 5
+        },
+        "gil_up_50": {
+            "id": "gil_up_50",
+            "name": "Gil Up",
+            "startingValue": 50,
+            "finalValue": 50,
+            "stepCounts": 0
         },
         "seed_up_20": {
             "id": "seed_up_20",
@@ -5424,6 +5511,13 @@
             "startingValue": 50,
             "finalValue": 100,
             "stepCounts": 50
+        },
+        "armor_break_100": {
+            "id": "armor_break_100",
+            "name": "Armor Break",
+            "startingValue": 100,
+            "finalValue": 100,
+            "stepCounts": 0
         },
         "skilled_duelist_15": {
             "id": "skilled_duelist_15",
