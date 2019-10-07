@@ -4196,8 +4196,8 @@
         },
         "pierce_rod": {
             "id": "pierce_rod",
-            "name": "Pierce Rod",
-            "origin": "Shinra Turks (FFVII Turk)",
+            "name": "Telescopic Baton",
+            "origin": "Shinra Turk (FFVII Turk)",
             "class": "Ranger",
             "hp": 0,
             "attack": 85,
@@ -4215,12 +4215,12 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/771.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "dolphin_ripper": {
             "id": "dolphin_ripper",
             "name": "Dolphin Ripper",
-            "origin": "Avalanche's Barmaid (FFVII Tifa)",
+            "origin": "Avalanche's Heroine (FFVII Tifa)",
             "class": "Sophie",
             "hp": 0,
             "attack": 105,
@@ -4238,7 +4238,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/775.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "omnia": {
             "id": "omnia",
@@ -4952,7 +4952,7 @@
             "name": "Diablada",
             "origin": "Bailarina (EX 3)",
             "class": "Meia",
-            "hp": 1000,
+            "hp": 100,
             "attack": 100,
             "break": 100,
             "magic": 100,
@@ -5070,6 +5070,31 @@
             "ability5": "boost_ult",
             "startingRank5": 0,
             "thumbnailUrl": "https://i.imgur.com/XeobfKN.png",
+            "jpOnry": true
+        },
+        "glorious_cherubim": {
+            "id": "glorious_cherubim",
+            "name": "Glorious Cherubim",
+            "origin": "Destiny Savior (EX 3)",
+            "class": "Sarah",
+            "hp": 100,
+            "attack": 100,
+            "break": 100,
+            "magic": 100,
+            "critical": 2,
+            "speed": 2,
+            "defense": 2,
+            "ability1": "ability_chain_30",
+            "startingRank1": 1,
+            "ability2": "improved_crit_30",
+            "startingRank2": 1,
+            "ability3": "ability_rising_3",
+            "startingRank3": 1,
+            "ability4": "prismatic_return_15",
+            "startingRank4": 0,
+            "ability5": "boost_ult",
+            "startingRank5": 0,
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/865.jpg",
             "jpOnry": true
         }
     },
