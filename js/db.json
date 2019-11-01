@@ -3752,7 +3752,7 @@
         "maduin_code": {
             "id": "maduin_code",
             "name": "Maduin's Cord",
-            "origin": "Magitek Heroine (Terraà",
+            "origin": "Magitek Heroine (Terra)",
             "class": "Sarah",
             "hp": 0,
             "attack": 50,
@@ -4219,7 +4219,7 @@
         },
         "dolphin_ripper": {
             "id": "dolphin_ripper",
-            "name": "Dolphin Ripper",
+            "name": "Dolphin Flipper",
             "origin": "Avalanche's Heroine (FFVII Tifa)",
             "class": "Sophie",
             "hp": 0,
@@ -4293,7 +4293,7 @@
         "in_paradisum": {
             "id": "in_paradisum",
             "name": "In Paradisum",
-            "origin": "Phantom Masker",
+            "origin": "The Phantom (Phantom Masker)",
             "class": "Warrior",
             "hp": 100,
             "attack": 100,
@@ -4313,12 +4313,12 @@
             "ability5": "boost_ult",
             "startingRank5": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/787.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "rose_de_nuit": {
             "id": "rose_de_nuit",
             "name": "Rose de Nuit ",
-            "origin": "Lunatic Widow",
+            "origin": "The Mourner (Lunatic Widow)",
             "class": "Meia",
             "hp": 100,
             "attack": 100,
@@ -4338,12 +4338,12 @@
             "ability5": "boost_ult",
             "startingRank5": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/791.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "funeral_bouquet": {
             "id": "funeral_bouquet",
             "name": "Funeral Bouquet",
-            "origin": "Principal Doll",
+            "origin": "The Sweetheart (Principal Doll)",
             "class": "Sophie",
             "hp": 100,
             "attack": 100,
@@ -4363,7 +4363,7 @@
             "ability5": "boost_ult",
             "startingRank5": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/795.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "murgleis": {
             "id": "murgleis",
@@ -5095,6 +5095,31 @@
             "ability5": "boost_ult",
             "startingRank5": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/865.jpg",
+            "jpOnry": true
+        },
+        "great_attractor": {
+            "id": "great_attractor",
+            "name": "Great Attractor",
+            "origin": "Planet Flutter (EX 2)",
+            "class": "Sophie",
+            "hp": 100,
+            "attack": 100,
+            "break": 100,
+            "magic": 100,
+            "critical": 2,
+            "speed": 2,
+            "defense": 2,
+            "ability1": "ability_chain_30",
+            "startingRank1": 1,
+            "ability2": "improved_crit_30",
+            "startingRank2": 1,
+            "ability3": "ability_rising_3",
+            "startingRank3": 1,
+            "ability4": "prismatic_return_15",
+            "startingRank4": 0,
+            "ability5": "boost_ult",
+            "startingRank5": 0,
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/869.jpg",
             "jpOnry": true
         }
     },
