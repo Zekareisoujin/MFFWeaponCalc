@@ -4317,7 +4317,7 @@
         },
         "rose_de_nuit": {
             "id": "rose_de_nuit",
-            "name": "Rose de Nuit ",
+            "name": "Rose de Nuits",
             "origin": "The Mourner (Lunatic Widow)",
             "class": "Meia",
             "hp": 100,
@@ -4368,7 +4368,7 @@
         "murgleis": {
             "id": "murgleis",
             "name": "Murgleis",
-            "origin": "Chevalier Noir",
+            "origin": "The Chevalier Noir",
             "class": "Graff",
             "hp": 100,
             "attack": 100,
@@ -4388,12 +4388,12 @@
             "ability5": "boost_ult",
             "startingRank5": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/799.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "die_strafe": {
             "id": "die_strafe",
             "name": "Die Strafe",
-            "origin": "Reinheit Frau",
+            "origin": "The Pure Lady (Reinheit Frau)",
             "class": "Sarah",
             "hp": 100,
             "attack": 100,
@@ -4413,7 +4413,7 @@
             "ability5": "boost_ult",
             "startingRank5": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/803.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "durga_firangi": {
             "id": "durga_firangi",
@@ -5120,6 +5120,81 @@
             "ability5": "boost_ult",
             "startingRank5": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/869.jpg",
+            "jpOnry": true
+        },
+        "kikoku": {
+            "id": "kikoku",
+            "name": "Kikoku",
+            "origin": "Soranaki (EX 3)",
+            "class": "Ranger",
+            "hp": 100,
+            "attack": 130,
+            "break": 120,
+            "magic": 100,
+            "critical": 4,
+            "speed": 1,
+            "defense": 0,
+            "ability1": "skilled_duelist_15",
+            "startingRank1": 1,
+            "ability2": "exploit_weakness_50",
+            "startingRank2": 1,
+            "ability3": "improved_crit_50",
+            "startingRank3": 1,
+            "ability4": "quick_break_15",
+            "startingRank4": 0,
+            "ability5": "boost_ult",
+            "startingRank5": 0,
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/873.jpg",
+            "jpOnry": true
+        },
+        "passe_partout": {
+            "id": "passe_partout",
+            "name": "passe-partout",
+            "origin": "Aventurier (EX 2)",
+            "class": "Graff",
+            "hp": 100,
+            "attack": 100,
+            "break": 100,
+            "magic": 100,
+            "critical": 2,
+            "speed": 2,
+            "defense": 2,
+            "ability1": "ability_chain_30",
+            "startingRank1": 1,
+            "ability2": "improved_crit_30",
+            "startingRank2": 1,
+            "ability3": "ability_rising_3",
+            "startingRank3": 1,
+            "ability4": "prismatic_return_15",
+            "startingRank4": 0,
+            "ability5": "boost_ult",
+            "startingRank5": 0,
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/869.jpg",
+            "jpOnry": true
+        },
+        "flower_of_life": {
+            "id": "flower_of_life",
+            "name": "Flower of Life",
+            "origin": "Bright Bride (EX 4)",
+            "class": "Meia",
+            "hp": 100,
+            "attack": 100,
+            "break": 100,
+            "magic": 100,
+            "critical": 2,
+            "speed": 2,
+            "defense": 2,
+            "ability1": "prismatic_generator_1",
+            "startingRank1": 1,
+            "ability2": "ravage_10",
+            "startingRank2": 1,
+            "ability3": "ult_charge_abilities_1",
+            "startingRank3": 1,
+            "ability4": "prismatic_return_15",
+            "startingRank4": 0,
+            "ability5": "boost_ult",
+            "startingRank5": 0,
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/881.jpg",
             "jpOnry": true
         }
     },
@@ -5914,6 +5989,13 @@
             "startingValue": 15,
             "finalValue": 15,
             "stepCounts": 0
+        },
+        "prismatic_generator_1": {
+            "id": "prismatic_generator_1",
+            "name": "Prismatic Element Generator",
+            "startingValue": 1,
+            "finalValue": 3,
+            "stepCounts": 2
         }
     }
 ]
