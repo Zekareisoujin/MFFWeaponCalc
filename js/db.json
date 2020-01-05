@@ -486,7 +486,7 @@
         "buster_sword": {
             "id": "buster_sword",
             "name": "Buster Sword",
-            "origin": "SOLDIER 1st Class/Cloud Strife",
+            "origin": "SOLDIER 1st Class / Cloud Strife (Skin)",
             "class": "Warrior",
             "hp": 0,
             "attack": 100,
@@ -624,7 +624,7 @@
         "masamune": {
             "id": "masamune",
             "name": "Masamune",
-            "origin": "FF7 Event/Hero of Despair/Sephiroth",
+            "origin": "FF7 Event / Hero of Despair / Sephiroth (Skin)",
             "class": "Warrior",
             "hp": 0,
             "attack": 60,
@@ -3269,7 +3269,7 @@
         "ikkitousen": {
             "id": "ikkitousen",
             "name": "One Against Many",
-            "origin": "Ascetic",
+            "origin": "Ascetic (EX 1)",
             "class": "Monk",
             "hp": 0,
             "attack": 120,
@@ -3361,7 +3361,7 @@
         "laevateinn": {
             "id": "laevateinn",
             "name": "Laevateinn",
-            "origin": "Shorn One (Gunshin)",
+            "origin": "Shorn One (Gunshin) (EX 1)",
             "class": "Warrior",
             "hp": 0,
             "attack": 120,
@@ -3407,7 +3407,7 @@
         "amatsu_mikaboshi": {
             "id": "amatsu_mikaboshi",
             "name": "Amatsumikaboshi ",
-            "origin": "Skyseer (Tendoushi)",
+            "origin": "Skyseer (Tendoushi) (EX 1)",
             "class": "Mage",
             "hp": 0,
             "attack": 65,
@@ -3453,7 +3453,7 @@
         "lune_noire": {
             "id": "lune_noire",
             "name": "Lune Noire",
-            "origin": "Nightwalker",
+            "origin": "Nightwalker (EX 1)",
             "class": "Meia",
             "hp": 40,
             "attack": 10,
@@ -3522,7 +3522,7 @@
         "double_cross": {
             "id": "double_cross",
             "name": "Double-cross",
-            "origin": "Gambler",
+            "origin": "Gambler (EX 1)",
             "class": "Ranger",
             "hp": 0,
             "attack": 100,
@@ -3591,7 +3591,7 @@
         "ragnarok": {
             "id": "ragnarok",
             "name": "Ragnarok",
-            "origin": "Dawn Warrior (Season 2 Chapter 1 - A World Adrift)",
+            "origin": "Dawn Warrior (Skin)",
             "class": "Warrior",
             "hp": 100,
             "attack": 100,
@@ -3890,7 +3890,7 @@
         "excalibur": {
             "id": "excalibur",
             "name": "Excalibur",
-            "origin": "Gilgamesh Skin (also Ultimate Coliseum)",
+            "origin": "Gilgamesh (Skin) (also Ultimate Coliseum)",
             "class": "Warrior",
             "hp": 198,
             "attack": 198,
@@ -3913,7 +3913,7 @@
         "excalipoor": {
             "id": "excalipoor",
             "name": "Excalipoor",
-            "origin": "Gilgamesh Skin (also Underground Coliseum)",
+            "origin": "Gilgamesh (Skin) (also Underground Coliseum)",
             "class": "Ranger",
             "hp": 0,
             "attack": 0,
@@ -3936,7 +3936,7 @@
         "saturnus": {
             "id": "saturnus",
             "name": "Saturnus",
-            "origin": "Cacciatrice (EX Sarah)",
+            "origin": "Cacciatrice (EX 1)",
             "class": "Sarah",
             "hp": 40,
             "attack": 75,
@@ -4101,7 +4101,7 @@
         "lionheart": {
             "id": "lionheart",
             "name": "Lionheart",
-            "origin": "Squall Leonhart Skin",
+            "origin": "Squall Leonhart (Skin)",
             "class": "Warrior",
             "hp": 40,
             "attack": 120,
@@ -4367,7 +4367,7 @@
         },
         "murgleis": {
             "id": "murgleis",
-            "name": "Murgleis",
+            "name": "Murgleys",
             "origin": "The Chevalier Noir",
             "class": "Graff",
             "hp": 100,
@@ -4392,7 +4392,7 @@
         },
         "die_strafe": {
             "id": "die_strafe",
-            "name": "Die Strafe",
+            "name": "Strafe",
             "origin": "The Pure Lady (Reinheit Frau)",
             "class": "Sarah",
             "hp": 100,
@@ -4627,7 +4627,7 @@
         "temptation": {
             "id": "temptation",
             "name": "Temptation",
-            "origin": "Bewitching Black Mage (FFX Lulu)",
+            "origin": "Glamorous Black Mage (FFX Lulu)",
             "class": "Meia",
             "hp": 100,
             "attack": 100,
@@ -4647,12 +4647,12 @@
             "ability5": "boost_ult",
             "startingRank5": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/815.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "crimson_spirit": {
             "id": "crimson_spirit",
             "name": "Crimson Spirit",
-            "origin": "Sphere Getter (FFX-2 Paine)",
+            "origin": "Sphere Hunter (FFX-2 Paine)",
             "class": "Sophie",
             "hp": 100,
             "attack": 100,
@@ -4672,12 +4672,12 @@
             "ability5": "boost_ult",
             "startingRank5": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/827.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "joke_buster_sword": {
             "id": "joke_buster_sword",
             "name": "Joke Buster Sword",
-            "origin": "Tower (Everybody Gilgamesh Party)",
+            "origin": "Tower (One for All, and All for Gilgamesh!)",
             "class": "Warrior",
             "hp": 198,
             "attack": 200,
@@ -4697,12 +4697,12 @@
             "ability5": "boost_ult",
             "startingRank5": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/828.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "guard_rod_replica": {
             "id": "guard_rod_replica",
             "name": "Guard Rod Replica",
-            "origin": "Tower (Everybody Gilgamesh Party)",
+            "origin": "Tower (One for All, and All for Gilgamesh!)",
             "class": "Meia",
             "hp": 198,
             "attack": 200,
@@ -4720,7 +4720,7 @@
             "ability4": "boost_ult",
             "startingRank4": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/829.jpg",
-            "jpOnry": true
+            "jpOnry": false
         },
         "kurikara_sword": {
             "id": "kurikara_sword",
@@ -5149,7 +5149,7 @@
         },
         "passe_partout": {
             "id": "passe_partout",
-            "name": "passe-partout",
+            "name": "Passe-partout",
             "origin": "Aventurier (EX 2)",
             "class": "Graff",
             "hp": 100,
@@ -5169,7 +5169,7 @@
             "startingRank4": 0,
             "ability5": "boost_ult",
             "startingRank5": 0,
-            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/869.jpg",
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/877.jpg",
             "jpOnry": true
         },
         "flower_of_life": {
@@ -5195,6 +5195,81 @@
             "ability5": "boost_ult",
             "startingRank5": 0,
             "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/881.jpg",
+            "jpOnry": true
+        },
+        "izanami": {
+            "id": "izanami",
+            "name": "Izanami",
+            "origin": "Twilight Queen (EX 4)",
+            "class": "Sarah",
+            "hp": 100,
+            "attack": 100,
+            "break": 100,
+            "magic": 100,
+            "critical": 2,
+            "speed": 2,
+            "defense": 2,
+            "ability1": "exploit_weakness_50",
+            "startingRank1": 1,
+            "ability2": "prismatic_return_15",
+            "startingRank2": 1,
+            "ability3": "quick_break_15",
+            "startingRank3": 0,
+            "ability4": "ability_rising_1",
+            "startingRank4": 0,
+            "ability5": "boost_ult",
+            "startingRank5": 0,
+            "thumbnailUrl": "https://img.altema.jp/ffmobius/buki/885.jpg",
+            "jpOnry": true
+        },
+        "infinite_mobius": {
+            "id": "infinite_mobius",
+            "name": "Infinite Mobius",
+            "origin": "Ultimate Demon Lord (EX 4)",
+            "class": "Warrior",
+            "hp": 150,
+            "attack": 150,
+            "break": 150,
+            "magic": 150,
+            "critical": 4,
+            "speed": 2,
+            "defense": 4,
+            "ability1": "cross_counter_80",
+            "startingRank1": 1,
+            "ability2": "skilled_duelist_20",
+            "startingRank2": 1,
+            "ability3": "overpower_12",
+            "startingRank3": 1,
+            "ability4": "ult_charger_5",
+            "startingRank4": 0,
+            "ability5": "boost_ult",
+            "startingRank5": 0,
+            "thumbnailUrl": "https://i.imgur.com/fIJa6d1.jpg",
+            "jpOnry": true
+        },
+        "ragnarok_omega": {
+            "id": "ragnarok_omega",
+            "name": "Ragnarok Omega",
+            "origin": "Dawn Warrior (Job) (EX 5)",
+            "class": "Warrior",
+            "hp": 150,
+            "attack": 150,
+            "break": 150,
+            "magic": 150,
+            "critical": 4,
+            "speed": 2,
+            "defense": 4,
+            "ability1": "exploit_weakness_100",
+            "startingRank1": 1,
+            "ability2": "piercing_break_150",
+            "startingRank2": 1,
+            "ability3": "extended_break_3",
+            "startingRank3": 1,
+            "ability4": "prismatic_return_20",
+            "startingRank4": 0,
+            "ability5": "boost_ult",
+            "startingRank5": 0,
+            "thumbnailUrl": "https://i.imgur.com/uWX5BKu.jpg",
             "jpOnry": true
         }
     },
@@ -5996,6 +6071,48 @@
             "startingValue": 1,
             "finalValue": 3,
             "stepCounts": 2
+        },
+        "cross_counter_80": {
+            "id": "cross_counter_80",
+            "name": "Cross-counter",
+            "startingValue": 80,
+            "finalValue": 100,
+            "stepCounts": 20
+        },
+        "skilled_duelist_20": {
+            "id": "skilled_duelist_20",
+            "name": "Skilled Duelist",
+            "startingValue": 20,
+            "finalValue": 20,
+            "stepCounts": 0
+        },
+        "overpower_12": {
+            "id": "overpower_12",
+            "name": "Overpower",
+            "startingValue": 12,
+            "finalValue": 12,
+            "stepCounts": 0
+        },
+        "ult_charger_5": {
+            "id": "ult_charger_5",
+            "name": "Ultimate Charger",
+            "startingValue": 5,
+            "finalValue": 5,
+            "stepCounts": 0
+        },
+        "exploit_weakness_100": {
+            "id": "exploit_weakness_100",
+            "name": "Exploit Weakness",
+            "startingValue": 100,
+            "finalValue": 100,
+            "stepCounts": 0
+        },
+        "extended_break_3": {
+            "id": "extended_break_3",
+            "name": "Extended Break",
+            "startingValue": 3,
+            "finalValue": 3,
+            "stepCounts": 0
         }
     }
 ]
